@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useSubmissionStore } from '@/store/submissionStore';
+import { useProgress } from '@/hooks/useProgress';
 
 interface ResultPanelProps {
   starterCode: string;
@@ -10,6 +12,13 @@ interface ResultPanelProps {
 
 export default function ResultPanel({ starterCode, problems, currentProblemId }: ResultPanelProps) {
   const { result, error, setCode, setResult, setError } = useSubmissionStore();
+  const { markAccepted } = useProgress();
+
+  useEffect(() => {
+    if (result?.status === 'accepted' && currentProblemId) {
+      markAccepted(currentProblemId);
+    }
+  }, [result, currentProblemId]);
 
   if (!result && !error) return null;
 

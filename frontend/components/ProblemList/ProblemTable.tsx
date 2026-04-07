@@ -1,6 +1,7 @@
 'use client';
 
 import { Problem } from '@/lib/types';
+import { useProgress } from '@/hooks/useProgress';
 
 interface ProblemTableProps {
   problems: Problem[];
@@ -21,6 +22,7 @@ const CATEGORY_STYLE: Record<string, string> = {
 };
 
 export default function ProblemTable({ problems, onRowClick }: ProblemTableProps) {
+  const { isAccepted } = useProgress();
   if (problems.length === 0) {
     return (
       <div className="rounded-xl border border-gray-200 bg-white py-16 text-center text-sm text-gray-400">
@@ -38,6 +40,7 @@ export default function ProblemTable({ problems, onRowClick }: ProblemTableProps
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400">Judul</th>
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-28">Kategori</th>
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-28">Level</th>
+            <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-24">Status</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -60,6 +63,13 @@ export default function ProblemTable({ problems, onRowClick }: ProblemTableProps
                 <span className={`inline-block rounded-md border px-2 py-0.5 text-xs font-medium capitalize ${DIFFICULTY_STYLE[problem.difficulty] ?? 'bg-gray-50 text-gray-600 border-gray-200'}`}>
                   {problem.difficulty}
                 </span>
+              </td>
+              <td className="px-5 py-4">
+                {isAccepted(problem.id) && (
+                  <span className="inline-flex items-center gap-1 rounded-md border border-green-200 bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
+                    ✓ Selesai
+                  </span>
+                )}
               </td>
             </tr>
           ))}
