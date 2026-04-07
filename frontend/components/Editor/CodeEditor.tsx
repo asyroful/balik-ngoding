@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useState, Component, ReactNode } from 'react';
+import { useSubmissionStore } from '../../store/submissionStore';
 
 function FallbackTextarea({
   value,
@@ -63,10 +64,12 @@ interface CodeEditorProps {
   value: string;
   onChange: (value: string) => void;
   language?: string;
+  onSubmit?: () => void;
 }
 
-export default function CodeEditor({ value, onChange, language }: CodeEditorProps) {
+export default function CodeEditor({ value, onChange, language, onSubmit }: CodeEditorProps) {
   const [monacoFailed, setMonacoFailed] = useState(false);
+  const { isLoading, code } = useSubmissionStore();
 
   if (monacoFailed) {
     return <FallbackTextarea value={value} onChange={onChange} />;
@@ -82,7 +85,18 @@ export default function CodeEditor({ value, onChange, language }: CodeEditorProp
           onChange={(v) => onChange(v ?? '')}
           theme="vs-dark"
           options={{ lineNumbers: 'on', minimap: { enabled: false }, fontSize: 14, scrollBeyondLastLine: false, automaticLayout: true }}
-          onMount={(_editor, monaco) => { if (!monaco) setMonacoFailed(true); }}
+          onMount={(editor, monaco) => {
+            if (!monaco) { setMonacoFailed(true); return; }
+            editor.addAction({
+              id: 'submit-solution',
+              label: 'Submit Solution',
+              keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
+              run: () => {
+                if (isLoading || code.trim() === '') return;
+                onSubmit?.();
+              },
+            });
+          }}
         />
       </div>
     </MonacoErrorBoundary>

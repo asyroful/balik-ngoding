@@ -15,11 +15,11 @@ export default function ProblemsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProblems = async () => {
+  const fetchProblems = async (category: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await getProblems();
+      const data = await getProblems(category);
       setProblems(data);
     } catch {
       setError('Tidak dapat terhubung ke server. Coba lagi nanti.');
@@ -28,11 +28,7 @@ export default function ProblemsPage() {
     }
   };
 
-  useEffect(() => { fetchProblems(); }, []);
-
-  const filtered = selectedCategory
-    ? problems.filter((p) => p.category === selectedCategory)
-    : problems;
+  useEffect(() => { fetchProblems(selectedCategory); }, [selectedCategory]);
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
@@ -44,7 +40,7 @@ export default function ProblemsPage() {
       {error && (
         <div className="mb-5 flex items-center justify-between rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
           <span>{error}</span>
-          <button onClick={fetchProblems} className="ml-4 font-medium underline hover:no-underline">
+          <button onClick={() => fetchProblems(selectedCategory)} className="ml-4 font-medium underline hover:no-underline">
             Coba lagi
           </button>
         </div>
@@ -55,7 +51,7 @@ export default function ProblemsPage() {
       {isLoading ? (
         <ProblemListSkeleton />
       ) : (
-        <ProblemTable problems={filtered} onRowClick={(id) => router.push(`/problems/${id}`)} />
+        <ProblemTable problems={problems} onRowClick={(id) => router.push(`/problems/${id}`)} />
       )}
     </main>
   );
