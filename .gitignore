@@ -1,0 +1,18 @@
+# Environment variables
+.env
+.env.local
+
+# Go binaries
+*.exe
+*.out
+
+# Node modules
+node_modules/
+
+# Next.js build output
+frontend/.next/
+frontend/out/
+
+# OS files
+.DS_Store
+Thumbs.db
