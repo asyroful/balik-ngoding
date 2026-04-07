@@ -1,8 +1,10 @@
 // Reusable skeleton shimmer primitive
-export function Skeleton({ className = '' }: { className?: string }) {
+import React from 'react';
+export function Skeleton({ className = '', style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <div
       className={`animate-pulse rounded-md bg-gray-200 ${className}`}
+      style={style}
     />
   );
 }
