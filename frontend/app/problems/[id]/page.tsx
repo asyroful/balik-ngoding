@@ -159,10 +159,10 @@ export default function ProblemDetailPage() {
             </span>
           </div>
           <button
-            onClick={() => router.push('/problems')}
+            onClick={() => router.push(`/problems?category=${problem.category}`)}
             className="text-xs text-gray-400 hover:text-gray-700 transition"
           >
-            ← Daftar Soal
+            ← List Soal
           </button>
         </div>
 
@@ -179,7 +179,6 @@ export default function ProblemDetailPage() {
       <div className={`${activeTab === 'editor' ? 'flex' : 'hidden'} flex-col w-full md:w-[55%] overflow-hidden bg-[#1e1e1e] md:flex`}>
         {/* Editor top bar */}
         <div className="flex items-center justify-between border-b border-white/10 px-5 py-2.5 bg-[#252526]">
-          <LanguageSelector selected={language} onChange={setLanguage} problemCategory={problem.category} />
           <div className="flex gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />

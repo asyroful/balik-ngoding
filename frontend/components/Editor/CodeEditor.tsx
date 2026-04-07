@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState, Component, ReactNode } from 'react';
+import { useState, useRef, useEffect, Component, ReactNode } from 'react';
 import { useSubmissionStore } from '../../store/submissionStore';
 
 function FallbackTextarea({
@@ -71,6 +71,12 @@ export default function CodeEditor({ value, onChange, language, onSubmit }: Code
   const [monacoFailed, setMonacoFailed] = useState(false);
   const { isLoading, code } = useSubmissionStore();
 
+  const isLoadingRef = useRef(isLoading);
+  const codeRef = useRef(code);
+
+  useEffect(() => { isLoadingRef.current = isLoading; }, [isLoading]);
+  useEffect(() => { codeRef.current = code; }, [code]);
+
   if (monacoFailed) {
     return <FallbackTextarea value={value} onChange={onChange} />;
   }
@@ -92,7 +98,7 @@ export default function CodeEditor({ value, onChange, language, onSubmit }: Code
               label: 'Submit Solution',
               keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
               run: () => {
-                if (isLoading || code.trim() === '') return;
+                if (isLoadingRef.current || codeRef.current.trim() === '') return;
                 onSubmit?.();
               },
             });
