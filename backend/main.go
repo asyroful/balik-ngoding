@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"balik-ngoding-backend/internal/database"
 	"balik-ngoding-backend/internal/problems"
@@ -19,7 +20,19 @@ func corsMiddleware() gin.HandlerFunc {
 			frontendOrigin = "http://localhost:3000"
 		}
 
-		c.Header("Access-Control-Allow-Origin", frontendOrigin)
+		origin := c.Request.Header.Get("Origin")
+		// Allow both http and https versions of the frontend origin
+		httpsOrigin := strings.Replace(frontendOrigin, "http://", "https://", 1)
+		httpOrigin := strings.Replace(frontendOrigin, "https://", "http://", 1)
+
+		allowedOrigin := ""
+		if origin == frontendOrigin || origin == httpsOrigin || origin == httpOrigin {
+			allowedOrigin = origin
+		}
+
+		if allowedOrigin != "" {
+			c.Header("Access-Control-Allow-Origin", allowedOrigin)
+		}
 		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		c.Header("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization")
 
