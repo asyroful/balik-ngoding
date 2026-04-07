@@ -17,6 +17,8 @@ func Init() {
 	if dsn == "" {
 		dsn = "host=localhost user=postgres password=postgres dbname=balik_ngoding port=5434 sslmode=disable"
 	}
+	// GORM postgres driver supports both DSN format (host=...) and URL format (postgres://...)
+	// Railway injects DATABASE_URL as postgres:// URL which is handled automatically
 
 	var err error
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
