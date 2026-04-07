@@ -28,23 +28,8 @@ export function getDefaultLanguage(category: string): string {
 export default function LanguageSelector({ selected, onChange, problemCategory: _ }: LanguageSelectorProps) {
   return (
     <div className="flex flex-wrap gap-2 mb-3">
-      {LANGUAGES.map((lang) => {
+      {LANGUAGES.filter(lang => lang.active).map((lang) => {
         const isSelected = selected === lang.value;
-
-        if (!lang.active) {
-          return (
-            <button
-              key={lang.value}
-              disabled
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-sm font-medium bg-gray-800 text-gray-500 cursor-not-allowed pointer-events-none border border-gray-700"
-            >
-              {lang.label}
-              <span className="text-xs bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded">
-                Coming Soon
-              </span>
-            </button>
-          );
-        }
 
         return (
           <button

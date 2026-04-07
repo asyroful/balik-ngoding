@@ -43,6 +43,84 @@ const categories = [
   { label: 'SQL', color: 'bg-teal-100 text-teal-700', desc: 'Query database' },
 ]
 
+const languages = [
+  {
+    label: 'JavaScript',
+    color: 'bg-yellow-100 text-yellow-700',
+    available: true,
+    icon: (
+      <svg viewBox="0 0 32 32" className="w-10 h-10" fill="none">
+        <rect width="32" height="32" rx="4" fill="#F7DF1E"/>
+        <path d="M9 25.3l2.3-1.4c.4.8.8 1.4 1.7 1.4.9 0 1.4-.3 1.4-1.7V14h2.8v9.7c0 2.8-1.6 4-4 4-2.1 0-3.4-1.1-4.2-2.4zM19.3 25l2.3-1.3c.6 1 1.3 1.7 2.7 1.7 1.1 0 1.8-.6 1.8-1.3 0-.9-.7-1.2-1.9-1.8l-.7-.3c-1.9-.8-3.2-1.8-3.2-3.9 0-1.9 1.5-3.4 3.8-3.4 1.6 0 2.8.6 3.6 2l-2.2 1.4c-.4-.8-1-1.1-1.7-1.1-.8 0-1.3.5-1.3 1.1 0 .8.5 1.1 1.6 1.6l.7.3c2.3 1 3.5 2 3.5 4.1 0 2.4-1.8 3.6-4.3 3.6-2.4 0-3.9-1.1-4.7-2.7z" fill="#000"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'SQL',
+    color: 'bg-teal-100 text-teal-700',
+    available: true,
+    icon: (
+      <svg viewBox="0 0 32 32" className="w-10 h-10" fill="none">
+        <rect width="32" height="32" rx="4" fill="#0f766e"/>
+        <ellipse cx="16" cy="10" rx="8" ry="3.5" fill="#99f6e4"/>
+        <path d="M8 10v4c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5v-4" stroke="#99f6e4" strokeWidth="1.2"/>
+        <path d="M8 14v4c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5v-4" stroke="#99f6e4" strokeWidth="1.2"/>
+        <path d="M8 18v4c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5v-4" stroke="#99f6e4" strokeWidth="1.2"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Python',
+    color: 'bg-blue-100 text-blue-700',
+    available: false,
+    icon: (
+      <svg viewBox="0 0 32 32" className="w-10 h-10" fill="none">
+        <rect width="32" height="32" rx="4" fill="#e2e8f0"/>
+        <path d="M16 6c-4.4 0-4.1 1.9-4.1 1.9v2h4.2v.6H9.8S7 10.2 7 14.6c0 4.4 2.4 4.2 2.4 4.2h1.5v-2s-.1-2.4 2.4-2.4h4.1s2.3.04 2.3-2.2V8.1S20.1 6 16 6zm-2.3 1.3c.4 0 .8.3.8.8s-.3.8-.8.8-.8-.3-.8-.8.4-.8.8-.8z" fill="#3b82f6"/>
+        <path d="M16 26c4.4 0 4.1-1.9 4.1-1.9v-2h-4.2v-.6h6.3s2.8.3 2.8-4.1c0-4.4-2.4-4.2-2.4-4.2h-1.5v2s.1 2.4-2.4 2.4h-4.1s-2.3-.04-2.3 2.2v3.9S11.9 26 16 26zm2.3-1.3c-.4 0-.8-.3-.8-.8s.3-.8.8-.8.8.3.8.8-.4.8-.8.8z" fill="#60a5fa"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Java',
+    color: 'bg-orange-100 text-orange-700',
+    available: false,
+    icon: (
+      <svg viewBox="0 0 32 32" className="w-10 h-10" fill="none">
+        <rect width="32" height="32" rx="4" fill="#e2e8f0"/>
+        <path d="M13 21.5s-.9.5.6.7c1.8.2 2.8.2 4.8-.2 0 0 .5.3 1.3.6-4.7 2-10.6-.1-6.7-1.1z" fill="#ea580c"/>
+        <path d="M12.4 19s-1 .7.5.9c2 .2 3.5.2 6.2-.3 0 0 .4.4 1 .6-5.5 1.6-11.6.1-7.7-1.2z" fill="#ea580c"/>
+        <path d="M17.3 14.5c1.1 1.3-.3 2.4-.3 2.4s2.8-1.4 1.5-3.2c-1.2-1.6-2.1-2.4 2.9-5.2 0 0-7.9 2-4.1 6z" fill="#ea580c"/>
+        <path d="M22.5 23.2s.7.5-.7.9c-2.6.8-10.8 1-13.1 0-.8-.4.7-.9.7-.9s-.9-.6-2 .1c-1.4.9 7.8 1.9 13.3.7 1.3-.3 1.8-1.1 1.8-1.1l-2-.7z" fill="#ea580c"/>
+        <path d="M13.6 16.8s-4.5 1.1-1.6 1.5c1.2.2 3.6.1 5.8-.1 1.8-.2 3.6-.5 3.6-.5s-.6.3-1 .5c-4.1 1.1-12 .6-9.7-.5 1.9-.9 2.9-.9 2.9-.9z" fill="#ea580c"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'PHP',
+    color: 'bg-indigo-100 text-indigo-700',
+    available: false,
+    icon: (
+      <svg viewBox="0 0 32 32" className="w-10 h-10" fill="none">
+        <rect width="32" height="32" rx="4" fill="#e2e8f0"/>
+        <ellipse cx="16" cy="16" rx="12" ry="7" fill="#6366f1"/>
+        <text x="16" y="20" textAnchor="middle" fontSize="8" fontWeight="bold" fill="white" fontFamily="monospace">php</text>
+      </svg>
+    ),
+  }
+  // {
+  //   label: 'C',
+  //   color: 'bg-gray-100 text-gray-600',
+  //   available: false,
+  //   icon: (
+  //     <svg viewBox="0 0 32 32" className="w-10 h-10" fill="none">
+  //       <rect width="32" height="32" rx="4" fill="#e2e8f0"/>
+  //       <path d="M22 12.5A8 8 0 1 0 22 19.5" stroke="#4b5563" strokeWidth="2.5" strokeLinecap="round"/>
+  //     </svg>
+  //   ),
+  // },
+]
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#f8f7f4]">
@@ -184,6 +262,54 @@ export default function Home() {
             >
               <span className={`self-start rounded-lg px-2.5 py-1 text-xs font-semibold ${c.color}`}>{c.label}</span>
               <span className="text-sm text-gray-500 group-hover:text-gray-700 transition">{c.desc}</span>
+            </NavLink>
+          ))}
+        </div>
+      </section>
+
+      {/* Languages */}
+      {/* Languages */}
+      <section className="mx-auto max-w-6xl px-6 pb-16">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Bahasa Pemrograman</p>
+            <h2 className="text-2xl font-bold text-gray-900">Pilih bahasa, mulai latihan.</h2>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {languages.map((l) => (
+            <NavLink
+              key={l.label}
+              href={l.available ? (l.label === 'SQL' ? '/problems?category=sql' : '/problems') : '#'}
+              className={`relative group flex flex-col items-center gap-3 rounded-2xl border p-5 text-center transition-all duration-200 ${
+                l.available
+                  ? 'bg-white border-gray-200 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-100/60 hover:-translate-y-1 cursor-pointer'
+                  : 'bg-gray-50/60 border-gray-100 pointer-events-none'
+              }`}
+            >
+              {/* Icon */}
+              <div className={`flex items-center justify-center w-12 h-12 rounded-2xl transition ${
+                l.available ? 'shadow-sm group-hover:scale-110' : 'opacity-30 grayscale'
+              }`}>
+                {l.icon}
+              </div>
+
+              {/* Label */}
+              <span className={`text-sm font-bold tracking-tight ${l.available ? 'text-gray-800' : 'text-gray-300'}`}>
+                {l.label}
+              </span>
+
+              {/* Badge */}
+              {l.available ? (
+                <span className="inline-flex items-center gap-1 rounded-full bg-green-50 border border-green-200 text-green-600 text-[10px] font-semibold px-2.5 py-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                  Tersedia
+                </span>
+              ) : (
+                <span className="rounded-full bg-gray-100 text-gray-400 text-[10px] font-medium px-2.5 py-0.5">
+                  Coming Soon
+                </span>
+              )}
             </NavLink>
           ))}
         </div>

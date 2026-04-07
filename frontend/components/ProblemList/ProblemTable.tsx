@@ -40,7 +40,7 @@ export default function ProblemTable({ problems, onRowClick }: ProblemTableProps
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400">Judul</th>
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-28">Kategori</th>
             <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-28">Level</th>
-            <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-24">Status</th>
+            <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 w-24"></th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -65,9 +65,17 @@ export default function ProblemTable({ problems, onRowClick }: ProblemTableProps
                 </span>
               </td>
               <td className="px-5 py-4">
-                {isAccepted(problem.id) && (
-                  <span className="inline-flex items-center gap-1 rounded-md border border-green-200 bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
-                    ✓ Selesai
+                {isAccepted(problem.id) ? (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-green-600">
+                    <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-400">
+                    <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <circle cx="10" cy="10" r="8" />
+                    </svg>
                   </span>
                 )}
               </td>
