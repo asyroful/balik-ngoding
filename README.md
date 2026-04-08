@@ -48,7 +48,57 @@ balik-ngoding/
         └── submissions/
 ```
 
-## Menjalankan Lokal
+---
+
+## Quick Start (Docker Compose)
+
+Cara tercepat untuk menjalankan seluruh stack (database + backend + frontend) dengan satu perintah.
+
+**Prasyarat:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) terinstall dan berjalan.
+
+```bash
+# 1. Clone repository
+git clone <repo-url>
+cd balik-ngoding
+
+# 2. (Opsional) Salin dan sesuaikan environment variables
+cp .env.example .env
+
+# 3. Jalankan seluruh stack
+docker compose up
+
+# 4. Buka aplikasi di browser
+# http://localhost:3000
+```
+
+Selesai. Aplikasi berjalan di `http://localhost:3000`.
+
+### Perintah Umum Docker Compose
+
+```bash
+# Jalankan stack di background (detached mode)
+docker compose up -d
+
+# Hentikan semua service
+docker compose down
+
+# Lihat log semua service secara real-time
+docker compose logs -f
+
+# Lihat log service tertentu (db / backend / frontend)
+docker compose logs -f backend
+docker compose logs -f frontend
+docker compose logs -f db
+
+# Rebuild image setelah ada perubahan Dockerfile
+docker compose up --build
+```
+
+---
+
+## Menjalankan Lokal (Manual — Tanpa Docker)
+
+Alternatif jika kamu tidak menggunakan Docker. Pastikan PostgreSQL sudah berjalan di `localhost:5432`.
 
 ### Prasyarat
 
@@ -81,9 +131,23 @@ npm run dev
 
 App berjalan di `http://localhost:3000`.
 
+---
+
 ## Environment Variables
 
-**Backend** (`backend/.env`):
+**Root** (`.env`, digunakan Docker Compose):
+
+```env
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=balik_ngoding
+DATABASE_URL=postgres://postgres:postgres@db:5432/balik_ngoding?sslmode=disable
+PORT=8080
+FRONTEND_ORIGIN=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:8080
+```
+
+**Backend** (`backend/.env`, untuk setup manual):
 
 ```env
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/balik_ngoding?sslmode=disable
@@ -91,11 +155,13 @@ PORT=8080
 FRONTEND_ORIGIN=http://localhost:3000
 ```
 
-**Frontend** (`frontend/.env.local`):
+**Frontend** (`frontend/.env.local`, untuk setup manual):
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
+
+---
 
 ## API Endpoints
 
@@ -117,13 +183,7 @@ POST /submit
 }
 ```
 
-## Docker (Backend)
-
-```bash
-cd backend
-docker build -t balik-ngoding-backend .
-docker run -p 8080:8080 --env-file .env balik-ngoding-backend
-```
+---
 
 ## Testing
 
@@ -136,6 +196,66 @@ npm test
 cd backend
 go test ./...
 ```
+
+---
+
+## Troubleshooting
+
+### Port sudah digunakan (5432, 8080, atau 3000)
+
+Jika muncul error `address already in use`, ada proses lain yang menggunakan port tersebut.
+
+**Cari dan hentikan proses yang menggunakan port (contoh port 8080):**
+
+```bash
+# Linux / macOS
+lsof -ti :8080 | xargs kill -9
+
+# Windows (PowerShell)
+netstat -ano | findstr :8080
+# Catat PID-nya, lalu:
+taskkill /PID <PID> /F
+```
+
+**Atau ganti port di `.env`:**
+
+```env
+PORT=8081               # ganti port backend
+NEXT_PUBLIC_API_URL=http://localhost:8081
+```
+
+Lalu jalankan ulang: `docker compose up`.
+
+---
+
+### Database connection error
+
+Jika backend gagal konek ke database:
+
+- **Docker Compose**: pastikan service `db` sudah healthy sebelum backend start. Cek dengan `docker compose logs db`.
+- **Manual**: pastikan PostgreSQL berjalan di `localhost:5432` dan `DATABASE_URL` di `backend/.env` sudah benar.
+
+```bash
+# Cek status PostgreSQL (Linux/macOS)
+pg_isready -h localhost -p 5432
+```
+
+---
+
+### Frontend tidak bisa reach backend
+
+Jika frontend menampilkan error network atau data tidak muncul:
+
+- Pastikan `NEXT_PUBLIC_API_URL` sudah di-set dengan benar.
+- Untuk Docker Compose: nilai default `http://localhost:8080` sudah benar — pastikan backend container berjalan (`docker compose ps`).
+- Untuk setup manual: pastikan backend berjalan di port yang sama dengan nilai `NEXT_PUBLIC_API_URL` di `frontend/.env.local`.
+
+```bash
+# Cek apakah backend merespons
+curl http://localhost:8080/health
+```
+
+---
 
 ## Lisensi
 
