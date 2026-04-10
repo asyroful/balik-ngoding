@@ -33,6 +33,7 @@ type TestCase struct {
 type Submission struct {
 	ID           string          `json:"id" gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 	ProblemID    string          `json:"problemId" gorm:"type:uuid;not null;index:idx_submissions_problem_id"`
+	AnonymousID  *string         `json:"anonymousId" gorm:"type:varchar(36);index"`
 	Code         string          `json:"code"`
 	Language     string          `json:"language" gorm:"default:'javascript'"`
 	Status       string          `json:"status"` // 'accepted' | 'wrong_answer' | 'error'

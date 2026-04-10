@@ -12,7 +12,6 @@ import HintPanel from '@/components/ProblemDetail/HintPanel';
 import PrerequisiteWarning from '@/components/ProblemDetail/PrerequisiteWarning';
 import { useProgress } from '@/hooks/useProgress';
 import CodeEditor from '@/components/Editor/CodeEditor';
-import LanguageSelector, { getDefaultLanguage } from '@/components/Editor/LanguageSelector';
 import SubmitButton from '@/components/Editor/SubmitButton';
 import ResultPanel from '@/components/Result/ResultPanel';
 import { ProblemDescriptionSkeleton, EditorSkeleton, Skeleton } from '@/components/Skeleton';
@@ -55,12 +54,15 @@ export default function ProblemDetailPage() {
     setError(null);
     reset();
 
-    Promise.all([getProblemById(id), getProblems()])
-      .then(([data, allProblems]) => {
+    getProblemById(id)
+      .then((data) => {
         setProblem(data);
-        setProblems(allProblems);
         setCode(data.starterCode);
-        setLanguage(getDefaultLanguage(data.category));
+        setLanguage(data.category === 'sql' ? 'sql' : 'javascript');
+        // Fetch only same-category problems for "next problem" navigation
+        return getProblems(data.category).then((categoryProblems) => {
+          setProblems(categoryProblems);
+        });
       })
       .catch((err: Error) => {
         const msg = err.message ?? '';
@@ -71,7 +73,7 @@ export default function ProblemDetailPage() {
         }
       })
       .finally(() => setIsLoading(false));
-  }, [id, router, setCode, reset]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return (

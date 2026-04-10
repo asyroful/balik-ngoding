@@ -9,9 +9,10 @@ import (
 
 // submitRequestBody is the JSON body for POST /submit.
 type submitRequestBody struct {
-	ProblemID string `json:"problemId" binding:"required"`
-	Code      string `json:"code"`
-	Language  string `json:"language"`
+	ProblemID   string  `json:"problemId" binding:"required"`
+	Code        string  `json:"code"`
+	Language    string  `json:"language"`
+	AnonymousID *string `json:"anonymousId"` // nullable — not required
 }
 
 // Handler holds the service dependency for submission-related routes.
@@ -53,9 +54,10 @@ func (h *Handler) Submit(c *gin.Context) {
 	}
 
 	req := SubmitRequest{
-		ProblemID: body.ProblemID,
-		Code:      body.Code,
-		Language:  language,
+		ProblemID:   body.ProblemID,
+		Code:        body.Code,
+		Language:    language,
+		AnonymousID: body.AnonymousID,
 	}
 
 	result, err := h.service.Submit(req)

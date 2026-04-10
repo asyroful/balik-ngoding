@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"balik-ngoding-backend/internal/analytics"
 	"balik-ngoding-backend/internal/database"
 	"balik-ngoding-backend/internal/problems"
 	"balik-ngoding-backend/internal/submissions"
@@ -63,6 +64,10 @@ func setupRouter() *gin.Engine {
 	// Submissions routes
 	submissionsHandler := submissions.NewHandler()
 	r.POST("/submit", submissionsHandler.Submit)
+
+	// Analytics routes
+	analyticsHandler := analytics.NewHandler()
+	r.GET("/analytics/stats", analyticsHandler.GetStats)
 
 	return r
 }
