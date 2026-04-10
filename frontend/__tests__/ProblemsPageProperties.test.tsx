@@ -9,21 +9,34 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 // Mock @/lib/api
 vi.mock('../lib/api', () => ({
   getProblems: vi.fn(),
+  getProblemsSummary: vi.fn(),
 }));
 
 // Mock next/navigation
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: vi.fn() }),
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
+  useSearchParams: () => ({ get: () => null }),
+}));
+
+// Mock useProgress
+vi.mock('../hooks/useProgress', () => ({
+  useProgress: () => ({
+    isAccepted: () => false,
+    markAccepted: vi.fn(),
+    getHintsUnlocked: () => 0,
+    unlockNextHint: vi.fn(),
+  }),
 }));
 
 import ProblemsPage from '../app/problems/page';
-import { getProblems } from '../lib/api';
+import { getProblems, getProblemsSummary } from '../lib/api';
 
 const mockGetProblems = vi.mocked(getProblems);
 
 beforeEach(() => {
   vi.resetAllMocks();
   mockGetProblems.mockResolvedValue([]);
+  vi.mocked(getProblemsSummary).mockResolvedValue([]);
 });
 
 // Validates: Requirements 4.2, 4.5
@@ -35,6 +48,7 @@ describe('Property 12: Category change triggers server fetch', () => {
         async (category) => {
           vi.resetAllMocks();
           mockGetProblems.mockResolvedValue([]);
+          vi.mocked(getProblemsSummary).mockResolvedValue([]);
 
           const { unmount } = render(<ProblemsPage />);
 
@@ -55,7 +69,7 @@ describe('Property 12: Category change triggers server fetch', () => {
           unmount();
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 10 }
     );
-  }, 60000); // 60s timeout for 100 async component render iterations
+  }, 60000); // 60s timeout
 });

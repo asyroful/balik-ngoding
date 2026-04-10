@@ -6,16 +6,20 @@ import (
 )
 
 type Problem struct {
-	ID          string     `json:"id" gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
-	Title       string     `json:"title"`
-	Description string     `json:"description"`
-	Category    string     `json:"category"`   // 'loop' | 'string' | 'array' | 'sql'
-	Difficulty  string     `json:"difficulty"` // 'easy' | 'medium' | 'hard'
-	StarterCode string     `json:"starterCode"`
-	Schema      string     `json:"schema,omitempty" gorm:"type:text"`
-	IsActive    bool       `json:"isActive" gorm:"default:true"`
-	TestCases   []TestCase `json:"testCases,omitempty" gorm:"foreignKey:ProblemID"`
-	CreatedAt   time.Time  `json:"createdAt"`
+	ID                string          `json:"id" gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
+	Title             string          `json:"title"`
+	Description       string          `json:"description"`
+	Category          string          `json:"category"`   // 'loop' | 'string' | 'array' | 'sql'
+	Difficulty        string          `json:"difficulty"` // 'easy' | 'medium' | 'hard'
+	StarterCode       string          `json:"starterCode"`
+	Schema            string          `json:"schema,omitempty" gorm:"type:text"`
+	IsActive          bool            `json:"isActive" gorm:"default:true"`
+	ThinkingGuide     *string         `json:"thinkingGuide" gorm:"type:text"`
+	Hints             json.RawMessage `json:"hints" gorm:"type:jsonb"`
+	PrerequisiteID    *string         `json:"prerequisiteId" gorm:"type:uuid;index"`
+	PrerequisiteTitle *string         `json:"prerequisiteTitle" gorm:"-"`
+	TestCases         []TestCase      `json:"testCases,omitempty" gorm:"foreignKey:ProblemID"`
+	CreatedAt         time.Time       `json:"createdAt"`
 }
 
 type TestCase struct {
@@ -36,4 +40,11 @@ type Submission struct {
 	Total        int             `json:"total"`
 	ResultDetail json.RawMessage `json:"resultDetail" gorm:"type:jsonb"`
 	CreatedAt    time.Time       `json:"createdAt"`
+}
+
+// CategorySummary is the response struct for GET /problems/summary.
+// Not persisted to database — used only as a DTO.
+type CategorySummary struct {
+	Category string `json:"category"`
+	Total    int    `json:"total"`
 }

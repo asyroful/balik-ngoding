@@ -3,81 +3,78 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useProgress } from '../hooks/useProgress';
 
-// Clear all cookies before each test
+const STORAGE_KEY = 'balik-ngoding-progress';
+
 beforeEach(() => {
-  document.cookie.split(';').forEach((cookie) => {
-    const name = cookie.split('=')[0].trim();
-    document.cookie = `${name}=; max-age=0; path=/`;
-  });
+  localStorage.clear();
 });
 
-// ─── Req 3.1, 3.2: markAccepted writes to document.cookie ────────────────────
-describe('useProgress — markAccepted writes to cookie (Req 3.1, 3.2)', () => {
-  it('should write bn_progress cookie after markAccepted', () => {
+// ─── markAccepted writes to localStorage ─────────────────────────────────────
+describe('useProgress — markAccepted writes to localStorage', () => {
+  it('should write to localStorage after markAccepted', () => {
     const { result } = renderHook(() => useProgress());
 
     act(() => {
       result.current.markAccepted('problem-1');
     });
 
-    expect(document.cookie).toContain('bn_progress=');
+    const raw = localStorage.getItem(STORAGE_KEY);
+    expect(raw).not.toBeNull();
   });
 
-  it('should store problemId with "accepted" value in cookie JSON', () => {
+  it('should store problemId with solved: true in localStorage JSON', () => {
     const { result } = renderHook(() => useProgress());
 
     act(() => {
       result.current.markAccepted('problem-abc');
     });
 
-    const match = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('bn_progress='));
-    expect(match).toBeDefined();
-    const value = decodeURIComponent(match!.split('=').slice(1).join('='));
-    const parsed = JSON.parse(value);
-    expect(parsed['problem-abc']).toBe('accepted');
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed = JSON.parse(raw!);
+    expect(parsed['problem-abc'].solved).toBe(true);
   });
 });
 
-// ─── Req 3.7: Corrupt cookie → progress is {} ────────────────────────────────
-describe('useProgress — corrupt cookie fallback (Req 3.7)', () => {
-  it('should return empty progress when cookie is corrupt JSON', () => {
-    document.cookie = `bn_progress=${encodeURIComponent('{invalid json')}; path=/`;
+// ─── Corrupt localStorage → progress is empty ────────────────────────────────
+describe('useProgress — corrupt localStorage fallback', () => {
+  it('should return empty progress when localStorage has corrupt JSON', () => {
+    localStorage.setItem(STORAGE_KEY, '{invalid json');
 
     const { result } = renderHook(() => useProgress());
 
-    expect(result.current.progress).toEqual({});
+    expect(result.current.isAccepted('any-id')).toBe(false);
+    expect(result.current.getHintsUnlocked('any-id')).toBe(0);
   });
 
-  it('should return empty progress when cookie is a plain string', () => {
-    document.cookie = `bn_progress=${encodeURIComponent('not-json')}; path=/`;
+  it('should return empty progress when localStorage has a plain string', () => {
+    localStorage.setItem(STORAGE_KEY, 'not-json');
 
     const { result } = renderHook(() => useProgress());
 
-    expect(result.current.progress).toEqual({});
+    expect(result.current.isAccepted('any-id')).toBe(false);
   });
 
-  it('should return empty progress when cookie is an array (not an object)', () => {
-    document.cookie = `bn_progress=${encodeURIComponent('["a","b"]')}; path=/`;
+  it('should return empty progress when localStorage has an array (not an object)', () => {
+    localStorage.setItem(STORAGE_KEY, '["a","b"]');
 
     const { result } = renderHook(() => useProgress());
 
-    expect(result.current.progress).toEqual({});
-  });
-});
-
-// ─── Req 3.7: No cookie → progress is {} ─────────────────────────────────────
-describe('useProgress — no cookie fallback (Req 3.7)', () => {
-  it('should return empty progress when bn_progress cookie is absent', () => {
-    const { result } = renderHook(() => useProgress());
-
-    expect(result.current.progress).toEqual({});
+    expect(result.current.isAccepted('any-id')).toBe(false);
   });
 });
 
-// ─── Req 3.3: isAccepted returns true for accepted problemId ─────────────────
-describe('useProgress — isAccepted (Req 3.3)', () => {
+// ─── No localStorage entry → progress is empty ───────────────────────────────
+describe('useProgress — no localStorage entry', () => {
+  it('should return empty progress when key is absent', () => {
+    const { result } = renderHook(() => useProgress());
+
+    expect(result.current.isAccepted('problem-unknown')).toBe(false);
+    expect(result.current.getHintsUnlocked('problem-unknown')).toBe(0);
+  });
+});
+
+// ─── isAccepted ───────────────────────────────────────────────────────────────
+describe('useProgress — isAccepted', () => {
   it('should return true for a problemId that was marked accepted', () => {
     const { result } = renderHook(() => useProgress());
 
@@ -95,8 +92,8 @@ describe('useProgress — isAccepted (Req 3.3)', () => {
   });
 });
 
-// ─── Req 3.8: markAccepted does not overwrite existing 'accepted' status ──────
-describe('useProgress — markAccepted idempotent (Req 3.8)', () => {
+// ─── markAccepted idempotent ──────────────────────────────────────────────────
+describe('useProgress — markAccepted idempotent', () => {
   it('should preserve accepted status when markAccepted is called again', () => {
     const { result } = renderHook(() => useProgress());
 
@@ -104,30 +101,111 @@ describe('useProgress — markAccepted idempotent (Req 3.8)', () => {
       result.current.markAccepted('problem-1');
     });
 
-    // Call again — should not throw and status should remain 'accepted'
     act(() => {
       result.current.markAccepted('problem-1');
     });
 
     expect(result.current.isAccepted('problem-1')).toBe(true);
-    expect(result.current.progress['problem-1']).toBe('accepted');
   });
 
-  it('should not overwrite accepted status when cookie already has it', () => {
-    // Pre-populate cookie with accepted status
-    const existing = { 'problem-2': 'accepted' };
-    document.cookie = `bn_progress=${encodeURIComponent(JSON.stringify(existing))}; path=/`;
+  it('should read existing solved state from localStorage on init', () => {
+    const existing = { 'problem-2': { solved: true, hintsUnlocked: 0 } };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
 
     const { result } = renderHook(() => useProgress());
 
-    // Verify it was read correctly
     expect(result.current.isAccepted('problem-2')).toBe(true);
+  });
+});
 
-    // Calling markAccepted again should be a no-op
+// ─── getHintsUnlocked ─────────────────────────────────────────────────────────
+describe('useProgress — getHintsUnlocked', () => {
+  it('should return 0 for a problem with no hints unlocked', () => {
+    const { result } = renderHook(() => useProgress());
+
+    expect(result.current.getHintsUnlocked('problem-1')).toBe(0);
+  });
+
+  it('should return the correct count after unlocking hints', () => {
+    const { result } = renderHook(() => useProgress());
+
     act(() => {
-      result.current.markAccepted('problem-2');
+      result.current.unlockNextHint('problem-1', 3);
     });
 
-    expect(result.current.isAccepted('problem-2')).toBe(true);
+    expect(result.current.getHintsUnlocked('problem-1')).toBe(1);
+
+    act(() => {
+      result.current.unlockNextHint('problem-1', 3);
+    });
+
+    expect(result.current.getHintsUnlocked('problem-1')).toBe(2);
+  });
+});
+
+// ─── unlockNextHint ───────────────────────────────────────────────────────────
+describe('useProgress — unlockNextHint', () => {
+  it('should not exceed totalHints', () => {
+    const { result } = renderHook(() => useProgress());
+
+    act(() => { result.current.unlockNextHint('problem-1', 2); });
+    act(() => { result.current.unlockNextHint('problem-1', 2); });
+    act(() => { result.current.unlockNextHint('problem-1', 2); }); // capped at 2
+
+    expect(result.current.getHintsUnlocked('problem-1')).toBe(2);
+  });
+
+  it('should be idempotent at upper bound', () => {
+    const { result } = renderHook(() => useProgress());
+
+    act(() => {
+      result.current.unlockNextHint('problem-1', 1);
+    });
+    act(() => {
+      result.current.unlockNextHint('problem-1', 1);
+    });
+
+    expect(result.current.getHintsUnlocked('problem-1')).toBe(1);
+  });
+
+  it('should preserve solved state when unlocking hints', () => {
+    const { result } = renderHook(() => useProgress());
+
+    act(() => { result.current.markAccepted('problem-1'); });
+    act(() => { result.current.unlockNextHint('problem-1', 3); });
+
+    expect(result.current.isAccepted('problem-1')).toBe(true);
+    expect(result.current.getHintsUnlocked('problem-1')).toBe(1);
+  });
+
+  it('should not affect other problems', () => {
+    const { result } = renderHook(() => useProgress());
+
+    act(() => {
+      result.current.unlockNextHint('problem-A', 3);
+    });
+
+    expect(result.current.getHintsUnlocked('problem-B')).toBe(0);
+    expect(result.current.isAccepted('problem-B')).toBe(false);
+  });
+});
+
+// ─── localStorage fallback (in-memory) ───────────────────────────────────────
+describe('useProgress — localStorage unavailable fallback', () => {
+  it('should work in-memory when localStorage throws on setItem', () => {
+    const original = localStorage.setItem.bind(localStorage);
+    localStorage.setItem = () => { throw new Error('QuotaExceededError'); };
+
+    const { result } = renderHook(() => useProgress());
+
+    expect(() => {
+      act(() => {
+        result.current.markAccepted('problem-1');
+      });
+    }).not.toThrow();
+
+    expect(result.current.isAccepted('problem-1')).toBe(true);
+
+    localStorage.setItem = original;
   });
 });

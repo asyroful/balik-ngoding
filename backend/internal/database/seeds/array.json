@@ -1,0 +1,451 @@
+[
+  {
+    "id": "00000000-0000-0000-0003-000000000001",
+    "title": "Filter Bilangan Genap",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array angka, kembalikan array baru yang hanya berisi bilangan genap.\n\nContoh: filterGenap([1, 2, 3, 4, 5, 6]) -> [2, 4, 6]\nContoh: filterGenap([1, 3, 5]) -> []\nContoh: filterGenap([2, 4, 6]) -> [2, 4, 6]",
+    "starterCode": "function filterGenap(arr) {\n  // Kembalikan array yang hanya berisi bilangan genap\n  return [];\n}",
+    "thinkingGuide": "Method filter() pada array membuat array baru berisi elemen-elemen yang memenuhi kondisi tertentu. Kondisi ditulis sebagai fungsi callback yang mengembalikan true (simpan elemen) atau false (buang elemen). Bilangan genap adalah bilangan yang habis dibagi 2, yaitu angka % 2 === 0.",
+    "hints": [
+      "Gunakan method filter() pada array untuk menyaring elemen berdasarkan kondisi.",
+      "Kondisi untuk bilangan genap: angka % 2 === 0 (sisa bagi 2 adalah 0).",
+      "Gunakan arr.filter(angka => angka % 2 === 0) untuk mendapatkan semua bilangan genap."
+    ],
+    "prerequisiteId": null,
+    "testCases": [
+      { "input": "[1,2,3,4,5,6]", "expectedOutput": "[2,4,6]", "isHidden": false },
+      { "input": "[1,3,5]", "expectedOutput": "[]", "isHidden": false },
+      { "input": "[2,4,6]", "expectedOutput": "[2,4,6]", "isHidden": false },
+      { "input": "[0,1,2,3]", "expectedOutput": "[0,2]", "isHidden": true },
+      { "input": "[]", "expectedOutput": "[]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000002",
+    "title": "Jumlah Semua Elemen Array",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array angka, kembalikan total penjumlahan semua elemennya.\n\nContoh: jumlahArray([1, 2, 3, 4, 5]) -> 15\nContoh: jumlahArray([10, 20, 30]) -> 60\nContoh: jumlahArray([]) -> 0",
+    "starterCode": "function jumlahArray(arr) {\n  // Jumlahkan semua elemen array\n  return 0;\n}",
+    "thinkingGuide": "Ada dua pendekatan umum: (1) gunakan loop for/forEach untuk menjumlahkan satu per satu ke variabel total, (2) gunakan method reduce() yang lebih fungsional. reduce() mengakumulasi nilai dari kiri ke kanan menggunakan fungsi callback dan nilai awal. Nilai awal 0 penting agar array kosong menghasilkan 0.",
+    "hints": [
+      "Kamu bisa menggunakan loop biasa: buat variabel total = 0, lalu tambahkan setiap elemen.",
+      "Atau gunakan method reduce(): arr.reduce((total, angka) => total + angka, 0).",
+      "Nilai awal 0 pada reduce() memastikan array kosong mengembalikan 0, bukan error."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000001",
+    "testCases": [
+      { "input": "[1,2,3,4,5]", "expectedOutput": "15", "isHidden": false },
+      { "input": "[10,20,30]", "expectedOutput": "60", "isHidden": false },
+      { "input": "[]", "expectedOutput": "0", "isHidden": false },
+      { "input": "[-1,-2,-3]", "expectedOutput": "-6", "isHidden": true },
+      { "input": "[100]", "expectedOutput": "100", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000003",
+    "title": "Nilai Maksimum Array",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array angka, kembalikan nilai terbesar dalam array tersebut.\n\nContoh: nilaiMaksimum([3, 1, 4, 1, 5, 9, 2]) -> 9\nContoh: nilaiMaksimum([10, 5, 8]) -> 10\nContoh: nilaiMaksimum([-1, -5, -2]) -> -1",
+    "starterCode": "function nilaiMaksimum(arr) {\n  // Temukan nilai terbesar dalam array\n  return 0;\n}",
+    "thinkingGuide": "Ada beberapa cara mencari nilai maksimum: (1) gunakan Math.max() dengan spread operator: Math.max(...arr), (2) gunakan reduce() untuk membandingkan setiap elemen, (3) gunakan loop manual dengan variabel maks. Math.max(...arr) adalah cara paling ringkas, tapi perlu hati-hati dengan array sangat besar karena spread operator memiliki batas stack.",
+    "hints": [
+      "Math.max() bisa menerima banyak argumen dan mengembalikan yang terbesar.",
+      "Gunakan spread operator untuk mengubah array menjadi argumen: Math.max(...arr).",
+      "Alternatif: arr.reduce((maks, val) => val > maks ? val : maks, arr[0])."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000002",
+    "testCases": [
+      { "input": "[3,1,4,1,5,9,2]", "expectedOutput": "9", "isHidden": false },
+      { "input": "[10,5,8]", "expectedOutput": "10", "isHidden": false },
+      { "input": "[-1,-5,-2]", "expectedOutput": "-1", "isHidden": false },
+      { "input": "[7]", "expectedOutput": "7", "isHidden": true },
+      { "input": "[100,99,101,98]", "expectedOutput": "101", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000004",
+    "title": "Balik Array",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array, kembalikan array baru dengan urutan elemen yang terbalik.\n\nContoh: balikArray([1, 2, 3, 4, 5]) -> [5, 4, 3, 2, 1]\nContoh: balikArray([\"a\", \"b\", \"c\"]) -> [\"c\", \"b\", \"a\"]\nContoh: balikArray([1]) -> [1]",
+    "starterCode": "function balikArray(arr) {\n  // Kembalikan array dengan urutan terbalik\n  return [];\n}",
+    "thinkingGuide": "Array memiliki method reverse() bawaan, namun perlu hati-hati: reverse() mengubah array asli (mutasi). Untuk menghindari mutasi, buat salinan array terlebih dahulu menggunakan spread operator [...arr] atau slice(), lalu panggil reverse() pada salinannya. Ini adalah praktik yang lebih aman.",
+    "hints": [
+      "Array memiliki method reverse() bawaan, tapi ia mengubah array asli.",
+      "Untuk tidak mengubah array asli, buat salinan dulu: [...arr].reverse() atau arr.slice().reverse().",
+      "Kembalikan hasil [...arr].reverse() untuk mendapatkan array terbalik tanpa mengubah input."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000003",
+    "testCases": [
+      { "input": "[1,2,3,4,5]", "expectedOutput": "[5,4,3,2,1]", "isHidden": false },
+      { "input": "[\"a\",\"b\",\"c\"]", "expectedOutput": "[\"c\",\"b\",\"a\"]", "isHidden": false },
+      { "input": "[1]", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "[]", "expectedOutput": "[]", "isHidden": true },
+      { "input": "[1,2]", "expectedOutput": "[2,1]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000005",
+    "title": "Hapus Duplikat",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array, kembalikan array baru yang hanya berisi elemen unik (tanpa duplikat), dengan mempertahankan urutan kemunculan pertama.\n\nContoh: hapusDuplikat([1, 2, 2, 3, 3, 3]) -> [1, 2, 3]\nContoh: hapusDuplikat([\"a\", \"b\", \"a\", \"c\"]) -> [\"a\", \"b\", \"c\"]\nContoh: hapusDuplikat([1, 1, 1]) -> [1]",
+    "starterCode": "function hapusDuplikat(arr) {\n  // Kembalikan array tanpa elemen duplikat\n  return [];\n}",
+    "thinkingGuide": "Set adalah struktur data yang hanya menyimpan nilai unik. Dengan mengubah array menjadi Set, semua duplikat otomatis dihapus. Kemudian ubah kembali Set menjadi array menggunakan spread operator [...new Set(arr)] atau Array.from(new Set(arr)). Urutan kemunculan pertama dipertahankan secara otomatis.",
+    "hints": [
+      "Set adalah struktur data yang hanya menyimpan nilai unik — duplikat otomatis diabaikan.",
+      "Buat Set dari array: new Set(arr), lalu ubah kembali ke array.",
+      "Gunakan [...new Set(arr)] atau Array.from(new Set(arr)) untuk mendapatkan array unik."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000004",
+    "testCases": [
+      { "input": "[1,2,2,3,3,3]", "expectedOutput": "[1,2,3]", "isHidden": false },
+      { "input": "[\"a\",\"b\",\"a\",\"c\"]", "expectedOutput": "[\"a\",\"b\",\"c\"]", "isHidden": false },
+      { "input": "[1,1,1]", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "[]", "expectedOutput": "[]", "isHidden": true },
+      { "input": "[1,2,3]", "expectedOutput": "[1,2,3]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000006",
+    "title": "Rata-rata Array",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array angka, kembalikan nilai rata-rata (mean) dari semua elemennya. Kembalikan 0 jika array kosong.\n\nContoh: rataRata([1, 2, 3, 4, 5]) -> 3\nContoh: rataRata([10, 20, 30]) -> 20\nContoh: rataRata([]) -> 0",
+    "starterCode": "function rataRata(arr) {\n  // Hitung rata-rata semua elemen\n  return 0;\n}",
+    "thinkingGuide": "Rata-rata dihitung dengan membagi total jumlah semua elemen dengan banyaknya elemen. Langkah: (1) cek apakah array kosong, jika ya kembalikan 0, (2) hitung total dengan reduce() atau loop, (3) bagi total dengan arr.length. Perhatikan pembagian dengan nol jika array kosong.",
+    "hints": [
+      "Rata-rata = jumlah semua elemen / banyaknya elemen. Tangani kasus array kosong terlebih dahulu.",
+      "Hitung jumlah dengan reduce(): arr.reduce((total, val) => total + val, 0).",
+      "Bagi total dengan arr.length, tapi pastikan arr.length > 0 agar tidak terjadi pembagian dengan nol."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000005",
+    "testCases": [
+      { "input": "[1,2,3,4,5]", "expectedOutput": "3", "isHidden": false },
+      { "input": "[10,20,30]", "expectedOutput": "20", "isHidden": false },
+      { "input": "[]", "expectedOutput": "0", "isHidden": false },
+      { "input": "[5]", "expectedOutput": "5", "isHidden": true },
+      { "input": "[1,2]", "expectedOutput": "1.5", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000007",
+    "title": "Cek Elemen Ada",
+    "category": "array",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array dan sebuah nilai, kembalikan true jika nilai tersebut ada dalam array, false jika tidak.\n\nContoh: cekAda([1, 2, 3, 4, 5], 3) -> true\nContoh: cekAda([\"a\", \"b\", \"c\"], \"d\") -> false\nContoh: cekAda([], 1) -> false",
+    "starterCode": "function cekAda(arr, nilai) {\n  // Cek apakah nilai ada dalam array\n  return false;\n}",
+    "thinkingGuide": "JavaScript menyediakan method includes() pada array yang mengecek apakah suatu nilai ada di dalamnya. Method ini mengembalikan boolean true/false secara langsung. Alternatif lain adalah indexOf() yang mengembalikan indeks elemen (atau -1 jika tidak ada), tapi includes() lebih ekspresif untuk kasus ini.",
+    "hints": [
+      "Array memiliki method includes() yang mengecek keberadaan suatu nilai.",
+      "Method ini mengembalikan true jika nilai ditemukan, false jika tidak.",
+      "Gunakan arr.includes(nilai) untuk mengecek apakah nilai ada dalam array."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000006",
+    "testCases": [
+      { "input": "[1,2,3,4,5], 3", "expectedOutput": "true", "isHidden": false },
+      { "input": "[\"a\",\"b\",\"c\"], \"d\"", "expectedOutput": "false", "isHidden": false },
+      { "input": "[], 1", "expectedOutput": "false", "isHidden": false },
+      { "input": "[1,2,3], 1", "expectedOutput": "true", "isHidden": true },
+      { "input": "[1,2,3], 4", "expectedOutput": "false", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000008",
+    "title": "Cari Elemen Duplikat",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah array angka, kembalikan array berisi elemen-elemen yang muncul lebih dari satu kali (tanpa duplikat dalam hasil).\n\nContoh: cariDuplikat([1, 2, 2, 3, 3, 3, 4]) -> [2, 3]\nContoh: cariDuplikat([1, 2, 3]) -> []\nContoh: cariDuplikat([1, 1, 1, 1]) -> [1]",
+    "starterCode": "function cariDuplikat(arr) {\n  // Temukan elemen yang muncul lebih dari sekali\n  return [];\n}",
+    "thinkingGuide": "Pendekatan dengan frequency map: (1) buat objek/Map untuk menghitung kemunculan setiap elemen, (2) loop melalui array dan tambahkan hitungan, (3) filter elemen yang hitungannya lebih dari 1. Alternatif: gunakan filter() dengan indexOf() dan lastIndexOf() untuk mendeteksi duplikat, tapi frequency map lebih efisien.",
+    "hints": [
+      "Buat objek untuk menghitung frekuensi setiap elemen: { elemen: jumlahKemunculan }.",
+      "Loop melalui array, tambahkan hitungan: freq[el] = (freq[el] || 0) + 1.",
+      "Kembalikan array elemen yang frekuensinya > 1 menggunakan Object.keys(freq).filter(k => freq[k] > 1)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000007",
+    "testCases": [
+      { "input": "[1,2,2,3,3,3,4]", "expectedOutput": "[2,3]", "isHidden": false },
+      { "input": "[1,2,3]", "expectedOutput": "[]", "isHidden": false },
+      { "input": "[1,1,1,1]", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "[5,5,6,6,7]", "expectedOutput": "[5,6]", "isHidden": true },
+      { "input": "[]", "expectedOutput": "[]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000009",
+    "title": "Gabung Dua Array Terurut",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan dua array angka yang sudah terurut secara ascending, gabungkan keduanya menjadi satu array yang juga terurut.\n\nContoh: gabungTerurut([1, 3, 5], [2, 4, 6]) -> [1, 2, 3, 4, 5, 6]\nContoh: gabungTerurut([1, 2], [3, 4]) -> [1, 2, 3, 4]\nContoh: gabungTerurut([], [1, 2]) -> [1, 2]",
+    "starterCode": "function gabungTerurut(arr1, arr2) {\n  // Gabungkan dua array terurut menjadi satu array terurut\n  return [];\n}",
+    "thinkingGuide": "Pendekatan merge sort: gunakan dua pointer (i untuk arr1, j untuk arr2). Bandingkan elemen di kedua pointer, masukkan yang lebih kecil ke hasil, dan majukan pointer tersebut. Ulangi sampai salah satu array habis, lalu tambahkan sisa elemen dari array yang belum habis. Alternatif sederhana: gabungkan lalu sort, tapi kurang efisien.",
+    "hints": [
+      "Gunakan dua pointer i dan j, mulai dari indeks 0 untuk masing-masing array.",
+      "Bandingkan arr1[i] dan arr2[j], push yang lebih kecil ke hasil dan majukan pointer-nya.",
+      "Setelah salah satu array habis, tambahkan sisa elemen array lainnya dengan concat atau spread."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000008",
+    "testCases": [
+      { "input": "[1,3,5], [2,4,6]", "expectedOutput": "[1,2,3,4,5,6]", "isHidden": false },
+      { "input": "[1,2], [3,4]", "expectedOutput": "[1,2,3,4]", "isHidden": false },
+      { "input": "[], [1,2]", "expectedOutput": "[1,2]", "isHidden": false },
+      { "input": "[1,3], [2]", "expectedOutput": "[1,2,3]", "isHidden": true },
+      { "input": "[], []", "expectedOutput": "[]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000010",
+    "title": "Rotasi Array",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah array dan bilangan k, rotasikan array ke kanan sebanyak k langkah (elemen dari belakang dipindah ke depan).\n\nContoh: rotasiArray([1, 2, 3, 4, 5], 2) -> [4, 5, 1, 2, 3]\nContoh: rotasiArray([1, 2, 3], 1) -> [3, 1, 2]\nContoh: rotasiArray([1, 2, 3], 3) -> [1, 2, 3]",
+    "starterCode": "function rotasiArray(arr, k) {\n  // Rotasikan array ke kanan sebanyak k langkah\n  return [];\n}",
+    "thinkingGuide": "Rotasi kanan k langkah berarti k elemen terakhir dipindah ke depan. Trik dengan slice: (1) hitung k efektif dengan k % arr.length untuk menangani k > panjang array, (2) ambil k elemen terakhir dengan arr.slice(-k), (3) gabungkan dengan elemen sisanya arr.slice(0, -k). Spread operator memudahkan penggabungan.",
+    "hints": [
+      "Rotasi kanan k langkah: k elemen terakhir dipindah ke depan array.",
+      "Gunakan k = k % arr.length untuk menangani kasus k lebih besar dari panjang array.",
+      "Gabungkan: [...arr.slice(-k), ...arr.slice(0, arr.length - k)] untuk mendapatkan hasil rotasi."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000009",
+    "testCases": [
+      { "input": "[1,2,3,4,5], 2", "expectedOutput": "[4,5,1,2,3]", "isHidden": false },
+      { "input": "[1,2,3], 1", "expectedOutput": "[3,1,2]", "isHidden": false },
+      { "input": "[1,2,3], 3", "expectedOutput": "[1,2,3]", "isHidden": false },
+      { "input": "[1,2,3,4], 2", "expectedOutput": "[3,4,1,2]", "isHidden": true },
+      { "input": "[1], 5", "expectedOutput": "[1]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000011",
+    "title": "Flatten Array",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah array yang mungkin berisi array bersarang satu level, kembalikan array datar (flat) tanpa nesting.\n\nContoh: flattenArray([[1, 2], [3, 4], [5]]) -> [1, 2, 3, 4, 5]\nContoh: flattenArray([[1], [2], [3]]) -> [1, 2, 3]\nContoh: flattenArray([1, [2, 3], 4]) -> [1, 2, 3, 4]",
+    "starterCode": "function flattenArray(arr) {\n  // Ratakan array satu level\n  return [];\n}",
+    "thinkingGuide": "Ada beberapa cara untuk meratakan array satu level: (1) method flat() bawaan: arr.flat(), (2) reduce() dengan concat: arr.reduce((hasil, el) => hasil.concat(el), []), (3) spread dengan concat: [].concat(...arr). Method flat() adalah yang paling ringkas dan mudah dibaca.",
+    "hints": [
+      "JavaScript modern memiliki method flat() yang meratakan array bersarang.",
+      "arr.flat() meratakan satu level secara default — cocok untuk kasus ini.",
+      "Alternatif: arr.reduce((hasil, el) => hasil.concat(el), []) untuk kompatibilitas lebih luas."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000010",
+    "testCases": [
+      { "input": "[[1,2],[3,4],[5]]", "expectedOutput": "[1,2,3,4,5]", "isHidden": false },
+      { "input": "[[1],[2],[3]]", "expectedOutput": "[1,2,3]", "isHidden": false },
+      { "input": "[1,[2,3],4]", "expectedOutput": "[1,2,3,4]", "isHidden": false },
+      { "input": "[[]]", "expectedOutput": "[]", "isHidden": true },
+      { "input": "[]", "expectedOutput": "[]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000012",
+    "title": "Kelompokkan Berdasarkan Kondisi",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah array angka, pisahkan menjadi dua grup: elemen yang memenuhi kondisi (genap) dan yang tidak (ganjil). Kembalikan objek dengan key 'genap' dan 'ganjil'.\n\nContoh: kelompokkan([1, 2, 3, 4, 5, 6]) -> { genap: [2, 4, 6], ganjil: [1, 3, 5] }\nContoh: kelompokkan([1, 3, 5]) -> { genap: [], ganjil: [1, 3, 5] }\nContoh: kelompokkan([]) -> { genap: [], ganjil: [] }",
+    "starterCode": "function kelompokkan(arr) {\n  // Pisahkan array menjadi dua grup: genap dan ganjil\n  return { genap: [], ganjil: [] };\n}",
+    "thinkingGuide": "Teknik partition membagi array menjadi dua grup berdasarkan kondisi. Pendekatan: (1) gunakan filter() dua kali — sekali untuk genap, sekali untuk ganjil, (2) atau gunakan reduce() untuk mengisi kedua grup sekaligus dalam satu iterasi. Reduce() lebih efisien karena hanya satu kali loop.",
+    "hints": [
+      "Gunakan filter() dua kali: arr.filter(n => n % 2 === 0) untuk genap dan arr.filter(n => n % 2 !== 0) untuk ganjil.",
+      "Atau gunakan reduce() untuk mengisi kedua grup sekaligus dalam satu iterasi.",
+      "Kembalikan objek: { genap: [...], ganjil: [...] } dengan hasil filter atau reduce."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000011",
+    "testCases": [
+      { "input": "[1,2,3,4,5,6]", "expectedOutput": "{\"genap\":[2,4,6],\"ganjil\":[1,3,5]}", "isHidden": false },
+      { "input": "[1,3,5]", "expectedOutput": "{\"genap\":[],\"ganjil\":[1,3,5]}", "isHidden": false },
+      { "input": "[]", "expectedOutput": "{\"genap\":[],\"ganjil\":[]}", "isHidden": false },
+      { "input": "[2,4,6]", "expectedOutput": "{\"genap\":[2,4,6],\"ganjil\":[]}", "isHidden": true },
+      { "input": "[0,1]", "expectedOutput": "{\"genap\":[0],\"ganjil\":[1]}", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000013",
+    "title": "Frekuensi Elemen",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah array, kembalikan objek yang berisi frekuensi (jumlah kemunculan) setiap elemen.\n\nContoh: frekuensiElemen([1, 2, 2, 3, 3, 3]) -> { \"1\": 1, \"2\": 2, \"3\": 3 }\nContoh: frekuensiElemen([\"a\", \"b\", \"a\"]) -> { \"a\": 2, \"b\": 1 }\nContoh: frekuensiElemen([]) -> {}",
+    "starterCode": "function frekuensiElemen(arr) {\n  // Hitung frekuensi setiap elemen\n  return {};\n}",
+    "thinkingGuide": "Frequency map adalah pola umum dalam pemrograman. Buat objek kosong, lalu loop melalui setiap elemen array. Untuk setiap elemen, jika sudah ada di objek tambahkan 1, jika belum ada set ke 1. Pola: freq[el] = (freq[el] || 0) + 1. Operator || 0 memastikan nilai awal 0 jika elemen belum pernah muncul.",
+    "hints": [
+      "Buat objek kosong sebagai frequency map, lalu loop melalui setiap elemen array.",
+      "Untuk setiap elemen: freq[el] = (freq[el] || 0) + 1 — ini menangani elemen baru dan yang sudah ada.",
+      "Kembalikan objek freq setelah loop selesai."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000012",
+    "testCases": [
+      { "input": "[1,2,2,3,3,3]", "expectedOutput": "{\"1\":1,\"2\":2,\"3\":3}", "isHidden": false },
+      { "input": "[\"a\",\"b\",\"a\"]", "expectedOutput": "{\"a\":2,\"b\":1}", "isHidden": false },
+      { "input": "[]", "expectedOutput": "{}", "isHidden": false },
+      { "input": "[1,1,1]", "expectedOutput": "{\"1\":3}", "isHidden": true },
+      { "input": "[1,2,3]", "expectedOutput": "{\"1\":1,\"2\":1,\"3\":1}", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000014",
+    "title": "Irisan Dua Array",
+    "category": "array",
+    "difficulty": "medium",
+    "description": "Diberikan dua array, kembalikan array berisi elemen-elemen yang ada di kedua array (irisan/intersection), tanpa duplikat.\n\nContoh: irisanArray([1, 2, 3, 4], [3, 4, 5, 6]) -> [3, 4]\nContoh: irisanArray([1, 2, 3], [4, 5, 6]) -> []\nContoh: irisanArray([1, 1, 2], [1, 2, 3]) -> [1, 2]",
+    "starterCode": "function irisanArray(arr1, arr2) {\n  // Temukan elemen yang ada di kedua array\n  return [];\n}",
+    "thinkingGuide": "Untuk mencari irisan: (1) ubah arr2 menjadi Set agar pengecekan O(1), (2) filter arr1 untuk hanya menyimpan elemen yang ada di Set arr2, (3) hapus duplikat dari hasil dengan Set lagi. Menggunakan Set untuk pengecekan jauh lebih efisien daripada includes() yang O(n) untuk setiap elemen.",
+    "hints": [
+      "Ubah arr2 menjadi Set untuk pengecekan cepat: const set2 = new Set(arr2).",
+      "Filter arr1: arr1.filter(el => set2.has(el)) untuk mendapatkan elemen yang ada di kedua array.",
+      "Hapus duplikat dari hasil dengan [...new Set(arr1.filter(el => set2.has(el)))]."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000013",
+    "testCases": [
+      { "input": "[1,2,3,4], [3,4,5,6]", "expectedOutput": "[3,4]", "isHidden": false },
+      { "input": "[1,2,3], [4,5,6]", "expectedOutput": "[]", "isHidden": false },
+      { "input": "[1,1,2], [1,2,3]", "expectedOutput": "[1,2]", "isHidden": false },
+      { "input": "[1,2,3], [1,2,3]", "expectedOutput": "[1,2,3]", "isHidden": true },
+      { "input": "[], [1,2,3]", "expectedOutput": "[]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000015",
+    "title": "Subarray dengan Jumlah Target",
+    "category": "array",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah array angka positif dan sebuah target, kembalikan subarray pertama (berurutan) yang jumlahnya sama dengan target. Kembalikan array kosong jika tidak ada.\n\nContoh: subarrayTarget([1, 2, 3, 4, 5], 9) -> [2, 3, 4]\nContoh: subarrayTarget([1, 2, 3], 10) -> []\nContoh: subarrayTarget([5, 1, 2, 3], 6) -> [1, 2, 3]",
+    "starterCode": "function subarrayTarget(arr, target) {\n  // Gunakan sliding window untuk menemukan subarray\n  return [];\n}",
+    "thinkingGuide": "Sliding window bekerja dengan dua pointer left dan right. Mulai dengan window kosong. Tambahkan elemen kanan ke sum. Jika sum > target, kurangi elemen kiri dari sum dan geser left. Jika sum === target, kembalikan subarray dari left ke right. Teknik ini O(n) karena setiap elemen hanya diproses maksimal dua kali.",
+    "hints": [
+      "Gunakan dua pointer left dan right, serta variabel sum untuk melacak jumlah window saat ini.",
+      "Gerakkan right ke kanan dan tambahkan ke sum. Jika sum > target, kurangi arr[left] dari sum dan geser left.",
+      "Jika sum === target, kembalikan arr.slice(left, right + 1)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000014",
+    "testCases": [
+      { "input": "[1,2,3,4,5], 9", "expectedOutput": "[2,3,4]", "isHidden": false },
+      { "input": "[1,2,3], 10", "expectedOutput": "[]", "isHidden": false },
+      { "input": "[5,1,2,3], 6", "expectedOutput": "[1,2,3]", "isHidden": false },
+      { "input": "[1,2,3,4,5], 5", "expectedOutput": "[2,3]", "isHidden": true },
+      { "input": "[3,1,2], 3", "expectedOutput": "[3]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000016",
+    "title": "Produk Kecuali Diri Sendiri",
+    "category": "array",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah array angka, kembalikan array baru di mana setiap elemen adalah hasil perkalian semua elemen lain kecuali dirinya sendiri. Jangan gunakan operator pembagian.\n\nContoh: produkKecualiDiri([1, 2, 3, 4]) -> [24, 12, 8, 6]\nContoh: produkKecualiDiri([2, 3, 4]) -> [12, 8, 6]\nContoh: produkKecualiDiri([1, 1, 1, 1]) -> [1, 1, 1, 1]",
+    "starterCode": "function produkKecualiDiri(arr) {\n  // Hitung produk semua elemen kecuali diri sendiri tanpa pembagian\n  return [];\n}",
+    "thinkingGuide": "Teknik prefix dan suffix product: (1) buat array prefix di mana prefix[i] = produk semua elemen sebelum i, (2) buat array suffix di mana suffix[i] = produk semua elemen setelah i, (3) hasil[i] = prefix[i] * suffix[i]. Ini O(n) tanpa pembagian. Bisa dioptimasi dengan satu array hasil dan variabel running product.",
+    "hints": [
+      "Buat dua array: prefix[i] = produk semua elemen sebelum indeks i, suffix[i] = produk semua elemen setelah indeks i.",
+      "Isi prefix dari kiri ke kanan: prefix[0] = 1, prefix[i] = prefix[i-1] * arr[i-1].",
+      "Isi suffix dari kanan ke kiri: suffix[n-1] = 1, suffix[i] = suffix[i+1] * arr[i+1]. Hasil[i] = prefix[i] * suffix[i]."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000015",
+    "testCases": [
+      { "input": "[1,2,3,4]", "expectedOutput": "[24,12,8,6]", "isHidden": false },
+      { "input": "[2,3,4]", "expectedOutput": "[12,8,6]", "isHidden": false },
+      { "input": "[1,1,1,1]", "expectedOutput": "[1,1,1,1]", "isHidden": false },
+      { "input": "[2,2,2]", "expectedOutput": "[4,4,4]", "isHidden": true },
+      { "input": "[1,2]", "expectedOutput": "[2,1]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000017",
+    "title": "Cari Pasangan Jumlah (Two Sum)",
+    "category": "array",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah array angka dan sebuah target, kembalikan indeks dua elemen yang jumlahnya sama dengan target. Asumsikan selalu ada tepat satu solusi.\n\nContoh: twoSum([2, 7, 11, 15], 9) -> [0, 1]\nContoh: twoSum([3, 2, 4], 6) -> [1, 2]\nContoh: twoSum([3, 3], 6) -> [0, 1]",
+    "starterCode": "function twoSum(arr, target) {\n  // Temukan dua indeks yang jumlah elemennya sama dengan target\n  return [];\n}",
+    "thinkingGuide": "Pendekatan brute force O(n^2) menggunakan dua loop bersarang. Pendekatan optimal O(n) menggunakan hash map: untuk setiap elemen, hitung komplemen (target - elemen), cek apakah komplemen sudah ada di map. Jika ya, kembalikan indeks komplemen dan indeks saat ini. Jika tidak, simpan elemen dan indeksnya ke map.",
+    "hints": [
+      "Pendekatan brute force: dua loop bersarang, cek setiap pasangan. Tapi ada cara yang lebih efisien.",
+      "Gunakan Map untuk menyimpan elemen yang sudah dilihat: Map<nilai, indeks>.",
+      "Untuk setiap elemen arr[i], cek apakah (target - arr[i]) sudah ada di Map. Jika ya, kembalikan [map.get(komplemen), i]."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000016",
+    "testCases": [
+      { "input": "[2,7,11,15], 9", "expectedOutput": "[0,1]", "isHidden": false },
+      { "input": "[3,2,4], 6", "expectedOutput": "[1,2]", "isHidden": false },
+      { "input": "[3,3], 6", "expectedOutput": "[0,1]", "isHidden": false },
+      { "input": "[1,2,3,4], 7", "expectedOutput": "[2,3]", "isHidden": true },
+      { "input": "[0,4,3,0], 0", "expectedOutput": "[0,3]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000018",
+    "title": "Transpose Matriks",
+    "category": "array",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah matriks N x M (array 2D), kembalikan transposenya (baris menjadi kolom, kolom menjadi baris).\n\nContoh: transposeMatriks([[1,2,3],[4,5,6]]) -> [[1,4],[2,5],[3,6]]\nContoh: transposeMatriks([[1,2],[3,4]]) -> [[1,3],[2,4]]\nContoh: transposeMatriks([[1,2,3]]) -> [[1],[2],[3]]",
+    "starterCode": "function transposeMatriks(matrix) {\n  // Tukar baris dan kolom matriks\n  return [];\n}",
+    "thinkingGuide": "Transpose matriks berarti elemen di posisi [i][j] dipindah ke posisi [j][i]. Untuk matriks N x M, hasilnya adalah matriks M x N. Pendekatan: buat array hasil dengan M baris dan N kolom, lalu isi dengan matrix[i][j] -> hasil[j][i]. Gunakan loop bersarang atau map() untuk implementasi yang bersih.",
+    "hints": [
+      "Elemen di posisi [baris][kolom] pada matriks asli menjadi [kolom][baris] pada transpose.",
+      "Buat array hasil dengan panjang matrix[0].length (jumlah kolom asli = jumlah baris transpose).",
+      "Loop: for i (baris) for j (kolom): hasil[j][i] = matrix[i][j]. Atau gunakan map() pada kolom."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000017",
+    "testCases": [
+      { "input": "[[1,2,3],[4,5,6]]", "expectedOutput": "[[1,4],[2,5],[3,6]]", "isHidden": false },
+      { "input": "[[1,2],[3,4]]", "expectedOutput": "[[1,3],[2,4]]", "isHidden": false },
+      { "input": "[[1,2,3]]", "expectedOutput": "[[1],[2],[3]]", "isHidden": false },
+      { "input": "[[1]]", "expectedOutput": "[[1]]", "isHidden": true },
+      { "input": "[[1,2],[3,4],[5,6]]", "expectedOutput": "[[1,3,5],[2,4,6]]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0003-000000000019",
+    "title": "Baca Matriks Spiral",
+    "category": "array",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah matriks N x M, kembalikan semua elemen dalam urutan spiral (kanan, bawah, kiri, atas, berulang dari luar ke dalam).\n\nContoh: spiralMatriks([[1,2,3],[4,5,6],[7,8,9]]) -> [1,2,3,6,9,8,7,4,5]\nContoh: spiralMatriks([[1,2],[3,4]]) -> [1,2,4,3]\nContoh: spiralMatriks([[1,2,3,4]]) -> [1,2,3,4]",
+    "starterCode": "function spiralMatriks(matrix) {\n  let hasil = [];\n  // Gunakan empat batas: atas, bawah, kiri, kanan\n  return hasil;\n}",
+    "thinkingGuide": "Gunakan empat batas: top, bottom, left, right. Iterasi: (1) kiri ke kanan sepanjang baris top, lalu top++, (2) atas ke bawah sepanjang kolom right, lalu right--, (3) kanan ke kiri sepanjang baris bottom (jika top <= bottom), lalu bottom--, (4) bawah ke atas sepanjang kolom left (jika left <= right), lalu left++. Ulangi sampai top > bottom atau left > right.",
+    "hints": [
+      "Definisikan empat batas: top=0, bottom=baris-1, left=0, right=kolom-1.",
+      "Loop selama top <= bottom dan left <= right. Setiap iterasi: traversal kanan, bawah, kiri, atas, lalu perbarui batas.",
+      "Setelah traversal kanan naikkan top, setelah bawah kurangi right, setelah kiri kurangi bottom, setelah atas naikkan left."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000018",
+    "testCases": [
+      { "input": "[[1,2,3],[4,5,6],[7,8,9]]", "expectedOutput": "[1,2,3,6,9,8,7,4,5]", "isHidden": false },
+      { "input": "[[1,2],[3,4]]", "expectedOutput": "[1,2,4,3]", "isHidden": false },
+      { "input": "[[1,2,3,4]]", "expectedOutput": "[1,2,3,4]", "isHidden": false },
+      { "input": "[[1],[2],[3]]", "expectedOutput": "[1,2,3]", "isHidden": true },
+      { "input": "[[1,2,3],[4,5,6]]", "expectedOutput": "[1,2,3,6,5,4]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0003-000000000020",
+    "title": "Longest Increasing Subsequence",
+    "category": "array",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah array angka, temukan panjang subsequence terpanjang yang nilainya selalu meningkat (tidak harus berurutan dalam array).\n\nContoh: panjangLIS([10, 9, 2, 5, 3, 7, 101, 18]) -> 4 (subsequence: [2,3,7,18] atau [2,5,7,18])\nContoh: panjangLIS([0, 1, 0, 3, 2, 3]) -> 4\nContoh: panjangLIS([7, 7, 7, 7]) -> 1",
+    "starterCode": "function panjangLIS(arr) {\n  if (arr.length === 0) return 0;\n  // Gunakan dynamic programming\n  return 0;\n}",
+    "thinkingGuide": "Gunakan dynamic programming: buat array dp di mana dp[i] = panjang LIS yang berakhir di indeks i. Untuk setiap i, loop dari 0 sampai i-1: jika arr[j] < arr[i], maka dp[i] = Math.max(dp[i], dp[j] + 1). Inisialisasi semua dp[i] = 1 (setiap elemen sendiri adalah LIS panjang 1). Jawaban adalah nilai maksimum dalam dp.",
+    "hints": [
+      "Gunakan array dp di mana dp[i] = panjang LIS yang berakhir tepat di indeks i. Inisialisasi semua dengan 1.",
+      "Untuk setiap i, loop j dari 0 sampai i-1: jika arr[j] < arr[i], perbarui dp[i] = Math.max(dp[i], dp[j] + 1).",
+      "Jawaban akhir adalah Math.max(...dp) — nilai terbesar dalam array dp."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0003-000000000019",
+    "testCases": [
+      { "input": "[10,9,2,5,3,7,101,18]", "expectedOutput": "4", "isHidden": false },
+      { "input": "[0,1,0,3,2,3]", "expectedOutput": "4", "isHidden": false },
+      { "input": "[7,7,7,7]", "expectedOutput": "1", "isHidden": false },
+      { "input": "[1,2,3,4,5]", "expectedOutput": "5", "isHidden": true },
+      { "input": "[5,4,3,2,1]", "expectedOutput": "1", "isHidden": true }
+    ]
+  }
+]

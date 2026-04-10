@@ -7,6 +7,10 @@ import { Problem } from '@/lib/types';
 import { useSubmissionStore } from '@/store/submissionStore';
 import ProblemDescription from '@/components/ProblemDetail/ProblemDescription';
 import ExampleBlock from '@/components/ProblemDetail/ExampleBlock';
+import ThinkingGuide from '@/components/ProblemDetail/ThinkingGuide';
+import HintPanel from '@/components/ProblemDetail/HintPanel';
+import PrerequisiteWarning from '@/components/ProblemDetail/PrerequisiteWarning';
+import { useProgress } from '@/hooks/useProgress';
 import CodeEditor from '@/components/Editor/CodeEditor';
 import LanguageSelector, { getDefaultLanguage } from '@/components/Editor/LanguageSelector';
 import SubmitButton from '@/components/Editor/SubmitButton';
@@ -24,6 +28,7 @@ export default function ProblemDetailPage() {
   const [activeTab, setActiveTab] = useState<'soal' | 'editor'>('soal');
 
   const { code, setCode, reset, language, setLanguage, isLoading: isSubmitting, setLoading, setResult, setError: setSubmitError } = useSubmissionStore();
+  const { markAccepted } = useProgress();
 
   async function handleSubmit() {
     if (!problem || isSubmitting || code.trim() === '') return;
@@ -33,6 +38,9 @@ export default function ProblemDetailPage() {
     try {
       const result = await submitSolution({ problemId: problem.id, code, language });
       setResult(result);
+      if (result.status === 'accepted') {
+        markAccepted(problem.id);
+      }
     } catch (err: unknown) {
       setSubmitError(err instanceof Error ? err.message : 'Terjadi kesalahan jaringan.');
       setResult(null);
@@ -172,6 +180,14 @@ export default function ProblemDetailPage() {
           {problem.testCases && problem.testCases.length > 0 && (
             <ExampleBlock testCases={problem.testCases} />
           )}
+          {problem.thinkingGuide && <ThinkingGuide content={problem.thinkingGuide} />}
+          {problem.hints && problem.hints.length > 0 && (
+            <HintPanel hints={problem.hints} problemId={problem.id} />
+          )}
+          <PrerequisiteWarning
+            prerequisiteId={problem.prerequisiteId}
+            prerequisiteTitle={problem.prerequisiteTitle}
+          />
         </div>
       </div>
 

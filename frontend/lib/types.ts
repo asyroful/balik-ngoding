@@ -15,6 +15,10 @@ export interface Problem {
   isActive: boolean;
   testCases?: TestCase[];
   createdAt: string;
+  thinkingGuide: string | null;
+  hints: string[] | null;
+  prerequisiteId: string | null;
+  prerequisiteTitle: string | null;
 }
 
 export interface TestCaseResult {
@@ -37,4 +41,9 @@ export interface SubmitRequest {
   problemId: string;
   code: string;
   language: string;
+}
+
+export interface CategorySummary {
+  category: 'loop' | 'string' | 'array' | 'sql';
+  total: number;
 }

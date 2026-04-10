@@ -1,0 +1,442 @@
+[
+  {
+    "id": "00000000-0000-0000-0001-000000000001",
+    "title": "Jumlah 1 sampai N",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Diberikan bilangan bulat positif N, kembalikan total penjumlahan 1 + 2 + 3 + ... + N menggunakan for loop.\n\nContoh: jumlahSampaiN(5) → 15\nContoh: jumlahSampaiN(3) → 6\nContoh: jumlahSampaiN(0) → 0",
+    "starterCode": "function jumlahSampaiN(n) {\n  let total = 0;\n  // Tulis for loop di sini\n  return total;\n}",
+    "thinkingGuide": "For loop memiliki tiga bagian: inisialisasi, kondisi, dan update.\nStruktur: for (let i = 1; i <= n; i++)\n- let i = 1 → mulai dari 1\n- i <= n → terus selama i tidak melebihi n\n- i++ → tambah i sebesar 1 setiap iterasi\nDi dalam loop, tambahkan nilai i ke total dengan total += i.",
+    "hints": [
+      "Gunakan for loop dengan variabel i yang dimulai dari 1 dan berhenti saat i > n.",
+      "Di dalam loop, tambahkan nilai i ke variabel total: total += i.",
+      "Struktur lengkapnya: for (let i = 1; i <= n; i++) { total += i; }"
+    ],
+    "prerequisiteId": null,
+    "testCases": [
+      { "input": "5", "expectedOutput": "15", "isHidden": false },
+      { "input": "3", "expectedOutput": "6", "isHidden": false },
+      { "input": "0", "expectedOutput": "0", "isHidden": false },
+      { "input": "1", "expectedOutput": "1", "isHidden": true },
+      { "input": "10", "expectedOutput": "55", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000002",
+    "title": "Hitung Mundur",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Diberikan bilangan bulat positif N, kembalikan array berisi angka dari N turun ke 1.\n\nContoh: hitungMundur(5) → [5,4,3,2,1]\nContoh: hitungMundur(3) → [3,2,1]\nContoh: hitungMundur(1) → [1]",
+    "starterCode": "function hitungMundur(n) {\n  let hasil = [];\n  // Tulis for loop yang berjalan mundur\n  return hasil;\n}",
+    "thinkingGuide": "For loop bisa berjalan mundur dengan mengubah arah iterasi.\nStruktur: for (let i = n; i >= 1; i--)\n- let i = n → mulai dari n\n- i >= 1 → terus selama i tidak kurang dari 1\n- i-- → kurangi i sebesar 1 setiap iterasi\nGunakan hasil.push(i) untuk menambahkan nilai ke array.",
+    "hints": [
+      "For loop bisa berjalan mundur: mulai dari n, berhenti saat i < 1, gunakan i-- sebagai update.",
+      "Gunakan hasil.push(i) di dalam loop untuk menambahkan angka ke array hasil.",
+      "Struktur: for (let i = n; i >= 1; i--) { hasil.push(i); }"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000001",
+    "testCases": [
+      { "input": "5", "expectedOutput": "[5,4,3,2,1]", "isHidden": false },
+      { "input": "3", "expectedOutput": "[3,2,1]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "2", "expectedOutput": "[2,1]", "isHidden": true },
+      { "input": "7", "expectedOutput": "[7,6,5,4,3,2,1]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000003",
+    "title": "Perkalian Sederhana",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Diberikan dua bilangan bulat a dan b, kembalikan hasil perkalian a * b menggunakan penjumlahan berulang (tanpa operator *).\n\nContoh: kaliTanpaBintang(3, 4) → 12\nContoh: kaliTanpaBintang(5, 2) → 10\nContoh: kaliTanpaBintang(0, 7) → 0",
+    "starterCode": "function kaliTanpaBintang(a, b) {\n  let hasil = 0;\n  // Tambahkan a sebanyak b kali menggunakan loop\n  return hasil;\n}",
+    "thinkingGuide": "Perkalian adalah penjumlahan berulang: 3 * 4 = 3 + 3 + 3 + 3.\nJadi kita perlu menambahkan nilai a sebanyak b kali.\nGunakan for loop yang berjalan b kali, dan setiap iterasi tambahkan a ke hasil.",
+    "hints": [
+      "Perkalian a * b sama dengan menjumlahkan a sebanyak b kali.",
+      "Buat loop yang berjalan b kali: for (let i = 0; i < b; i++)",
+      "Di dalam loop, tambahkan a ke hasil: hasil += a."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000002",
+    "testCases": [
+      { "input": "3, 4", "expectedOutput": "12", "isHidden": false },
+      { "input": "5, 2", "expectedOutput": "10", "isHidden": false },
+      { "input": "0, 7", "expectedOutput": "0", "isHidden": false },
+      { "input": "6, 6", "expectedOutput": "36", "isHidden": true },
+      { "input": "1, 100", "expectedOutput": "100", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000004",
+    "title": "Cari Nilai Maksimum",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Diberikan array angka, kembalikan nilai terbesar dalam array tersebut menggunakan loop.\n\nContoh: nilaiMaksimum([3, 1, 4, 1, 5, 9, 2]) → 9\nContoh: nilaiMaksimum([10, 5, 8]) → 10\nContoh: nilaiMaksimum([7]) → 7",
+    "starterCode": "function nilaiMaksimum(arr) {\n  let maks = arr[0];\n  // Loop untuk membandingkan setiap elemen\n  return maks;\n}",
+    "thinkingGuide": "Untuk mencari nilai maksimum, kita perlu membandingkan setiap elemen dengan nilai maksimum saat ini.\nMulai dengan menganggap elemen pertama (arr[0]) sebagai maksimum.\nLoop dari indeks 1 sampai akhir, dan jika elemen saat ini lebih besar dari maks, perbarui maks.",
+    "hints": [
+      "Mulai dengan maks = arr[0], lalu bandingkan setiap elemen berikutnya.",
+      "Di dalam loop, gunakan if (arr[i] > maks) untuk mengecek apakah elemen lebih besar.",
+      "Jika arr[i] > maks, perbarui: maks = arr[i]."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000003",
+    "testCases": [
+      { "input": "[3,1,4,1,5,9,2]", "expectedOutput": "9", "isHidden": false },
+      { "input": "[10,5,8]", "expectedOutput": "10", "isHidden": false },
+      { "input": "[7]", "expectedOutput": "7", "isHidden": false },
+      { "input": "[-1,-5,-2]", "expectedOutput": "-1", "isHidden": true },
+      { "input": "[100,99,101,98]", "expectedOutput": "101", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000005",
+    "title": "Hitung Angka Genap",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Diberikan array angka, kembalikan jumlah (count) angka genap dalam array tersebut.\n\nContoh: hitungGenap([1,2,3,4,5,6]) → 3\nContoh: hitungGenap([1,3,5]) → 0\nContoh: hitungGenap([2,4,6,8]) → 4",
+    "starterCode": "function hitungGenap(arr) {\n  let count = 0;\n  // Loop dan hitung angka genap\n  return count;\n}",
+    "thinkingGuide": "Angka genap adalah angka yang habis dibagi 2, yaitu angka % 2 === 0.\nLoop melalui setiap elemen array, dan jika elemen tersebut genap, tambahkan count.\nGunakan if di dalam loop untuk mengecek kondisi genap.",
+    "hints": [
+      "Angka genap memiliki sisa bagi 0 ketika dibagi 2: angka % 2 === 0.",
+      "Di dalam loop, gunakan if (arr[i] % 2 === 0) untuk mengecek apakah genap.",
+      "Jika kondisi terpenuhi, tambahkan count: count++."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000004",
+    "testCases": [
+      { "input": "[1,2,3,4,5,6]", "expectedOutput": "3", "isHidden": false },
+      { "input": "[1,3,5]", "expectedOutput": "0", "isHidden": false },
+      { "input": "[2,4,6,8]", "expectedOutput": "4", "isHidden": false },
+      { "input": "[]", "expectedOutput": "0", "isHidden": true },
+      { "input": "[0,1,2,3,4]", "expectedOutput": "3", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000006",
+    "title": "FizzBuzz Sederhana",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Kembalikan array string dari 1 sampai N. Untuk kelipatan 3 tulis 'Fizz', untuk kelipatan 5 tulis 'Buzz', untuk kelipatan keduanya tulis 'FizzBuzz', selainnya tulis angkanya sebagai string.\n\nContoh: fizzBuzz(5) → ['1','2','Fizz','4','Buzz']\nContoh: fizzBuzz(3) → ['1','2','Fizz']",
+    "starterCode": "function fizzBuzz(n) {\n  let hasil = [];\n  for (let i = 1; i <= n; i++) {\n    // Tentukan string yang tepat untuk i\n  }\n  return hasil;\n}",
+    "thinkingGuide": "Urutan pengecekan penting: cek FizzBuzz dulu (kelipatan 3 DAN 5), baru Fizz, baru Buzz, baru angka biasa.\nGunakan if-else if-else di dalam loop.\nKelipatan 3: i % 3 === 0, kelipatan 5: i % 5 === 0.\nGunakan hasil.push() untuk menambahkan string ke array.",
+    "hints": [
+      "Cek kelipatan 15 (FizzBuzz) terlebih dahulu sebelum cek kelipatan 3 atau 5 secara terpisah.",
+      "Gunakan if-else if-else: if (i%15===0) 'FizzBuzz', else if (i%3===0) 'Fizz', else if (i%5===0) 'Buzz', else String(i).",
+      "Jangan lupa push hasilnya ke array: hasil.push(...)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000005",
+    "testCases": [
+      { "input": "5", "expectedOutput": "[\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\"]", "isHidden": false },
+      { "input": "3", "expectedOutput": "[\"1\",\"2\",\"Fizz\"]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[\"1\"]", "isHidden": false },
+      { "input": "15", "expectedOutput": "[\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\",\"Fizz\",\"7\",\"8\",\"Fizz\",\"Buzz\",\"11\",\"Fizz\",\"13\",\"14\",\"FizzBuzz\"]", "isHidden": true },
+      { "input": "6", "expectedOutput": "[\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\",\"Fizz\"]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000007",
+    "title": "While Loop — Tebak Batas",
+    "category": "loop",
+    "difficulty": "easy",
+    "description": "Diberikan bilangan bulat positif N, gunakan while loop untuk menghitung berapa kali kita bisa membagi N dengan 2 (pembagian integer) sebelum hasilnya menjadi 0.\n\nContoh: hitungBagi2(8) → 4\nContoh: hitungBagi2(1) → 1\nContoh: hitungBagi2(16) → 5",
+    "starterCode": "function hitungBagi2(n) {\n  let langkah = 0;\n  // Gunakan while loop\n  // Selama n > 0, bagi n dengan 2 dan tambah langkah\n  return langkah;\n}",
+    "thinkingGuide": "While loop terus berjalan selama kondisinya true.\nStruktur: while (kondisi) { ... }\nDi sini kondisinya adalah n > 0.\nSetiap iterasi: bagi n dengan 2 (gunakan Math.floor(n/2)), dan tambah langkah.",
+    "hints": [
+      "While loop: while (n > 0) { ... } — terus berjalan selama n masih lebih dari 0.",
+      "Di dalam loop, bagi n dengan 2 menggunakan Math.floor(n / 2) dan simpan kembali ke n.",
+      "Tambahkan langkah++ setiap iterasi, lalu return langkah."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000006",
+    "testCases": [
+      { "input": "8", "expectedOutput": "4", "isHidden": false },
+      { "input": "1", "expectedOutput": "1", "isHidden": false },
+      { "input": "16", "expectedOutput": "5", "isHidden": false },
+      { "input": "2", "expectedOutput": "2", "isHidden": true },
+      { "input": "100", "expectedOutput": "7", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000008",
+    "title": "Bilangan Prima",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan bilangan bulat positif N, kembalikan true jika N adalah bilangan prima, false jika bukan. Bilangan prima adalah bilangan yang hanya habis dibagi 1 dan dirinya sendiri.\n\nContoh: isPrima(7) → true\nContoh: isPrima(4) → false\nContoh: isPrima(2) → true\nContoh: isPrima(1) → false",
+    "starterCode": "function isPrima(n) {\n  if (n < 2) return false;\n  // Cek apakah ada pembagi selain 1 dan n\n  return true;\n}",
+    "thinkingGuide": "Untuk mengecek bilangan prima, kita perlu memastikan tidak ada bilangan antara 2 dan n-1 yang bisa membagi n. Optimasi: kita hanya perlu mengecek sampai akar kuadrat dari n (Math.sqrt(n)), karena jika n punya pembagi lebih besar dari akar n, pasti ada pembagi yang lebih kecil dari akar n juga. Jika ditemukan pembagi, langsung return false.",
+    "hints": [
+      "Loop dari i=2 sampai i*i <= n (atau i <= Math.sqrt(n)) untuk mengecek pembagi.",
+      "Di dalam loop, jika n % i === 0 berarti n punya pembagi selain 1 dan dirinya sendiri — return false.",
+      "Jika loop selesai tanpa menemukan pembagi, berarti n adalah prima — return true."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000007",
+    "testCases": [
+      { "input": "7", "expectedOutput": "true", "isHidden": false },
+      { "input": "4", "expectedOutput": "false", "isHidden": false },
+      { "input": "2", "expectedOutput": "true", "isHidden": false },
+      { "input": "1", "expectedOutput": "false", "isHidden": true },
+      { "input": "97", "expectedOutput": "true", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000009",
+    "title": "Deret Fibonacci",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan bilangan bulat N, kembalikan array berisi N bilangan pertama dari deret Fibonacci. Deret Fibonacci dimulai dengan 0 dan 1, lalu setiap bilangan berikutnya adalah jumlah dua bilangan sebelumnya.\n\nContoh: fibonacci(5) → [0,1,1,2,3]\nContoh: fibonacci(1) → [0]\nContoh: fibonacci(7) → [0,1,1,2,3,5,8]",
+    "starterCode": "function fibonacci(n) {\n  if (n <= 0) return [];\n  let hasil = [0];\n  // Tambahkan bilangan Fibonacci berikutnya\n  return hasil;\n}",
+    "thinkingGuide": "Deret Fibonacci: F(0)=0, F(1)=1, F(n)=F(n-1)+F(n-2). Untuk membangun deret secara iteratif, simpan dua nilai terakhir. Mulai dengan array [0], lalu jika n >= 2 tambahkan 1. Untuk setiap bilangan berikutnya, jumlahkan dua elemen terakhir array dan push hasilnya. Ini lebih efisien daripada rekursi karena tidak ada perhitungan berulang.",
+    "hints": [
+      "Mulai dengan hasil = [0]. Jika n >= 2, push 1 ke hasil.",
+      "Untuk i dari 2 sampai n-1: hitung hasil[i] = hasil[i-1] + hasil[i-2], lalu push ke array.",
+      "Gunakan hasil[hasil.length-1] + hasil[hasil.length-2] untuk mendapatkan dua elemen terakhir."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000008",
+    "testCases": [
+      { "input": "5", "expectedOutput": "[0,1,1,2,3]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[0]", "isHidden": false },
+      { "input": "7", "expectedOutput": "[0,1,1,2,3,5,8]", "isHidden": false },
+      { "input": "2", "expectedOutput": "[0,1]", "isHidden": true },
+      { "input": "10", "expectedOutput": "[0,1,1,2,3,5,8,13,21,34]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000010",
+    "title": "Tabel Perkalian",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan bilangan N, kembalikan array 2D (matriks) berisi tabel perkalian N x N. Elemen di baris i kolom j adalah (i+1) * (j+1).\n\nContoh: tabelPerkalian(3) → [[1,2,3],[2,4,6],[3,6,9]]\nContoh: tabelPerkalian(2) → [[1,2],[2,4]]",
+    "starterCode": "function tabelPerkalian(n) {\n  let tabel = [];\n  // Gunakan nested loop untuk mengisi tabel\n  return tabel;\n}",
+    "thinkingGuide": "Nested loop (loop bersarang) digunakan untuk mengisi matriks 2D. Loop luar mengiterasi baris (i dari 0 sampai n-1), loop dalam mengiterasi kolom (j dari 0 sampai n-1). Untuk setiap baris, buat array baru, isi dengan hasil perkalian (i+1)*(j+1), lalu push baris tersebut ke tabel.",
+    "hints": [
+      "Gunakan dua loop bersarang: loop luar untuk baris, loop dalam untuk kolom.",
+      "Untuk setiap baris i, buat array kosong baris = [], lalu isi dengan (i+1)*(j+1) untuk setiap j.",
+      "Setelah loop dalam selesai, push baris ke tabel: tabel.push(baris)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000009",
+    "testCases": [
+      { "input": "3", "expectedOutput": "[[1,2,3],[2,4,6],[3,6,9]]", "isHidden": false },
+      { "input": "2", "expectedOutput": "[[1,2],[2,4]]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[[1]]", "isHidden": false },
+      { "input": "4", "expectedOutput": "[[1,2,3,4],[2,4,6,8],[3,6,9,12],[4,8,12,16]]", "isHidden": true },
+      { "input": "5", "expectedOutput": "[[1,2,3,4,5],[2,4,6,8,10],[3,6,9,12,15],[4,8,12,16,20],[5,10,15,20,25]]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000011",
+    "title": "Pangkat Bilangan",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan bilangan basis dan eksponen (keduanya bilangan bulat non-negatif), kembalikan hasil basis pangkat eksponen tanpa menggunakan Math.pow() atau operator **.\n\nContoh: pangkat(2, 10) → 1024\nContoh: pangkat(3, 4) → 81\nContoh: pangkat(5, 0) → 1",
+    "starterCode": "function pangkat(basis, eksponen) {\n  let hasil = 1;\n  // Kalikan basis sebanyak eksponen kali\n  return hasil;\n}",
+    "thinkingGuide": "Pangkat adalah perkalian berulang: 2^10 = 2*2*2*2*2*2*2*2*2*2. Gunakan loop yang berjalan sebanyak eksponen kali, dan setiap iterasi kalikan hasil dengan basis. Kasus khusus: basis^0 = 1 (loop tidak berjalan sama sekali, hasil tetap 1).",
+    "hints": [
+      "Pangkat basis^eksponen sama dengan mengalikan basis sebanyak eksponen kali.",
+      "Mulai dengan hasil = 1, lalu loop sebanyak eksponen kali: for (let i = 0; i < eksponen; i++)",
+      "Di dalam loop, kalikan hasil dengan basis: hasil *= basis."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000010",
+    "testCases": [
+      { "input": "2, 10", "expectedOutput": "1024", "isHidden": false },
+      { "input": "3, 4", "expectedOutput": "81", "isHidden": false },
+      { "input": "5, 0", "expectedOutput": "1", "isHidden": false },
+      { "input": "7, 3", "expectedOutput": "343", "isHidden": true },
+      { "input": "1, 100", "expectedOutput": "1", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000012",
+    "title": "Cari Semua Faktor",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan bilangan bulat positif N, kembalikan array berisi semua faktor (pembagi) dari N dalam urutan ascending.\n\nContoh: cariFaktor(12) → [1,2,3,4,6,12]\nContoh: cariFaktor(7) → [1,7]\nContoh: cariFaktor(1) → [1]",
+    "starterCode": "function cariFaktor(n) {\n  let faktor = [];\n  // Loop dari 1 sampai n, cek apakah i adalah faktor dari n\n  return faktor;\n}",
+    "thinkingGuide": "Faktor dari N adalah bilangan yang habis membagi N (N % i === 0). Loop dari 1 sampai N, dan untuk setiap i yang memenuhi kondisi tersebut, tambahkan ke array faktor. Optimasi: loop hanya sampai akar N, lalu tambahkan pasangan faktornya — tapi untuk soal ini loop sampai N sudah cukup.",
+    "hints": [
+      "Loop dari i=1 sampai i<=n, cek apakah n % i === 0.",
+      "Jika n % i === 0, berarti i adalah faktor dari n — tambahkan ke array faktor.",
+      "Kembalikan array faktor setelah loop selesai — sudah terurut karena loop dari kecil ke besar."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000011",
+    "testCases": [
+      { "input": "12", "expectedOutput": "[1,2,3,4,6,12]", "isHidden": false },
+      { "input": "7", "expectedOutput": "[1,7]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "16", "expectedOutput": "[1,2,4,8,16]", "isHidden": true },
+      { "input": "100", "expectedOutput": "[1,2,4,5,10,20,25,50,100]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000013",
+    "title": "Pola Segitiga Bintang",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan bilangan N, kembalikan array string yang membentuk pola segitiga bintang dengan N baris. Baris ke-i berisi i bintang.\n\nContoh: segitigaBintang(4) → ['*','**','***','****']\nContoh: segitigaBintang(1) → ['*']\nContoh: segitigaBintang(3) → ['*','**','***']",
+    "starterCode": "function segitigaBintang(n) {\n  let pola = [];\n  // Loop dari 1 sampai n, buat string bintang untuk setiap baris\n  return pola;\n}",
+    "thinkingGuide": "Untuk membuat pola segitiga, kita perlu nested loop atau cara lain untuk mengulang karakter. Loop luar berjalan dari 1 sampai n (nomor baris). Untuk setiap baris i, kita perlu string berisi i bintang. Cara membuat string berulang: gunakan ''.repeat(i) atau loop dalam yang push '*' sebanyak i kali lalu join.",
+    "hints": [
+      "Loop dari i=1 sampai i<=n untuk setiap baris.",
+      "Untuk baris ke-i, buat string berisi i bintang menggunakan '*'.repeat(i).",
+      "Push string tersebut ke array pola: pola.push('*'.repeat(i))."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000012",
+    "testCases": [
+      { "input": "4", "expectedOutput": "[\"*\",\"**\",\"***\",\"****\"]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[\"*\"]", "isHidden": false },
+      { "input": "3", "expectedOutput": "[\"*\",\"**\",\"***\"]", "isHidden": false },
+      { "input": "2", "expectedOutput": "[\"*\",\"**\"]", "isHidden": true },
+      { "input": "5", "expectedOutput": "[\"*\",\"**\",\"***\",\"****\",\"*****\"]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000014",
+    "title": "Akumulasi Kondisional",
+    "category": "loop",
+    "difficulty": "medium",
+    "description": "Diberikan array angka dan sebuah threshold, kembalikan jumlah semua angka yang nilainya di atas threshold. Jika tidak ada angka yang memenuhi kondisi, kembalikan 0.\n\nContoh: jumlahDiAtas([1,5,3,8,2,9], 4) → 22  (5+8+9)\nContoh: jumlahDiAtas([1,2,3], 10) → 0\nContoh: jumlahDiAtas([5,10,15], 4) → 30",
+    "starterCode": "function jumlahDiAtas(arr, threshold) {\n  let total = 0;\n  // Loop dan jumlahkan hanya angka yang > threshold\n  return total;\n}",
+    "thinkingGuide": "Ini adalah kombinasi loop dengan kondisi (filter + reduce). Loop melalui setiap elemen array, dan hanya tambahkan ke total jika elemen tersebut lebih besar dari threshold. Gunakan if di dalam loop untuk mengecek kondisi sebelum menambahkan ke total.",
+    "hints": [
+      "Loop melalui setiap elemen array dengan for loop atau forEach.",
+      "Di dalam loop, gunakan if (arr[i] > threshold) sebelum menambahkan ke total.",
+      "Jika kondisi terpenuhi, tambahkan: total += arr[i]."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000013",
+    "testCases": [
+      { "input": "[1,5,3,8,2,9], 4", "expectedOutput": "22", "isHidden": false },
+      { "input": "[1,2,3], 10", "expectedOutput": "0", "isHidden": false },
+      { "input": "[5,10,15], 4", "expectedOutput": "30", "isHidden": false },
+      { "input": "[], 5", "expectedOutput": "0", "isHidden": true },
+      { "input": "[10,10,10], 9", "expectedOutput": "30", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000015",
+    "title": "Bubble Sort",
+    "category": "loop",
+    "difficulty": "hard",
+    "description": "Implementasikan algoritma Bubble Sort untuk mengurutkan array angka secara ascending. Bubble Sort bekerja dengan membandingkan pasangan elemen bersebelahan dan menukarnya jika urutannya salah, diulang sampai array terurut.\n\nContoh: bubbleSort([64,34,25,12,22,11,90]) → [11,12,22,25,34,64,90]\nContoh: bubbleSort([5,1,4,2,8]) → [1,2,4,5,8]\nContoh: bubbleSort([1]) → [1]",
+    "starterCode": "function bubbleSort(arr) {\n  let hasil = [...arr]; // Salin array agar tidak mengubah aslinya\n  // Implementasikan bubble sort dengan nested loop\n  return hasil;\n}",
+    "thinkingGuide": "Bubble Sort menggunakan dua loop bersarang. Loop luar berjalan n-1 kali (setiap pass memastikan elemen terbesar 'menggelembung' ke posisi akhir). Loop dalam membandingkan arr[j] dan arr[j+1] — jika arr[j] > arr[j+1], tukar keduanya. Optimasi: setelah pass ke-i, i elemen terakhir sudah terurut, jadi loop dalam bisa berhenti lebih awal.",
+    "hints": [
+      "Gunakan dua loop bersarang: loop luar untuk jumlah pass, loop dalam untuk perbandingan.",
+      "Di loop dalam, bandingkan hasil[j] dan hasil[j+1]. Jika hasil[j] > hasil[j+1], tukar keduanya menggunakan variabel temp.",
+      "Loop dalam berjalan dari j=0 sampai j < hasil.length - 1 - i (elemen terakhir sudah terurut setelah setiap pass)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000014",
+    "testCases": [
+      { "input": "[64,34,25,12,22,11,90]", "expectedOutput": "[11,12,22,25,34,64,90]", "isHidden": false },
+      { "input": "[5,1,4,2,8]", "expectedOutput": "[1,2,4,5,8]", "isHidden": false },
+      { "input": "[1]", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "[3,2,1]", "expectedOutput": "[1,2,3]", "isHidden": true },
+      { "input": "[1,2,3,4,5]", "expectedOutput": "[1,2,3,4,5]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000016",
+    "title": "Sieve of Eratosthenes",
+    "category": "loop",
+    "difficulty": "hard",
+    "description": "Implementasikan Sieve of Eratosthenes untuk menemukan semua bilangan prima sampai N. Algoritma ini menandai kelipatan setiap bilangan prima sebagai bukan prima.\n\nContoh: sieveEratosthenes(10) → [2,3,5,7]\nContoh: sieveEratosthenes(20) → [2,3,5,7,11,13,17,19]\nContoh: sieveEratosthenes(2) → [2]",
+    "starterCode": "function sieveEratosthenes(n) {\n  // Buat array boolean, true berarti prima\n  let isPrima = new Array(n + 1).fill(true);\n  isPrima[0] = false;\n  isPrima[1] = false;\n  // Tandai kelipatan setiap bilangan prima\n  return [];\n}",
+    "thinkingGuide": "Sieve bekerja dengan array boolean isPrima[0..n], awalnya semua true kecuali 0 dan 1. Untuk setiap i dari 2 sampai sqrt(n): jika isPrima[i] masih true, tandai semua kelipatan i (mulai dari i*i) sebagai false. Setelah selesai, kumpulkan semua indeks yang masih true — itulah bilangan prima.",
+    "hints": [
+      "Buat array isPrima berisi true untuk semua indeks, set isPrima[0] = isPrima[1] = false.",
+      "Loop i dari 2 sampai Math.sqrt(n). Jika isPrima[i] true, loop j dari i*i sampai n dengan langkah i, set isPrima[j] = false.",
+      "Setelah selesai, kumpulkan semua indeks i di mana isPrima[i] === true ke dalam array hasil."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000015",
+    "testCases": [
+      { "input": "10", "expectedOutput": "[2,3,5,7]", "isHidden": false },
+      { "input": "20", "expectedOutput": "[2,3,5,7,11,13,17,19]", "isHidden": false },
+      { "input": "2", "expectedOutput": "[2]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[]", "isHidden": true },
+      { "input": "30", "expectedOutput": "[2,3,5,7,11,13,17,19,23,29]", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000017",
+    "title": "Konversi Basis Bilangan",
+    "category": "loop",
+    "difficulty": "hard",
+    "description": "Diberikan bilangan desimal (basis 10) dan target basis (2-16), kembalikan representasi string bilangan tersebut dalam basis target.\n\nContoh: konversiBasis(10, 2) → '1010'\nContoh: konversiBasis(255, 16) → 'ff'\nContoh: konversiBasis(8, 8) → '10'",
+    "starterCode": "function konversiBasis(n, basis) {\n  if (n === 0) return '0';\n  const digit = '0123456789abcdef';\n  let hasil = '';\n  // Gunakan while loop: bagi n dengan basis, ambil sisa\n  return hasil;\n}",
+    "thinkingGuide": "Konversi basis menggunakan algoritma pembagian berulang. Selama n > 0: ambil sisa n % basis (ini adalah digit paling kanan), tambahkan ke depan string hasil, lalu bagi n dengan basis (Math.floor). Gunakan string digit '0123456789abcdef' untuk memetakan nilai 0-15 ke karakter yang sesuai.",
+    "hints": [
+      "Gunakan while loop: selama n > 0, ambil sisa n % basis sebagai digit berikutnya.",
+      "Petakan digit ke karakter menggunakan string '0123456789abcdef': digit[n % basis].",
+      "Tambahkan karakter ke depan hasil (bukan belakang): hasil = digit[n % basis] + hasil. Lalu n = Math.floor(n / basis)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000016",
+    "testCases": [
+      { "input": "10, 2", "expectedOutput": "\"1010\"", "isHidden": false },
+      { "input": "255, 16", "expectedOutput": "\"ff\"", "isHidden": false },
+      { "input": "8, 8", "expectedOutput": "\"10\"", "isHidden": false },
+      { "input": "0, 2", "expectedOutput": "\"0\"", "isHidden": true },
+      { "input": "100, 2", "expectedOutput": "\"1100100\"", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000018",
+    "title": "Jumlah Digit Berulang",
+    "category": "loop",
+    "difficulty": "hard",
+    "description": "Diberikan bilangan bulat positif N, hitung jumlah digit-digitnya secara berulang sampai hasilnya menjadi satu digit. Kembalikan jumlah langkah yang diperlukan dan nilai akhirnya.\n\nContoh: jumlahDigitBerulang(9875) → { langkah: 2, nilai: 2 }  (9875→29→11→2)\nContoh: jumlahDigitBerulang(5) → { langkah: 0, nilai: 5 }\nContoh: jumlahDigitBerulang(19) → { langkah: 2, nilai: 1 }  (19→10→1)",
+    "starterCode": "function jumlahDigitBerulang(n) {\n  let langkah = 0;\n  // Selama n >= 10, jumlahkan digit-digitnya\n  return { langkah, nilai: n };\n}",
+    "thinkingGuide": "Gunakan while loop yang berjalan selama n >= 10 (masih lebih dari satu digit). Di setiap iterasi: (1) hitung jumlah digit n dengan cara mengubah n ke string, split, map ke angka, lalu reduce dengan penjumlahan, (2) tambah langkah, (3) set n ke jumlah digit tersebut. Setelah loop, n adalah nilai satu digit.",
+    "hints": [
+      "While loop: while (n >= 10) — terus selama n masih lebih dari satu digit.",
+      "Hitung jumlah digit: String(n).split('').reduce((sum, d) => sum + Number(d), 0).",
+      "Setiap iterasi: n = jumlah digit n, langkah++. Kembalikan { langkah, nilai: n }."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000017",
+    "testCases": [
+      { "input": "9875", "expectedOutput": "{\"langkah\":3,\"nilai\":2}", "isHidden": false },
+      { "input": "5", "expectedOutput": "{\"langkah\":0,\"nilai\":5}", "isHidden": false },
+      { "input": "19", "expectedOutput": "{\"langkah\":2,\"nilai\":1}", "isHidden": false },
+      { "input": "99", "expectedOutput": "{\"langkah\":2,\"nilai\":9}", "isHidden": true },
+      { "input": "1", "expectedOutput": "{\"langkah\":0,\"nilai\":1}", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000019",
+    "title": "Pencarian Biner",
+    "category": "loop",
+    "difficulty": "hard",
+    "description": "Implementasikan algoritma Binary Search untuk mencari nilai target dalam array yang sudah terurut ascending. Kembalikan indeks target jika ditemukan, atau -1 jika tidak ada.\n\nContoh: binarySearch([1,3,5,7,9,11,13], 7) → 3\nContoh: binarySearch([1,3,5,7,9], 6) → -1\nContoh: binarySearch([1], 1) → 0",
+    "starterCode": "function binarySearch(arr, target) {\n  let kiri = 0;\n  let kanan = arr.length - 1;\n  // Gunakan while loop dengan dua pointer\n  return -1;\n}",
+    "thinkingGuide": "Binary Search membagi ruang pencarian menjadi dua setiap iterasi. Pertahankan dua pointer: kiri (awal) dan kanan (akhir). Hitung tengah = Math.floor((kiri + kanan) / 2). Jika arr[tengah] === target, kembalikan tengah. Jika arr[tengah] < target, geser kiri ke tengah+1. Jika arr[tengah] > target, geser kanan ke tengah-1. Ulangi sampai kiri > kanan.",
+    "hints": [
+      "Gunakan dua pointer kiri=0 dan kanan=arr.length-1. Loop selama kiri <= kanan.",
+      "Hitung tengah = Math.floor((kiri + kanan) / 2). Bandingkan arr[tengah] dengan target.",
+      "Jika sama return tengah. Jika arr[tengah] < target, kiri = tengah+1. Jika lebih besar, kanan = tengah-1."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000018",
+    "testCases": [
+      { "input": "[1,3,5,7,9,11,13], 7", "expectedOutput": "3", "isHidden": false },
+      { "input": "[1,3,5,7,9], 6", "expectedOutput": "-1", "isHidden": false },
+      { "input": "[1], 1", "expectedOutput": "0", "isHidden": false },
+      { "input": "[2,4,6,8,10], 10", "expectedOutput": "4", "isHidden": true },
+      { "input": "[1,2,3,4,5], 0", "expectedOutput": "-1", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0001-000000000020",
+    "title": "Sequence Collatz",
+    "category": "loop",
+    "difficulty": "hard",
+    "description": "Diberikan bilangan bulat positif N, kembalikan sequence Collatz lengkap mulai dari N sampai 1. Aturan: jika N genap, N = N/2; jika N ganjil, N = 3*N + 1.\n\nContoh: collatz(6) → [6,3,10,5,16,8,4,2,1]\nContoh: collatz(1) → [1]\nContoh: collatz(4) → [4,2,1]",
+    "starterCode": "function collatz(n) {\n  let sequence = [n];\n  // Gunakan while loop sampai n === 1\n  return sequence;\n}",
+    "thinkingGuide": "Sequence Collatz menggunakan while loop yang berjalan sampai n mencapai 1. Di setiap iterasi: cek apakah n genap atau ganjil. Jika genap: n = n / 2. Jika ganjil: n = 3 * n + 1. Push nilai n yang baru ke sequence. Conjecture Collatz menyatakan semua bilangan positif akhirnya mencapai 1 (belum terbukti secara matematis untuk semua kasus).",
+    "hints": [
+      "Mulai dengan sequence = [n]. Gunakan while (n !== 1) untuk terus menghasilkan nilai berikutnya.",
+      "Di dalam loop: jika n % 2 === 0, n = n / 2. Jika tidak, n = 3 * n + 1.",
+      "Push nilai n yang baru ke sequence setiap iterasi: sequence.push(n)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0001-000000000019",
+    "testCases": [
+      { "input": "6", "expectedOutput": "[6,3,10,5,16,8,4,2,1]", "isHidden": false },
+      { "input": "1", "expectedOutput": "[1]", "isHidden": false },
+      { "input": "4", "expectedOutput": "[4,2,1]", "isHidden": false },
+      { "input": "2", "expectedOutput": "[2,1]", "isHidden": true },
+      { "input": "27", "expectedOutput": "[27,82,41,124,62,31,94,47,142,71,214,107,322,161,484,242,121,364,182,91,274,137,412,206,103,310,155,466,233,700,350,175,526,263,790,395,1186,593,1780,890,445,1336,668,334,167,502,251,754,377,1132,566,283,850,425,1276,638,319,958,479,1438,719,2158,1079,3238,1619,4858,2429,7288,3644,1822,911,2734,1367,4102,2051,6154,3077,9232,4616,2308,1154,577,1732,866,433,1300,650,325,976,488,244,122,61,184,92,46,23,70,35,106,53,160,80,40,20,10,5,16,8,4,2,1]", "isHidden": true }
+    ]
+  }
+]

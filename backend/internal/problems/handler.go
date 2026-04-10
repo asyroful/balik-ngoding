@@ -35,6 +35,18 @@ func (h *Handler) GetProblems(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": problems})
 }
 
+// GetSummary handles GET /problems/summary
+func (h *Handler) GetSummary(c *gin.Context) {
+	summary, err := h.service.FindSummary()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Gagal mengambil ringkasan soal",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": summary})
+}
+
 // GetProblemByID handles GET /problems/:id
 func (h *Handler) GetProblemByID(c *gin.Context) {
 	id := c.Param("id")

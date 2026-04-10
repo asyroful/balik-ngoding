@@ -1,8 +1,9 @@
 import NavLink from '@/components/NavLink';
 
 const stats = [
-  { value: '100+', label: 'Soal Tersedia', sub: 'Terus bertambah' },
+  { value: '80', label: 'Soal Tersedia', sub: 'Terus bertambah' },
   { value: '4', label: 'Kategori', sub: 'Loop, String, Array, SQL' },
+  { value: '3x', label: 'Hint Per Soal', sub: 'Makin spesifik' },
   { value: '100%', label: 'Gratis', sub: 'Tanpa daftar' },
 ]
 
@@ -33,6 +34,33 @@ const features = [
     ),
     title: 'Berbagai Topik',
     desc: 'Dari loop sederhana sampai manipulasi array — latih semua aspek logika pemrograman.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      </svg>
+    ),
+    title: 'Thinking Guide',
+    desc: 'Panduan cara berpikir yang bisa dibuka opsional — membantu memahami pendekatan tanpa langsung spoiler solusi.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+      </svg>
+    ),
+    title: 'Hint Bertingkat',
+    desc: 'Tiga level hint dari umum ke spesifik. Buka satu per satu sesuai seberapa banyak bantuan yang kamu butuhkan.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+      </svg>
+    ),
+    title: 'Jalur Belajar Terstruktur',
+    desc: 'Soal disusun dengan prerequisite chain — dari warm-up syntax dasar sampai soal yang lebih kompleks.',
   },
 ]
 
@@ -143,11 +171,11 @@ export default function Home() {
                 Platform Latihan Coding · Gratis
               </span>
               <h1 className="text-5xl sm:text-6xl font-extrabold leading-[1.08] tracking-tight text-gray-900 mb-5">
-                Asah logika,<br />
-                <span className="text-indigo-600">balik ngoding.</span>
+                Balik Ngoding<br />
+                <span className="text-indigo-600">Belajar sampai beneran paham.</span>
               </h1>
               <p className="text-lg text-gray-500 leading-relaxed mb-8 max-w-lg">
-                Latih logika dasar dengan cara yang simpel.
+                Bukan sekadar latihan soal ada panduan cara berpikir, hint bertahap, dan jalur belajar yang terstruktur.
               </p>
               <div className="flex items-center gap-3 flex-wrap">
                 <NavLink
@@ -168,40 +196,44 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: code mockup */}
+            {/* Right: guided learning mockup */}
             <div className="hidden lg:block">
               <div className="relative">
-                {/* Editor window */}
-                <div className="rounded-2xl border border-gray-200 bg-gray-900 shadow-2xl shadow-indigo-100/50 overflow-hidden">
-                  {/* Title bar */}
-                  <div className="flex items-center gap-1.5 px-4 py-3 bg-gray-800 border-b border-gray-700">
-                    <span className="w-3 h-3 rounded-full bg-red-400" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <span className="w-3 h-3 rounded-full bg-green-400" />
-                    <span className="ml-3 text-xs text-gray-400 font-mono">solution.js</span>
+                <div className="rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-indigo-100/50 overflow-hidden">
+                  {/* ThinkingGuide panel - open */}
+                  <div className="border-b border-indigo-100 bg-indigo-50">
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <span className="flex items-center gap-2 text-sm font-semibold text-indigo-700">
+                        <span>💡</span>
+                        <span>Cara Berpikir</span>
+                      </span>
+                      <span className="text-xs text-indigo-400">▲ Tutup</span>
+                    </div>
+                    <div className="px-4 pb-3 border-t border-indigo-100">
+                      <p className="text-sm text-indigo-900 whitespace-pre-wrap">Mulai dengan memikirkan kondisi dasar:{'\n'}apa yang terjadi jika array kosong?{'\n'}Lalu iterasi satu per satu...</p>
+                    </div>
                   </div>
-                  {/* Code */}
-                  <div className="px-5 py-5 font-mono text-sm leading-relaxed">
-                    <div className="flex gap-4">
-                      <div className="text-gray-600 select-none text-right" style={{minWidth:'1.5rem'}}>
-                        {[1,2,3,4,5,6,7,8].map(n => <div key={n}>{n}</div>)}
-                      </div>
-                      <div>
-                        <div><span className="text-purple-400">function</span> <span className="text-yellow-300">sumArray</span><span className="text-gray-300">(arr) {'{'}</span></div>
-                        <div className="pl-4"><span className="text-purple-400">let</span> <span className="text-blue-300">total</span> <span className="text-gray-300">= </span><span className="text-orange-300">0</span><span className="text-gray-300">;</span></div>
-                        <div className="pl-4"><span className="text-purple-400">for</span> <span className="text-gray-300">(</span><span className="text-purple-400">const</span> <span className="text-blue-300">n</span> <span className="text-purple-400">of</span> <span className="text-blue-300">arr</span><span className="text-gray-300">) {'{'}</span></div>
-                        <div className="pl-8"><span className="text-blue-300">total</span> <span className="text-gray-300">+= </span><span className="text-blue-300">n</span><span className="text-gray-300">;</span></div>
-                        <div className="pl-4"><span className="text-gray-300">{'}'}</span></div>
-                        <div className="pl-4"><span className="text-purple-400">return</span> <span className="text-blue-300">total</span><span className="text-gray-300">;</span></div>
-                        <div><span className="text-gray-300">{'}'}</span></div>
-                        <div className="mt-1 text-gray-600">{'// ✓ 3/3 test cases passed'}</div>
+                  {/* HintPanel */}
+                  <div className="bg-amber-50">
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <span className="flex items-center gap-2 text-sm font-semibold text-amber-700">
+                        <span>🔍</span>
+                        <span>Hint</span>
+                      </span>
+                      <span className="text-xs text-amber-500 font-medium">Hint 1 dari 3</span>
+                    </div>
+                    <div className="px-4 pb-3 border-t border-amber-100">
+                      <p className="text-sm text-amber-900">✓ Coba gunakan for...of untuk iterasi</p>
+                    </div>
+                    <div className="px-4 pb-3">
+                      <div className="w-full rounded-lg bg-amber-400 text-amber-900 text-sm font-semibold py-2 text-center">
+                        Buka Hint Berikutnya →
                       </div>
                     </div>
                   </div>
                 </div>
-
                 {/* Result badge floating */}
-                <div className="absolute -bottom-4 -right-4 flex items-center gap-2 rounded-xl bg-white border border-green-200 shadow-lg px-4 py-2.5">
+                <div className="absolute -bottom-6 -right-6 flex items-center gap-2 rounded-xl bg-white border border-green-200 shadow-lg px-4 py-2.5">
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-green-100">
                     <svg className="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -212,13 +244,12 @@ export default function Home() {
                     <p className="text-[10px] text-gray-400">3 / 3 passed</p>
                   </div>
                 </div>
-
                 {/* Floating tag */}
-                <div className="absolute -top-4 -left-4 flex items-center gap-1.5 rounded-xl bg-indigo-600 shadow-lg px-3 py-2">
+                <div className="absolute -top-5 -left-6 flex items-center gap-1.5 rounded-xl bg-indigo-600 shadow-lg px-3 py-2">
                   <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span className="text-xs font-semibold text-white">Langsung di browser</span>
+                  <span className="text-xs font-semibold text-white">⚡ Panduan lengkap</span>
                 </div>
               </div>
             </div>
@@ -230,7 +261,7 @@ export default function Home() {
       <section className="border-y border-gray-200 bg-white">
         <div className="mx-auto max-w-6xl px-6 py-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-4 gap-8">
               {stats.map((s) => (
                 <div key={s.label} className="group">
                   <p className="text-3xl font-extrabold text-indigo-600">{s.value}</p>
@@ -245,6 +276,54 @@ export default function Home() {
               </svg>
               <p className="text-sm text-indigo-700">Mulai latihan <span className="font-semibold">langsung</span> tanpa daftar</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cara Kerja */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Cara Kerja</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">4 langkah menuju pemahaman nyata.</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { number: '①', title: 'Mulai dari Warm-up', desc: 'Soal dasar sebagai entry point untuk refresh syntax sebelum masuk ke soal yang lebih kompleks.', color: 'bg-amber-50 border-amber-200 text-amber-600' },
+            { number: '②', title: 'Buka Hint Bertahap', desc: 'Hint 1 paling umum, hint 3 paling spesifik. Buka satu per satu sesuai kebutuhan.', color: 'bg-blue-50 border-blue-200 text-blue-600' },
+            { number: '③', title: 'Baca Cara Berpikir', desc: 'Breakdown langkah pendekatan yang bisa dibuka opsional — tanpa langsung spoiler solusi.', color: 'bg-indigo-50 border-indigo-200 text-indigo-600' },
+            { number: '④', title: 'Track Progress', desc: 'Badge selesai per soal tersimpan di browser. Lanjutkan kapan saja tanpa perlu login.', color: 'bg-green-50 border-green-200 text-green-600' },
+          ].map((step) => (
+            <div key={step.number} className={`rounded-2xl border p-5 ${step.color}`}>
+              <div className="text-2xl font-bold mb-3">{step.number}</div>
+              <h3 className="font-semibold text-gray-900 mb-1.5 text-sm">{step.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Learning Path Preview */}
+      <section className="border-y border-gray-200 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Jalur Belajar</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8">Dari dasar ke kompleks, step by step.</h2>
+          <div className="flex flex-col gap-4">
+            {[
+              { category: 'Loop', color: 'bg-blue-100 text-blue-700', problems: ['For Loop Dasar', 'FizzBuzz', 'Bilangan Prima'] },
+              { category: 'String', color: 'bg-purple-100 text-purple-700', problems: ['String Dasar', 'Balik String', 'Palindrom'] },
+              { category: 'Array', color: 'bg-orange-100 text-orange-700', problems: ['Array Dasar', 'Jumlah Array', 'Cari Duplikat'] },
+            ].map((path) => (
+              <div key={path.category} className="flex items-center gap-3 flex-wrap">
+                <span className={`rounded-lg px-2.5 py-1 text-xs font-semibold w-16 text-center ${path.color}`}>{path.category}</span>
+                {path.problems.map((problem, i) => (
+                  <div key={problem} className="flex items-center gap-2">
+                    <span className={`rounded-lg border px-3 py-1.5 text-xs font-medium ${i === 0 ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-white border-gray-200 text-gray-700'}`}>
+                      {i === 0 && <span className="mr-1 text-[10px] font-bold text-amber-600">Warm-up</span>}
+                      {problem}
+                    </span>
+                    {i < path.problems.length - 1 && <span className="text-gray-300 text-sm">→</span>}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -322,7 +401,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-gray-900 mb-10 max-w-sm leading-snug">
             Semua yang kamu butuhkan untuk latihan.
           </h2>
-          <div className="grid gap-5 sm:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((f) => (
               <div
                 key={f.title}
@@ -345,8 +424,8 @@ export default function Home() {
           <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none" />
           <div className="absolute -bottom-8 -left-8 w-36 h-36 rounded-full bg-white/10 blur-2xl pointer-events-none" />
           <div className="relative">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Siap mulai latihan?</h3>
-            <p className="text-indigo-200 mb-7 text-sm">Gratis, tanpa daftar, langsung koding.</p>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Siap belajar yang beneran nempel?</h3>
+            <p className="text-indigo-200 mb-7 text-sm">Gratis, tanpa daftar, ada panduan lengkap.</p>
             <NavLink
               href="/problems"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3 text-sm font-semibold text-indigo-700 shadow-lg transition hover:bg-indigo-50 active:scale-[0.98]"

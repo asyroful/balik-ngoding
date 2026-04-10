@@ -1,0 +1,842 @@
+[
+  {
+    "id": "00000000-0000-0000-0004-000000000001",
+    "title": "SELECT Semua Kolom",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'karyawan' dengan kolom id, nama, dan gaji, tuliskan query SQL untuk menampilkan semua data dari tabel tersebut.\n\nContoh hasil:\nid | nama  | gaji\n1  | Alice | 5000\n2  | Bob   | 3000",
+    "starterCode": "-- Tampilkan semua data dari tabel karyawan\nSELECT",
+    "thinkingGuide": "SELECT adalah perintah dasar SQL untuk mengambil data dari tabel. Tanda bintang (*) adalah wildcard yang berarti 'semua kolom'. Sintaks dasarnya adalah SELECT kolom FROM nama_tabel. Menggunakan SELECT * praktis untuk eksplorasi data, tapi dalam produksi lebih baik menyebutkan kolom secara eksplisit untuk performa dan kejelasan.",
+    "hints": [
+      "Gunakan SELECT untuk mengambil data dan FROM untuk menentukan tabel sumber.",
+      "Tanda bintang (*) berarti pilih semua kolom yang ada di tabel.",
+      "Sintaks lengkapnya: SELECT * FROM nama_tabel;"
+    ],
+    "prerequisiteId": null,
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000}]}}",
+        "expectedOutput": "[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Citra\",\"gaji\":4000}]}}",
+        "expectedOutput": "[{\"id\":1,\"nama\":\"Citra\",\"gaji\":4000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Dodi\",\"gaji\":6000},{\"id\":2,\"nama\":\"Eka\",\"gaji\":7000},{\"id\":3,\"nama\":\"Fani\",\"gaji\":5500}]}}",
+        "expectedOutput": "[{\"id\":1,\"nama\":\"Dodi\",\"gaji\":6000},{\"id\":2,\"nama\":\"Eka\",\"gaji\":7000},{\"id\":3,\"nama\":\"Fani\",\"gaji\":5500}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Gita\",\"gaji\":4500},{\"id\":2,\"nama\":\"Hadi\",\"gaji\":3500}]}}",
+        "expectedOutput": "[{\"id\":1,\"nama\":\"Gita\",\"gaji\":4500},{\"id\":2,\"nama\":\"Hadi\",\"gaji\":3500}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000002",
+    "title": "SELECT Kolom Tertentu",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'karyawan' dengan kolom id, nama, dan gaji, tuliskan query untuk menampilkan hanya kolom nama dan gaji.\n\nContoh hasil:\nnama  | gaji\nAlice | 5000\nBob   | 3000",
+    "starterCode": "-- Tampilkan hanya kolom nama dan gaji dari tabel karyawan\nSELECT",
+    "thinkingGuide": "Daripada menggunakan SELECT *, kita bisa menyebutkan kolom-kolom yang ingin ditampilkan secara eksplisit. Ini lebih efisien karena database tidak perlu mengambil data kolom yang tidak diperlukan. Pisahkan nama kolom dengan koma. Urutan kolom dalam SELECT menentukan urutan kolom dalam hasil.",
+    "hints": [
+      "Sebutkan nama kolom yang ingin ditampilkan setelah kata SELECT, pisahkan dengan koma.",
+      "Sintaks: SELECT kolom1, kolom2 FROM nama_tabel.",
+      "Gunakan SELECT nama, gaji FROM karyawan; untuk menampilkan hanya dua kolom tersebut."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000001",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"gaji\":5000},{\"nama\":\"Bob\",\"gaji\":3000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Citra\",\"gaji\":4000}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"gaji\":4000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Dodi\",\"gaji\":6000},{\"id\":2,\"nama\":\"Eka\",\"gaji\":7000}]}}",
+        "expectedOutput": "[{\"nama\":\"Dodi\",\"gaji\":6000},{\"nama\":\"Eka\",\"gaji\":7000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Fani\",\"gaji\":4500},{\"id\":2,\"nama\":\"Gita\",\"gaji\":3500},{\"id\":3,\"nama\":\"Hadi\",\"gaji\":5000}]}}",
+        "expectedOutput": "[{\"nama\":\"Fani\",\"gaji\":4500},{\"nama\":\"Gita\",\"gaji\":3500},{\"nama\":\"Hadi\",\"gaji\":5000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000003",
+    "title": "WHERE Kondisi Sederhana",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'karyawan' (id, nama, gaji), tampilkan nama dan gaji karyawan yang gajinya lebih dari 4000.\n\nContoh hasil (dari data Alice=5000, Bob=3000, Citra=4500):\nnama  | gaji\nAlice | 5000\nCitra | 4500",
+    "starterCode": "-- Tampilkan karyawan dengan gaji lebih dari 4000\nSELECT nama, gaji FROM karyawan\nWHERE",
+    "thinkingGuide": "Klausa WHERE digunakan untuk memfilter baris berdasarkan kondisi. Hanya baris yang memenuhi kondisi WHERE yang akan ditampilkan. Operator perbandingan yang tersedia: = (sama), != atau <> (tidak sama), > (lebih dari), < (kurang dari), >= (lebih dari atau sama), <= (kurang dari atau sama).",
+    "hints": [
+      "Gunakan klausa WHERE setelah FROM untuk memfilter baris berdasarkan kondisi.",
+      "Operator > digunakan untuk kondisi 'lebih dari': WHERE gaji > 4000.",
+      "Sintaks lengkap: SELECT nama, gaji FROM karyawan WHERE gaji > 4000;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000002",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000},{\"id\":3,\"nama\":\"Citra\",\"gaji\":4500}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"gaji\":5000},{\"nama\":\"Citra\",\"gaji\":4500}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Dodi\",\"gaji\":3000},{\"id\":2,\"nama\":\"Eka\",\"gaji\":3500}]}}",
+        "expectedOutput": "[]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Fani\",\"gaji\":6000},{\"id\":2,\"nama\":\"Gita\",\"gaji\":4001}]}}",
+        "expectedOutput": "[{\"nama\":\"Fani\",\"gaji\":6000},{\"nama\":\"Gita\",\"gaji\":4001}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Hadi\",\"gaji\":4000}]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Indra\",\"gaji\":10000},{\"id\":2,\"nama\":\"Joko\",\"gaji\":2000}]}}",
+        "expectedOutput": "[{\"nama\":\"Indra\",\"gaji\":10000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000004",
+    "title": "ORDER BY — Urutkan Hasil",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'karyawan' (id, nama, gaji), tampilkan nama dan gaji semua karyawan diurutkan berdasarkan gaji dari yang terbesar ke terkecil.\n\nContoh hasil:\nnama  | gaji\nEka   | 7000\nAlice | 5000\nBob   | 3000",
+    "starterCode": "-- Tampilkan nama dan gaji, urutkan dari gaji terbesar\nSELECT nama, gaji FROM karyawan\nORDER BY",
+    "thinkingGuide": "ORDER BY digunakan untuk mengurutkan hasil query. Secara default ORDER BY mengurutkan secara ascending (ASC, dari kecil ke besar). Untuk urutan descending (dari besar ke kecil) tambahkan kata kunci DESC. Kita bisa mengurutkan berdasarkan beberapa kolom sekaligus dengan memisahkannya menggunakan koma.",
+    "hints": [
+      "Gunakan ORDER BY diikuti nama kolom untuk mengurutkan hasil.",
+      "Tambahkan DESC setelah nama kolom untuk urutan menurun (terbesar ke terkecil).",
+      "Sintaks: ORDER BY gaji DESC; untuk mengurutkan dari gaji terbesar."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000003",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000},{\"id\":3,\"nama\":\"Eka\",\"gaji\":7000}]}}",
+        "expectedOutput": "[{\"nama\":\"Eka\",\"gaji\":7000},{\"nama\":\"Alice\",\"gaji\":5000},{\"nama\":\"Bob\",\"gaji\":3000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Citra\",\"gaji\":4000}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"gaji\":4000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Dodi\",\"gaji\":6000},{\"id\":2,\"nama\":\"Fani\",\"gaji\":2000},{\"id\":3,\"nama\":\"Gita\",\"gaji\":4000}]}}",
+        "expectedOutput": "[{\"nama\":\"Dodi\",\"gaji\":6000},{\"nama\":\"Gita\",\"gaji\":4000},{\"nama\":\"Fani\",\"gaji\":2000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Hadi\",\"gaji\":5000},{\"id\":2,\"nama\":\"Indra\",\"gaji\":8000}]}}",
+        "expectedOutput": "[{\"nama\":\"Indra\",\"gaji\":8000},{\"nama\":\"Hadi\",\"gaji\":5000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000005",
+    "title": "LIMIT — Batasi Jumlah Hasil",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'produk' (id, nama, harga), tampilkan nama dan harga 3 produk termahal.\n\nContoh hasil (dari 6 produk):\nnama    | harga\nLaptop  | 15000000\nHP      | 8000000\nTablet  | 5000000",
+    "starterCode": "-- Tampilkan 3 produk dengan harga tertinggi\nSELECT nama, harga FROM produk\nORDER BY harga DESC\nLIMIT",
+    "thinkingGuide": "LIMIT digunakan untuk membatasi jumlah baris yang dikembalikan oleh query. Biasanya dikombinasikan dengan ORDER BY untuk mendapatkan 'top N' dari suatu urutan. Urutan klausa SQL: SELECT → FROM → WHERE → ORDER BY → LIMIT. LIMIT selalu ditulis paling akhir.",
+    "hints": [
+      "Gunakan LIMIT diikuti angka untuk membatasi jumlah baris hasil.",
+      "Kombinasikan ORDER BY harga DESC dengan LIMIT 3 untuk mendapatkan 3 produk termahal.",
+      "Sintaks: SELECT nama, harga FROM produk ORDER BY harga DESC LIMIT 3;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000004",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"Laptop\",\"harga\":15000000},{\"id\":2,\"nama\":\"HP\",\"harga\":8000000},{\"id\":3,\"nama\":\"Tablet\",\"harga\":5000000},{\"id\":4,\"nama\":\"Charger\",\"harga\":200000},{\"id\":5,\"nama\":\"Kabel\",\"harga\":50000},{\"id\":6,\"nama\":\"Mouse\",\"harga\":300000}]}}",
+        "expectedOutput": "[{\"nama\":\"Laptop\",\"harga\":15000000},{\"nama\":\"HP\",\"harga\":8000000},{\"nama\":\"Tablet\",\"harga\":5000000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"A\",\"harga\":100},{\"id\":2,\"nama\":\"B\",\"harga\":200},{\"id\":3,\"nama\":\"C\",\"harga\":300}]}}",
+        "expectedOutput": "[{\"nama\":\"C\",\"harga\":300},{\"nama\":\"B\",\"harga\":200},{\"nama\":\"A\",\"harga\":100}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"X\",\"harga\":500},{\"id\":2,\"nama\":\"Y\",\"harga\":1000},{\"id\":3,\"nama\":\"Z\",\"harga\":750},{\"id\":4,\"nama\":\"W\",\"harga\":250}]}}",
+        "expectedOutput": "[{\"nama\":\"Y\",\"harga\":1000},{\"nama\":\"Z\",\"harga\":750},{\"nama\":\"X\",\"harga\":500}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"Solo\",\"harga\":999}]}}",
+        "expectedOutput": "[{\"nama\":\"Solo\",\"harga\":999}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"P1\",\"harga\":10},{\"id\":2,\"nama\":\"P2\",\"harga\":20},{\"id\":3,\"nama\":\"P3\",\"harga\":30},{\"id\":4,\"nama\":\"P4\",\"harga\":40},{\"id\":5,\"nama\":\"P5\",\"harga\":50}]}}",
+        "expectedOutput": "[{\"nama\":\"P5\",\"harga\":50},{\"nama\":\"P4\",\"harga\":40},{\"nama\":\"P3\",\"harga\":30}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000006",
+    "title": "COUNT — Hitung Baris",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'siswa' (id, nama, kelas), hitung berapa banyak siswa yang ada di kelas '10A'.\n\nContoh hasil:\njumlah\n3",
+    "starterCode": "-- Hitung jumlah siswa di kelas 10A\nSELECT COUNT(*) AS jumlah\nFROM siswa\nWHERE",
+    "thinkingGuide": "COUNT(*) adalah fungsi agregat yang menghitung jumlah baris. Dikombinasikan dengan WHERE, kita bisa menghitung baris yang memenuhi kondisi tertentu. AS digunakan untuk memberi alias (nama lain) pada kolom hasil — ini membuat output lebih mudah dibaca.",
+    "hints": [
+      "Gunakan COUNT(*) untuk menghitung jumlah baris yang memenuhi kondisi.",
+      "Tambahkan WHERE kelas = '10A' untuk memfilter hanya siswa di kelas tersebut.",
+      "Sintaks: SELECT COUNT(*) AS jumlah FROM siswa WHERE kelas = '10A';"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000005",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"siswa\":[{\"id\":1,\"nama\":\"Andi\",\"kelas\":\"10A\"},{\"id\":2,\"nama\":\"Budi\",\"kelas\":\"10B\"},{\"id\":3,\"nama\":\"Cici\",\"kelas\":\"10A\"},{\"id\":4,\"nama\":\"Deni\",\"kelas\":\"10A\"}]}}",
+        "expectedOutput": "[{\"jumlah\":3}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"siswa\":[{\"id\":1,\"nama\":\"Eka\",\"kelas\":\"10B\"},{\"id\":2,\"nama\":\"Fani\",\"kelas\":\"10B\"}]}}",
+        "expectedOutput": "[{\"jumlah\":0}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"siswa\":[{\"id\":1,\"nama\":\"Gita\",\"kelas\":\"10A\"}]}}",
+        "expectedOutput": "[{\"jumlah\":1}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"siswa\":[]}}",
+        "expectedOutput": "[{\"jumlah\":0}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"siswa\":[{\"id\":1,\"nama\":\"H\",\"kelas\":\"10A\"},{\"id\":2,\"nama\":\"I\",\"kelas\":\"10A\"},{\"id\":3,\"nama\":\"J\",\"kelas\":\"10A\"},{\"id\":4,\"nama\":\"K\",\"kelas\":\"10A\"},{\"id\":5,\"nama\":\"L\",\"kelas\":\"10B\"}]}}",
+        "expectedOutput": "[{\"jumlah\":4}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000007",
+    "title": "DISTINCT — Nilai Unik",
+    "category": "sql",
+    "difficulty": "easy",
+    "description": "Diberikan tabel 'penjualan' (id, produk, kota), tampilkan daftar kota unik yang pernah melakukan pembelian, diurutkan secara ascending.\n\nContoh hasil:\nkota\nBandung\nJakarta\nSurabaya",
+    "starterCode": "-- Tampilkan daftar kota unik dari tabel penjualan\nSELECT DISTINCT kota\nFROM penjualan\nORDER BY",
+    "thinkingGuide": "DISTINCT menghilangkan baris duplikat dari hasil query. Ketika digunakan dengan SELECT, hanya nilai unik yang dikembalikan. Ini berguna untuk melihat daftar nilai yang berbeda dalam suatu kolom tanpa pengulangan.",
+    "hints": [
+      "SELECT DISTINCT kolom akan mengembalikan hanya nilai unik dari kolom tersebut.",
+      "Tambahkan ORDER BY kota untuk mengurutkan hasilnya secara alphabetical.",
+      "Sintaks: SELECT DISTINCT kota FROM penjualan ORDER BY kota;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000006",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\"},{\"id\":2,\"produk\":\"B\",\"kota\":\"Bandung\"},{\"id\":3,\"produk\":\"C\",\"kota\":\"Jakarta\"},{\"id\":4,\"produk\":\"D\",\"kota\":\"Surabaya\"}]}}",
+        "expectedOutput": "[{\"kota\":\"Bandung\"},{\"kota\":\"Jakarta\"},{\"kota\":\"Surabaya\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"X\",\"kota\":\"Medan\"},{\"id\":2,\"produk\":\"Y\",\"kota\":\"Medan\"}]}}",
+        "expectedOutput": "[{\"kota\":\"Medan\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"P\",\"kota\":\"Bali\"},{\"id\":2,\"produk\":\"Q\",\"kota\":\"Aceh\"},{\"id\":3,\"produk\":\"R\",\"kota\":\"Bali\"}]}}",
+        "expectedOutput": "[{\"kota\":\"Aceh\"},{\"kota\":\"Bali\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Yogyakarta\"},{\"id\":2,\"produk\":\"B\",\"kota\":\"Malang\"},{\"id\":3,\"produk\":\"C\",\"kota\":\"Yogyakarta\"},{\"id\":4,\"produk\":\"D\",\"kota\":\"Malang\"}]}}",
+        "expectedOutput": "[{\"kota\":\"Malang\"},{\"kota\":\"Yogyakarta\"}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000008",
+    "title": "GROUP BY — Kelompokkan Data",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'penjualan' (id, produk, kota, jumlah), hitung total jumlah penjualan per kota, diurutkan berdasarkan kota secara ascending.\n\nContoh hasil:\nkota      | total_penjualan\nBandung   | 15\nJakarta   | 30\nSurabaya  | 10",
+    "starterCode": "-- Hitung total penjualan per kota\nSELECT kota, SUM(jumlah) AS total_penjualan\nFROM penjualan\nGROUP BY",
+    "thinkingGuide": "GROUP BY mengelompokkan baris yang memiliki nilai sama pada kolom tertentu. Fungsi agregat seperti SUM(), COUNT(), AVG(), MAX(), MIN() kemudian diterapkan pada setiap kelompok. Kolom yang tidak ada dalam fungsi agregat harus disebutkan dalam GROUP BY.",
+    "hints": [
+      "GROUP BY kota akan mengelompokkan semua baris dengan kota yang sama.",
+      "SUM(jumlah) menghitung total jumlah untuk setiap kelompok kota.",
+      "Sintaks: SELECT kota, SUM(jumlah) AS total_penjualan FROM penjualan GROUP BY kota ORDER BY kota;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000007",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\",\"jumlah\":10},{\"id\":2,\"produk\":\"B\",\"kota\":\"Bandung\",\"jumlah\":5},{\"id\":3,\"produk\":\"C\",\"kota\":\"Jakarta\",\"jumlah\":20},{\"id\":4,\"produk\":\"D\",\"kota\":\"Surabaya\",\"jumlah\":10},{\"id\":5,\"produk\":\"E\",\"kota\":\"Bandung\",\"jumlah\":10}]}}",
+        "expectedOutput": "[{\"kota\":\"Bandung\",\"total_penjualan\":15},{\"kota\":\"Jakarta\",\"total_penjualan\":30},{\"kota\":\"Surabaya\",\"total_penjualan\":10}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"X\",\"kota\":\"Medan\",\"jumlah\":7},{\"id\":2,\"produk\":\"Y\",\"kota\":\"Medan\",\"jumlah\":3}]}}",
+        "expectedOutput": "[{\"kota\":\"Medan\",\"total_penjualan\":10}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"P\",\"kota\":\"Bali\",\"jumlah\":1},{\"id\":2,\"produk\":\"Q\",\"kota\":\"Aceh\",\"jumlah\":2}]}}",
+        "expectedOutput": "[{\"kota\":\"Aceh\",\"total_penjualan\":2},{\"kota\":\"Bali\",\"total_penjualan\":1}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Solo\",\"jumlah\":100}]}}",
+        "expectedOutput": "[{\"kota\":\"Solo\",\"total_penjualan\":100}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\",\"jumlah\":5},{\"id\":2,\"produk\":\"B\",\"kota\":\"Jakarta\",\"jumlah\":5},{\"id\":3,\"produk\":\"C\",\"kota\":\"Bandung\",\"jumlah\":3},{\"id\":4,\"produk\":\"D\",\"kota\":\"Bandung\",\"jumlah\":7}]}}",
+        "expectedOutput": "[{\"kota\":\"Bandung\",\"total_penjualan\":10},{\"kota\":\"Jakarta\",\"total_penjualan\":10}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000009",
+    "title": "HAVING — Filter Setelah GROUP BY",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'penjualan' (id, produk, kota, jumlah), tampilkan kota yang total penjualannya lebih dari 20, diurutkan berdasarkan total_penjualan descending.\n\nContoh hasil:\nkota    | total_penjualan\nJakarta | 30\nBandung | 25",
+    "starterCode": "-- Tampilkan kota dengan total penjualan > 20\nSELECT kota, SUM(jumlah) AS total_penjualan\nFROM penjualan\nGROUP BY kota\nHAVING",
+    "thinkingGuide": "HAVING adalah seperti WHERE tapi untuk hasil GROUP BY. WHERE memfilter baris sebelum pengelompokan, HAVING memfilter kelompok setelah agregasi. Kita tidak bisa menggunakan WHERE untuk memfilter hasil fungsi agregat (seperti SUM, COUNT) — harus menggunakan HAVING.",
+    "hints": [
+      "HAVING digunakan untuk memfilter hasil GROUP BY berdasarkan kondisi agregat.",
+      "Gunakan HAVING SUM(jumlah) > 20 untuk memfilter kelompok dengan total lebih dari 20.",
+      "Sintaks: GROUP BY kota HAVING SUM(jumlah) > 20 ORDER BY total_penjualan DESC;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000008",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\",\"jumlah\":10},{\"id\":2,\"produk\":\"B\",\"kota\":\"Bandung\",\"jumlah\":15},{\"id\":3,\"produk\":\"C\",\"kota\":\"Jakarta\",\"jumlah\":20},{\"id\":4,\"produk\":\"D\",\"kota\":\"Surabaya\",\"jumlah\":5},{\"id\":5,\"produk\":\"E\",\"kota\":\"Bandung\",\"jumlah\":10}]}}",
+        "expectedOutput": "[{\"kota\":\"Jakarta\",\"total_penjualan\":30},{\"kota\":\"Bandung\",\"total_penjualan\":25}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"X\",\"kota\":\"Medan\",\"jumlah\":5},{\"id\":2,\"produk\":\"Y\",\"kota\":\"Bali\",\"jumlah\":10}]}}",
+        "expectedOutput": "[]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"P\",\"kota\":\"Solo\",\"jumlah\":25},{\"id\":2,\"produk\":\"Q\",\"kota\":\"Solo\",\"jumlah\":5}]}}",
+        "expectedOutput": "[{\"kota\":\"Solo\",\"total_penjualan\":30}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Kota1\",\"jumlah\":21},{\"id\":2,\"produk\":\"B\",\"kota\":\"Kota2\",\"jumlah\":20}]}}",
+        "expectedOutput": "[{\"kota\":\"Kota1\",\"total_penjualan\":21}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"X\",\"jumlah\":50},{\"id\":2,\"produk\":\"B\",\"kota\":\"Y\",\"jumlah\":30},{\"id\":3,\"produk\":\"C\",\"kota\":\"Z\",\"jumlah\":10}]}}",
+        "expectedOutput": "[{\"kota\":\"X\",\"total_penjualan\":50},{\"kota\":\"Y\",\"total_penjualan\":30}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000010",
+    "title": "INNER JOIN — Gabungkan Dua Tabel",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'pesanan' (id, pelanggan_id, total) dan tabel 'pelanggan' (id, nama, kota), tampilkan nama pelanggan beserta total pesanan mereka, diurutkan berdasarkan nama ascending.\n\nContoh hasil:\nnama  | total\nAlice | 150000\nBob   | 75000",
+    "starterCode": "-- Gabungkan tabel pesanan dan pelanggan\nSELECT pelanggan.nama, pesanan.total\nFROM pesanan\nINNER JOIN pelanggan ON",
+    "thinkingGuide": "INNER JOIN menggabungkan dua tabel berdasarkan kondisi yang cocok di kedua tabel. Hanya baris yang memiliki pasangan di kedua tabel yang akan ditampilkan. Sintaks: FROM tabel1 INNER JOIN tabel2 ON tabel1.kolom = tabel2.kolom. Kolom yang sama nama di dua tabel perlu diawali nama tabel untuk menghindari ambiguitas.",
+    "hints": [
+      "INNER JOIN menggabungkan baris dari dua tabel yang memiliki nilai cocok pada kolom yang ditentukan.",
+      "Kondisi join: ON pesanan.pelanggan_id = pelanggan.id — ini menghubungkan foreign key ke primary key.",
+      "Sintaks: FROM pesanan INNER JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id ORDER BY pelanggan.nama;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000009",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Alice\",\"kota\":\"Jakarta\"},{\"id\":2,\"nama\":\"Bob\",\"kota\":\"Bandung\"}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"total\":150000},{\"id\":2,\"pelanggan_id\":2,\"total\":75000}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"total\":150000},{\"nama\":\"Bob\",\"total\":75000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Citra\",\"kota\":\"Surabaya\"},{\"id\":2,\"nama\":\"Dodi\",\"kota\":\"Medan\"}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"total\":50000}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"total\":50000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Eka\",\"kota\":\"Bali\"},{\"id\":2,\"nama\":\"Fani\",\"kota\":\"Bali\"}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":2,\"total\":200000},{\"id\":2,\"pelanggan_id\":1,\"total\":100000}]}}",
+        "expectedOutput": "[{\"nama\":\"Eka\",\"total\":100000},{\"nama\":\"Fani\",\"total\":200000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Gita\",\"kota\":\"Solo\"}],\"pesanan\":[]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Hadi\",\"kota\":\"Jogja\"},{\"id\":2,\"nama\":\"Indra\",\"kota\":\"Jogja\"},{\"id\":3,\"nama\":\"Joko\",\"kota\":\"Jogja\"}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":3,\"total\":30000},{\"id\":2,\"pelanggan_id\":1,\"total\":10000},{\"id\":3,\"pelanggan_id\":2,\"total\":20000}]}}",
+        "expectedOutput": "[{\"nama\":\"Hadi\",\"total\":10000},{\"nama\":\"Indra\",\"total\":20000},{\"nama\":\"Joko\",\"total\":30000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000011",
+    "title": "LEFT JOIN — Sertakan Semua Baris Kiri",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'karyawan' (id, nama, departemen_id) dan tabel 'departemen' (id, nama_dept), tampilkan semua karyawan beserta nama departemennya. Karyawan tanpa departemen tetap ditampilkan dengan nama_dept NULL.\n\nContoh hasil:\nnama_karyawan | nama_dept\nAlice         | Engineering\nBob           | NULL\nCitra         | Marketing",
+    "starterCode": "-- Tampilkan semua karyawan beserta departemennya (termasuk yang tidak punya departemen)\nSELECT karyawan.nama AS nama_karyawan, departemen.nama_dept\nFROM karyawan\nLEFT JOIN departemen ON",
+    "thinkingGuide": "LEFT JOIN mengembalikan semua baris dari tabel kiri (karyawan), dan baris yang cocok dari tabel kanan (departemen). Jika tidak ada pasangan di tabel kanan, kolom dari tabel kanan akan berisi NULL. Ini berbeda dengan INNER JOIN yang hanya mengembalikan baris yang cocok di kedua tabel.",
+    "hints": [
+      "LEFT JOIN memastikan semua baris dari tabel kiri (karyawan) selalu muncul di hasil.",
+      "Kondisi join: ON karyawan.departemen_id = departemen.id.",
+      "Karyawan tanpa departemen akan memiliki nilai NULL pada kolom nama_dept."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000010",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"departemen\":[{\"id\":1,\"nama_dept\":\"Engineering\"},{\"id\":2,\"nama_dept\":\"Marketing\"}],\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"departemen_id\":1},{\"id\":2,\"nama\":\"Bob\",\"departemen_id\":null},{\"id\":3,\"nama\":\"Citra\",\"departemen_id\":2}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Alice\",\"nama_dept\":\"Engineering\"},{\"nama_karyawan\":\"Bob\",\"nama_dept\":null},{\"nama_karyawan\":\"Citra\",\"nama_dept\":\"Marketing\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"departemen\":[{\"id\":1,\"nama_dept\":\"HR\"}],\"karyawan\":[{\"id\":1,\"nama\":\"Dodi\",\"departemen_id\":1},{\"id\":2,\"nama\":\"Eka\",\"departemen_id\":1}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Dodi\",\"nama_dept\":\"HR\"},{\"nama_karyawan\":\"Eka\",\"nama_dept\":\"HR\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"departemen\":[],\"karyawan\":[{\"id\":1,\"nama\":\"Fani\",\"departemen_id\":null}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Fani\",\"nama_dept\":null}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"departemen\":[{\"id\":1,\"nama_dept\":\"Finance\"}],\"karyawan\":[]}}",
+        "expectedOutput": "[]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"departemen\":[{\"id\":1,\"nama_dept\":\"IT\"},{\"id\":2,\"nama_dept\":\"Sales\"}],\"karyawan\":[{\"id\":1,\"nama\":\"Gita\",\"departemen_id\":2},{\"id\":2,\"nama\":\"Hadi\",\"departemen_id\":null},{\"id\":3,\"nama\":\"Indra\",\"departemen_id\":1}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Gita\",\"nama_dept\":\"Sales\"},{\"nama_karyawan\":\"Hadi\",\"nama_dept\":null},{\"nama_karyawan\":\"Indra\",\"nama_dept\":\"IT\"}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000012",
+    "title": "Subquery — Filter dengan Hasil Query Lain",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'karyawan' (id, nama, gaji, departemen), tampilkan nama dan gaji karyawan yang gajinya di atas rata-rata gaji seluruh karyawan, diurutkan berdasarkan gaji descending.\n\nContoh hasil:\nnama    | gaji\nCharlie | 9000\nAlice   | 8000",
+    "starterCode": "-- Tampilkan karyawan dengan gaji di atas rata-rata\nSELECT nama, gaji\nFROM karyawan\nWHERE gaji > (SELECT",
+    "thinkingGuide": "Subquery adalah query di dalam query. Query dalam tanda kurung dieksekusi terlebih dahulu, hasilnya digunakan oleh query luar. Di sini, subquery menghitung AVG(gaji) dari seluruh tabel, lalu query luar memfilter karyawan yang gajinya melebihi nilai tersebut.",
+    "hints": [
+      "Subquery ditulis di dalam tanda kurung dan dieksekusi terlebih dahulu.",
+      "Gunakan SELECT AVG(gaji) FROM karyawan sebagai subquery untuk mendapatkan rata-rata gaji.",
+      "Sintaks: WHERE gaji > (SELECT AVG(gaji) FROM karyawan) ORDER BY gaji DESC;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000011",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":8000,\"departemen\":\"Eng\"},{\"id\":2,\"nama\":\"Bob\",\"gaji\":5000,\"departemen\":\"Mkt\"},{\"id\":3,\"nama\":\"Charlie\",\"gaji\":9000,\"departemen\":\"Eng\"},{\"id\":4,\"nama\":\"Diana\",\"gaji\":6000,\"departemen\":\"HR\"},{\"id\":5,\"nama\":\"Eve\",\"gaji\":5000,\"departemen\":\"Mkt\"}]}}",
+        "expectedOutput": "[{\"nama\":\"Charlie\",\"gaji\":9000},{\"nama\":\"Alice\",\"gaji\":8000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Fani\",\"gaji\":5000,\"departemen\":\"A\"},{\"id\":2,\"nama\":\"Gita\",\"gaji\":5000,\"departemen\":\"B\"}]}}",
+        "expectedOutput": "[]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Hadi\",\"gaji\":3000,\"departemen\":\"X\"},{\"id\":2,\"nama\":\"Indra\",\"gaji\":7000,\"departemen\":\"Y\"},{\"id\":3,\"nama\":\"Joko\",\"gaji\":5000,\"departemen\":\"Z\"}]}}",
+        "expectedOutput": "[{\"nama\":\"Indra\",\"gaji\":7000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"K\",\"gaji\":10000,\"departemen\":\"A\"},{\"id\":2,\"nama\":\"L\",\"gaji\":2000,\"departemen\":\"B\"}]}}",
+        "expectedOutput": "[{\"nama\":\"K\",\"gaji\":10000}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"M\",\"gaji\":4000,\"departemen\":\"A\"},{\"id\":2,\"nama\":\"N\",\"gaji\":6000,\"departemen\":\"B\"},{\"id\":3,\"nama\":\"O\",\"gaji\":8000,\"departemen\":\"C\"},{\"id\":4,\"nama\":\"P\",\"gaji\":2000,\"departemen\":\"D\"}]}}",
+        "expectedOutput": "[{\"nama\":\"O\",\"gaji\":8000},{\"nama\":\"N\",\"gaji\":6000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000013",
+    "title": "BETWEEN dan IN — Filter Rentang dan Daftar",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'produk' (id, nama, harga, kategori), tampilkan nama dan harga produk yang harganya antara 50000 dan 200000 DAN kategorinya adalah 'Elektronik' atau 'Aksesoris', diurutkan berdasarkan harga ascending.\n\nContoh hasil:\nnama     | harga\nCharger  | 75000\nHeadset  | 150000",
+    "starterCode": "-- Filter produk berdasarkan rentang harga dan kategori tertentu\nSELECT nama, harga\nFROM produk\nWHERE harga BETWEEN 50000 AND 200000\nAND kategori IN",
+    "thinkingGuide": "BETWEEN nilai1 AND nilai2 memfilter baris dengan nilai dalam rentang inklusif. IN (nilai1, nilai2, ...) memfilter baris yang nilainya cocok dengan salah satu dari daftar. Keduanya bisa dikombinasikan dengan AND/OR untuk kondisi yang lebih kompleks.",
+    "hints": [
+      "BETWEEN 50000 AND 200000 memfilter harga dalam rentang tersebut (inklusif di kedua ujung).",
+      "IN ('Elektronik', 'Aksesoris') memfilter kategori yang cocok dengan salah satu nilai dalam daftar.",
+      "Sintaks: WHERE harga BETWEEN 50000 AND 200000 AND kategori IN ('Elektronik', 'Aksesoris') ORDER BY harga;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000012",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"Laptop\",\"harga\":15000000,\"kategori\":\"Elektronik\"},{\"id\":2,\"nama\":\"Charger\",\"harga\":75000,\"kategori\":\"Aksesoris\"},{\"id\":3,\"nama\":\"Headset\",\"harga\":150000,\"kategori\":\"Elektronik\"},{\"id\":4,\"nama\":\"Baju\",\"harga\":100000,\"kategori\":\"Fashion\"},{\"id\":5,\"nama\":\"Kabel\",\"harga\":25000,\"kategori\":\"Aksesoris\"}]}}",
+        "expectedOutput": "[{\"nama\":\"Charger\",\"harga\":75000},{\"nama\":\"Headset\",\"harga\":150000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"A\",\"harga\":50000,\"kategori\":\"Elektronik\"},{\"id\":2,\"nama\":\"B\",\"harga\":200000,\"kategori\":\"Aksesoris\"}]}}",
+        "expectedOutput": "[{\"nama\":\"A\",\"harga\":50000},{\"nama\":\"B\",\"harga\":200000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"X\",\"harga\":49999,\"kategori\":\"Elektronik\"},{\"id\":2,\"nama\":\"Y\",\"harga\":200001,\"kategori\":\"Aksesoris\"}]}}",
+        "expectedOutput": "[]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"P\",\"harga\":100000,\"kategori\":\"Makanan\"},{\"id\":2,\"nama\":\"Q\",\"harga\":100000,\"kategori\":\"Elektronik\"}]}}",
+        "expectedOutput": "[{\"nama\":\"Q\",\"harga\":100000}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"R\",\"harga\":60000,\"kategori\":\"Aksesoris\"},{\"id\":2,\"nama\":\"S\",\"harga\":80000,\"kategori\":\"Aksesoris\"},{\"id\":3,\"nama\":\"T\",\"harga\":120000,\"kategori\":\"Elektronik\"}]}}",
+        "expectedOutput": "[{\"nama\":\"R\",\"harga\":60000},{\"nama\":\"S\",\"harga\":80000},{\"nama\":\"T\",\"harga\":120000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000014",
+    "title": "Agregat Multi-Kolom",
+    "category": "sql",
+    "difficulty": "medium",
+    "description": "Diberikan tabel 'nilai_siswa' (id, nama, mata_pelajaran, nilai), tampilkan rata-rata nilai per siswa beserta nilai tertinggi dan terendah mereka, diurutkan berdasarkan rata_nilai descending.\n\nContoh hasil:\nnama  | rata_nilai | nilai_max | nilai_min\nAlice | 88.33      | 95        | 80\nBob   | 75.00      | 85        | 65",
+    "starterCode": "-- Hitung statistik nilai per siswa\nSELECT nama,\n  ROUND(AVG(nilai), 2) AS rata_nilai,\n  MAX(nilai) AS nilai_max,\n  MIN(nilai) AS nilai_min\nFROM nilai_siswa\nGROUP BY",
+    "thinkingGuide": "Kita bisa menggunakan beberapa fungsi agregat sekaligus dalam satu query. AVG() menghitung rata-rata, MAX() nilai tertinggi, MIN() nilai terendah. ROUND(nilai, 2) membulatkan ke 2 desimal. Semua kolom non-agregat (nama) harus ada dalam GROUP BY.",
+    "hints": [
+      "Gunakan GROUP BY nama untuk mengelompokkan nilai per siswa.",
+      "Gunakan AVG(nilai), MAX(nilai), MIN(nilai) untuk menghitung statistik setiap kelompok.",
+      "Sintaks: GROUP BY nama ORDER BY rata_nilai DESC;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000013",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":95},{\"id\":2,\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":80},{\"id\":3,\"nama\":\"Alice\",\"mata_pelajaran\":\"English\",\"nilai\":90},{\"id\":4,\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":85},{\"id\":5,\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":65},{\"id\":6,\"nama\":\"Bob\",\"mata_pelajaran\":\"English\",\"nilai\":75}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"rata_nilai\":88.33,\"nilai_max\":95,\"nilai_min\":80},{\"nama\":\"Bob\",\"rata_nilai\":75,\"nilai_max\":85,\"nilai_min\":65}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Citra\",\"mata_pelajaran\":\"Math\",\"nilai\":100},{\"id\":2,\"nama\":\"Citra\",\"mata_pelajaran\":\"Science\",\"nilai\":100}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"rata_nilai\":100,\"nilai_max\":100,\"nilai_min\":100}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Dodi\",\"mata_pelajaran\":\"Math\",\"nilai\":70},{\"id\":2,\"nama\":\"Eka\",\"mata_pelajaran\":\"Math\",\"nilai\":90}]}}",
+        "expectedOutput": "[{\"nama\":\"Eka\",\"rata_nilai\":90,\"nilai_max\":90,\"nilai_min\":90},{\"nama\":\"Dodi\",\"rata_nilai\":70,\"nilai_max\":70,\"nilai_min\":70}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Fani\",\"mata_pelajaran\":\"A\",\"nilai\":60},{\"id\":2,\"nama\":\"Fani\",\"mata_pelajaran\":\"B\",\"nilai\":80},{\"id\":3,\"nama\":\"Fani\",\"mata_pelajaran\":\"C\",\"nilai\":70}]}}",
+        "expectedOutput": "[{\"nama\":\"Fani\",\"rata_nilai\":70,\"nilai_max\":80,\"nilai_min\":60}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"G\",\"mata_pelajaran\":\"X\",\"nilai\":50},{\"id\":2,\"nama\":\"H\",\"mata_pelajaran\":\"X\",\"nilai\":75},{\"id\":3,\"nama\":\"G\",\"mata_pelajaran\":\"Y\",\"nilai\":90}]}}",
+        "expectedOutput": "[{\"nama\":\"H\",\"rata_nilai\":75,\"nilai_max\":75,\"nilai_min\":75},{\"nama\":\"G\",\"rata_nilai\":70,\"nilai_max\":90,\"nilai_min\":50}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000015",
+    "title": "Self Join — Hierarki Karyawan",
+    "category": "sql",
+    "difficulty": "hard",
+    "description": "Diberikan tabel 'karyawan' (id, nama, manager_id) di mana manager_id merujuk ke id karyawan lain, tampilkan nama karyawan beserta nama manajernya. Karyawan tanpa manajer tetap ditampilkan dengan nama_manajer NULL, diurutkan berdasarkan nama_karyawan ascending.\n\nContoh hasil:\nnama_karyawan | nama_manajer\nAlice         | NULL\nBob           | Alice\nCitra         | Alice",
+    "starterCode": "-- Tampilkan karyawan beserta nama manajernya menggunakan self join\nSELECT k.nama AS nama_karyawan, m.nama AS nama_manajer\nFROM karyawan k\nLEFT JOIN karyawan m ON",
+    "thinkingGuide": "Self join adalah join tabel dengan dirinya sendiri menggunakan alias berbeda. Kita membuat dua alias: k untuk karyawan dan m untuk manajer. Kondisi join: k.manager_id = m.id — ini menghubungkan setiap karyawan ke manajernya. LEFT JOIN digunakan agar karyawan tanpa manajer (manager_id NULL) tetap muncul.",
+    "hints": [
+      "Gunakan alias untuk membedakan dua referensi ke tabel yang sama: FROM karyawan k LEFT JOIN karyawan m.",
+      "Kondisi join: ON k.manager_id = m.id — menghubungkan manager_id karyawan ke id manajer.",
+      "LEFT JOIN memastikan karyawan tanpa manajer (manager_id NULL) tetap muncul dengan nama_manajer NULL."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000014",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"manager_id\":null},{\"id\":2,\"nama\":\"Bob\",\"manager_id\":1},{\"id\":3,\"nama\":\"Citra\",\"manager_id\":1},{\"id\":4,\"nama\":\"Dodi\",\"manager_id\":2}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Alice\",\"nama_manajer\":null},{\"nama_karyawan\":\"Bob\",\"nama_manajer\":\"Alice\"},{\"nama_karyawan\":\"Citra\",\"nama_manajer\":\"Alice\"},{\"nama_karyawan\":\"Dodi\",\"nama_manajer\":\"Bob\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Eka\",\"manager_id\":null},{\"id\":2,\"nama\":\"Fani\",\"manager_id\":null}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Eka\",\"nama_manajer\":null},{\"nama_karyawan\":\"Fani\",\"nama_manajer\":null}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Gita\",\"manager_id\":null},{\"id\":2,\"nama\":\"Hadi\",\"manager_id\":1}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Gita\",\"nama_manajer\":null},{\"nama_karyawan\":\"Hadi\",\"nama_manajer\":\"Gita\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Indra\",\"manager_id\":null},{\"id\":2,\"nama\":\"Joko\",\"manager_id\":1},{\"id\":3,\"nama\":\"Kiki\",\"manager_id\":2},{\"id\":4,\"nama\":\"Lina\",\"manager_id\":2}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Indra\",\"nama_manajer\":null},{\"nama_karyawan\":\"Joko\",\"nama_manajer\":\"Indra\"},{\"nama_karyawan\":\"Kiki\",\"nama_manajer\":\"Joko\"},{\"nama_karyawan\":\"Lina\",\"nama_manajer\":\"Joko\"}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Mira\",\"manager_id\":null}]}}",
+        "expectedOutput": "[{\"nama_karyawan\":\"Mira\",\"nama_manajer\":null}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000016",
+    "title": "Window Function — RANK()",
+    "category": "sql",
+    "difficulty": "hard",
+    "description": "Diberikan tabel 'nilai_ujian' (id, nama, mata_pelajaran, nilai), tampilkan nama, mata_pelajaran, nilai, dan peringkat (rank) berdasarkan nilai dalam setiap mata_pelajaran. Peringkat 1 adalah nilai tertinggi. Diurutkan berdasarkan mata_pelajaran ascending, lalu rank ascending.\n\nContoh hasil:\nnama  | mata_pelajaran | nilai | rank\nAlice | Math           | 95    | 1\nBob   | Math           | 80    | 2\nBob   | Science        | 90    | 1\nAlice | Science        | 85    | 2",
+    "starterCode": "-- Tampilkan peringkat nilai per mata pelajaran\nSELECT nama, mata_pelajaran, nilai,\n  RANK() OVER (PARTITION BY mata_pelajaran ORDER BY nilai DESC) AS rank\nFROM nilai_ujian\nORDER BY",
+    "thinkingGuide": "Window function RANK() menghitung peringkat dalam partisi data tanpa menggabungkan baris. PARTITION BY membagi data menjadi kelompok (seperti GROUP BY tapi tidak menggabungkan baris). ORDER BY di dalam OVER menentukan urutan peringkat. RANK() memberikan peringkat yang sama untuk nilai yang sama, dan melompati peringkat berikutnya.",
+    "hints": [
+      "RANK() OVER (PARTITION BY kolom ORDER BY kolom DESC) menghitung peringkat dalam setiap partisi.",
+      "PARTITION BY mata_pelajaran membagi data per mata pelajaran, ORDER BY nilai DESC memberi peringkat 1 untuk nilai tertinggi.",
+      "Sintaks: RANK() OVER (PARTITION BY mata_pelajaran ORDER BY nilai DESC) AS rank, lalu ORDER BY mata_pelajaran, rank;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000015",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"nilai_ujian\":[{\"id\":1,\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":95},{\"id\":2,\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":80},{\"id\":3,\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":90},{\"id\":4,\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":85}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":95,\"rank\":1},{\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":80,\"rank\":2},{\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":90,\"rank\":1},{\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":85,\"rank\":2}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_ujian\":[{\"id\":1,\"nama\":\"Citra\",\"mata_pelajaran\":\"Math\",\"nilai\":90},{\"id\":2,\"nama\":\"Dodi\",\"mata_pelajaran\":\"Math\",\"nilai\":90}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"mata_pelajaran\":\"Math\",\"nilai\":90,\"rank\":1},{\"nama\":\"Dodi\",\"mata_pelajaran\":\"Math\",\"nilai\":90,\"rank\":1}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_ujian\":[{\"id\":1,\"nama\":\"Eka\",\"mata_pelajaran\":\"English\",\"nilai\":75},{\"id\":2,\"nama\":\"Fani\",\"mata_pelajaran\":\"English\",\"nilai\":85},{\"id\":3,\"nama\":\"Gita\",\"mata_pelajaran\":\"English\",\"nilai\":70}]}}",
+        "expectedOutput": "[{\"nama\":\"Fani\",\"mata_pelajaran\":\"English\",\"nilai\":85,\"rank\":1},{\"nama\":\"Eka\",\"mata_pelajaran\":\"English\",\"nilai\":75,\"rank\":2},{\"nama\":\"Gita\",\"mata_pelajaran\":\"English\",\"nilai\":70,\"rank\":3}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_ujian\":[{\"id\":1,\"nama\":\"H\",\"mata_pelajaran\":\"A\",\"nilai\":100},{\"id\":2,\"nama\":\"I\",\"mata_pelajaran\":\"A\",\"nilai\":50},{\"id\":3,\"nama\":\"J\",\"mata_pelajaran\":\"B\",\"nilai\":75}]}}",
+        "expectedOutput": "[{\"nama\":\"H\",\"mata_pelajaran\":\"A\",\"nilai\":100,\"rank\":1},{\"nama\":\"I\",\"mata_pelajaran\":\"A\",\"nilai\":50,\"rank\":2},{\"nama\":\"J\",\"mata_pelajaran\":\"B\",\"nilai\":75,\"rank\":1}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"nilai_ujian\":[{\"id\":1,\"nama\":\"K\",\"mata_pelajaran\":\"X\",\"nilai\":60},{\"id\":2,\"nama\":\"L\",\"mata_pelajaran\":\"X\",\"nilai\":80},{\"id\":3,\"nama\":\"M\",\"mata_pelajaran\":\"X\",\"nilai\":80}]}}",
+        "expectedOutput": "[{\"nama\":\"L\",\"mata_pelajaran\":\"X\",\"nilai\":80,\"rank\":1},{\"nama\":\"M\",\"mata_pelajaran\":\"X\",\"nilai\":80,\"rank\":1},{\"nama\":\"K\",\"mata_pelajaran\":\"X\",\"nilai\":60,\"rank\":3}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000017",
+    "title": "CTE — Common Table Expression",
+    "category": "sql",
+    "difficulty": "hard",
+    "description": "Diberikan tabel 'transaksi' (id, pelanggan_id, tanggal, jumlah), gunakan CTE untuk menghitung total transaksi per pelanggan, lalu tampilkan hanya pelanggan dengan total di atas rata-rata semua pelanggan. Diurutkan berdasarkan total_transaksi descending.\n\nContoh hasil:\npelanggan_id | total_transaksi\n3            | 500000\n1            | 350000",
+    "starterCode": "-- Gunakan CTE untuk menemukan pelanggan dengan transaksi di atas rata-rata\nWITH total_per_pelanggan AS (\n  SELECT pelanggan_id, SUM(jumlah) AS total_transaksi\n  FROM transaksi\n  GROUP BY pelanggan_id\n)\nSELECT pelanggan_id, total_transaksi\nFROM total_per_pelanggan\nWHERE total_transaksi > (SELECT AVG(total_transaksi) FROM total_per_pelanggan)\nORDER BY",
+    "thinkingGuide": "CTE (Common Table Expression) menggunakan sintaks WITH nama AS (query) untuk membuat hasil query sementara yang bisa direferensikan berkali-kali. Ini membuat query kompleks lebih mudah dibaca. Di sini CTE menghitung total per pelanggan, lalu query utama memfilter berdasarkan rata-rata dari CTE tersebut.",
+    "hints": [
+      "CTE didefinisikan dengan WITH nama_cte AS (SELECT ...) sebelum query utama.",
+      "Query utama bisa mereferensikan CTE seperti tabel biasa: FROM total_per_pelanggan.",
+      "Subquery di WHERE menggunakan CTE yang sama: (SELECT AVG(total_transaksi) FROM total_per_pelanggan)."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000016",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"transaksi\":[{\"id\":1,\"pelanggan_id\":1,\"tanggal\":\"2024-01-01\",\"jumlah\":200000},{\"id\":2,\"pelanggan_id\":2,\"tanggal\":\"2024-01-02\",\"jumlah\":100000},{\"id\":3,\"pelanggan_id\":3,\"tanggal\":\"2024-01-03\",\"jumlah\":500000},{\"id\":4,\"pelanggan_id\":1,\"tanggal\":\"2024-01-04\",\"jumlah\":150000},{\"id\":5,\"pelanggan_id\":2,\"tanggal\":\"2024-01-05\",\"jumlah\":50000}]}}",
+        "expectedOutput": "[{\"pelanggan_id\":3,\"total_transaksi\":500000},{\"pelanggan_id\":1,\"total_transaksi\":350000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"transaksi\":[{\"id\":1,\"pelanggan_id\":1,\"tanggal\":\"2024-01-01\",\"jumlah\":100},{\"id\":2,\"pelanggan_id\":2,\"tanggal\":\"2024-01-02\",\"jumlah\":100}]}}",
+        "expectedOutput": "[]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"transaksi\":[{\"id\":1,\"pelanggan_id\":1,\"tanggal\":\"2024-01-01\",\"jumlah\":1000},{\"id\":2,\"pelanggan_id\":2,\"tanggal\":\"2024-01-02\",\"jumlah\":500},{\"id\":3,\"pelanggan_id\":3,\"tanggal\":\"2024-01-03\",\"jumlah\":200}]}}",
+        "expectedOutput": "[{\"pelanggan_id\":1,\"total_transaksi\":1000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"transaksi\":[{\"id\":1,\"pelanggan_id\":1,\"tanggal\":\"2024-01-01\",\"jumlah\":300},{\"id\":2,\"pelanggan_id\":1,\"tanggal\":\"2024-01-02\",\"jumlah\":300},{\"id\":3,\"pelanggan_id\":2,\"tanggal\":\"2024-01-03\",\"jumlah\":100}]}}",
+        "expectedOutput": "[{\"pelanggan_id\":1,\"total_transaksi\":600}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"transaksi\":[{\"id\":1,\"pelanggan_id\":1,\"tanggal\":\"2024-01-01\",\"jumlah\":400},{\"id\":2,\"pelanggan_id\":2,\"tanggal\":\"2024-01-02\",\"jumlah\":600},{\"id\":3,\"pelanggan_id\":3,\"tanggal\":\"2024-01-03\",\"jumlah\":200}]}}",
+        "expectedOutput": "[{\"pelanggan_id\":2,\"total_transaksi\":600},{\"pelanggan_id\":1,\"total_transaksi\":400}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000018",
+    "title": "CASE WHEN — Logika Kondisional",
+    "category": "sql",
+    "difficulty": "hard",
+    "description": "Diberikan tabel 'karyawan' (id, nama, gaji), tampilkan nama, gaji, dan kategori gaji: 'Rendah' jika gaji < 5000, 'Menengah' jika 5000-9999, 'Tinggi' jika >= 10000. Diurutkan berdasarkan gaji descending.\n\nContoh hasil:\nnama  | gaji  | kategori_gaji\nEve   | 11000 | Tinggi\nAlice | 8000  | Menengah\nBob   | 3000  | Rendah",
+    "starterCode": "-- Kategorikan karyawan berdasarkan gaji\nSELECT nama, gaji,\n  CASE\n    WHEN gaji < 5000 THEN 'Rendah'\n    WHEN gaji < 10000 THEN 'Menengah'\n    ELSE 'Tinggi'\n  END AS kategori_gaji\nFROM karyawan\nORDER BY",
+    "thinkingGuide": "CASE WHEN adalah ekspresi kondisional SQL yang mirip dengan if-else. Dievaluasi dari atas ke bawah — kondisi pertama yang terpenuhi akan digunakan. ELSE menangani semua kasus yang tidak cocok dengan kondisi sebelumnya. Hasilnya bisa diberi alias dengan AS untuk penamaan kolom yang lebih deskriptif.",
+    "hints": [
+      "CASE WHEN dievaluasi dari atas ke bawah — kondisi pertama yang true akan digunakan.",
+      "Karena sudah mengecek gaji < 5000 di WHEN pertama, WHEN kedua (gaji < 10000) otomatis berarti 5000-9999.",
+      "Sintaks: CASE WHEN kondisi1 THEN hasil1 WHEN kondisi2 THEN hasil2 ELSE hasil_default END AS alias;"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000017",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":8000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000},{\"id\":3,\"nama\":\"Eve\",\"gaji\":11000},{\"id\":4,\"nama\":\"Diana\",\"gaji\":5000}]}}",
+        "expectedOutput": "[{\"nama\":\"Eve\",\"gaji\":11000,\"kategori_gaji\":\"Tinggi\"},{\"nama\":\"Alice\",\"gaji\":8000,\"kategori_gaji\":\"Menengah\"},{\"nama\":\"Diana\",\"gaji\":5000,\"kategori_gaji\":\"Menengah\"},{\"nama\":\"Bob\",\"gaji\":3000,\"kategori_gaji\":\"Rendah\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Fani\",\"gaji\":4999},{\"id\":2,\"nama\":\"Gita\",\"gaji\":5000},{\"id\":3,\"nama\":\"Hadi\",\"gaji\":10000}]}}",
+        "expectedOutput": "[{\"nama\":\"Hadi\",\"gaji\":10000,\"kategori_gaji\":\"Tinggi\"},{\"nama\":\"Gita\",\"gaji\":5000,\"kategori_gaji\":\"Menengah\"},{\"nama\":\"Fani\",\"gaji\":4999,\"kategori_gaji\":\"Rendah\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Indra\",\"gaji\":9999}]}}",
+        "expectedOutput": "[{\"nama\":\"Indra\",\"gaji\":9999,\"kategori_gaji\":\"Menengah\"}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"J\",\"gaji\":1},{\"id\":2,\"nama\":\"K\",\"gaji\":10000},{\"id\":3,\"nama\":\"L\",\"gaji\":7500}]}}",
+        "expectedOutput": "[{\"nama\":\"K\",\"gaji\":10000,\"kategori_gaji\":\"Tinggi\"},{\"nama\":\"L\",\"gaji\":7500,\"kategori_gaji\":\"Menengah\"},{\"nama\":\"J\",\"gaji\":1,\"kategori_gaji\":\"Rendah\"}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"M\",\"gaji\":20000},{\"id\":2,\"nama\":\"N\",\"gaji\":20000}]}}",
+        "expectedOutput": "[{\"nama\":\"M\",\"gaji\":20000,\"kategori_gaji\":\"Tinggi\"},{\"nama\":\"N\",\"gaji\":20000,\"kategori_gaji\":\"Tinggi\"}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000019",
+    "title": "Multi-Join dan Agregat",
+    "category": "sql",
+    "difficulty": "hard",
+    "description": "Diberikan tabel 'pesanan' (id, pelanggan_id, produk_id, qty), 'pelanggan' (id, nama, kota), dan 'produk' (id, nama_produk, harga), tampilkan nama pelanggan, total item yang dibeli (SUM qty), dan total nilai belanja (SUM qty*harga), diurutkan berdasarkan total_nilai descending.\n\nContoh hasil:\nnama  | total_item | total_nilai\nAlice | 5          | 750000\nBob   | 3          | 300000",
+    "starterCode": "-- Gabungkan tiga tabel dan hitung statistik belanja per pelanggan\nSELECT pelanggan.nama,\n  SUM(pesanan.qty) AS total_item,\n  SUM(pesanan.qty * produk.harga) AS total_nilai\nFROM pesanan\nINNER JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id\nINNER JOIN produk ON pesanan.produk_id = produk.id\nGROUP BY\nORDER BY total_nilai DESC",
+    "thinkingGuide": "Query ini menggabungkan tiga tabel dengan dua INNER JOIN. Setelah join, kita bisa mengakses kolom dari semua tabel. GROUP BY pelanggan.nama mengelompokkan per pelanggan. SUM(qty * harga) menghitung nilai total dengan mengalikan kuantitas dan harga untuk setiap baris sebelum dijumlahkan.",
+    "hints": [
+      "Gunakan dua INNER JOIN: satu untuk menghubungkan pesanan ke pelanggan, satu lagi ke produk.",
+      "SUM(pesanan.qty * produk.harga) menghitung nilai total — perkalian terjadi per baris sebelum dijumlahkan.",
+      "GROUP BY pelanggan.nama (atau pelanggan.id) untuk mengelompokkan per pelanggan."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000018",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Alice\",\"kota\":\"Jakarta\"},{\"id\":2,\"nama\":\"Bob\",\"kota\":\"Bandung\"}],\"produk\":[{\"id\":1,\"nama_produk\":\"Buku\",\"harga\":50000},{\"id\":2,\"nama_produk\":\"Pulpen\",\"harga\":10000},{\"id\":3,\"nama_produk\":\"Tas\",\"harga\":200000}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"produk_id\":3,\"qty\":3},{\"id\":2,\"pelanggan_id\":1,\"produk_id\":1,\"qty\":2},{\"id\":3,\"pelanggan_id\":2,\"produk_id\":1,\"qty\":2},{\"id\":4,\"pelanggan_id\":2,\"produk_id\":2,\"qty\":1}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"total_item\":5,\"total_nilai\":700000},{\"nama\":\"Bob\",\"total_item\":3,\"total_nilai\":110000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Citra\",\"kota\":\"Surabaya\"}],\"produk\":[{\"id\":1,\"nama_produk\":\"X\",\"harga\":100000}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"produk_id\":1,\"qty\":5}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"total_item\":5,\"total_nilai\":500000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Dodi\",\"kota\":\"Medan\"},{\"id\":2,\"nama\":\"Eka\",\"kota\":\"Bali\"}],\"produk\":[{\"id\":1,\"nama_produk\":\"Y\",\"harga\":25000}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":2,\"produk_id\":1,\"qty\":4},{\"id\":2,\"pelanggan_id\":1,\"produk_id\":1,\"qty\":2}]}}",
+        "expectedOutput": "[{\"nama\":\"Eka\",\"total_item\":4,\"total_nilai\":100000},{\"nama\":\"Dodi\",\"total_item\":2,\"total_nilai\":50000}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Fani\",\"kota\":\"Solo\"}],\"produk\":[{\"id\":1,\"nama_produk\":\"A\",\"harga\":10000},{\"id\":2,\"nama_produk\":\"B\",\"harga\":20000}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"produk_id\":1,\"qty\":1},{\"id\":2,\"pelanggan_id\":1,\"produk_id\":2,\"qty\":1}]}}",
+        "expectedOutput": "[{\"nama\":\"Fani\",\"total_item\":2,\"total_nilai\":30000}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"G\",\"kota\":\"X\"},{\"id\":2,\"nama\":\"H\",\"kota\":\"Y\"},{\"id\":3,\"nama\":\"I\",\"kota\":\"Z\"}],\"produk\":[{\"id\":1,\"nama_produk\":\"P\",\"harga\":1000}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":3,\"produk_id\":1,\"qty\":10},{\"id\":2,\"pelanggan_id\":1,\"produk_id\":1,\"qty\":5},{\"id\":3,\"pelanggan_id\":2,\"produk_id\":1,\"qty\":3}]}}",
+        "expectedOutput": "[{\"nama\":\"I\",\"total_item\":10,\"total_nilai\":10000},{\"nama\":\"G\",\"total_item\":5,\"total_nilai\":5000},{\"nama\":\"H\",\"total_item\":3,\"total_nilai\":3000}]",
+        "isHidden": true
+      }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0004-000000000020",
+    "title": "Pivot Data dengan CASE WHEN",
+    "category": "sql",
+    "difficulty": "hard",
+    "description": "Diberikan tabel 'nilai_siswa' (id, nama, mata_pelajaran, nilai) dengan mata_pelajaran berupa 'Math', 'Science', 'English', buat pivot table yang menampilkan nilai setiap siswa per kolom mata pelajaran. Diurutkan berdasarkan nama ascending.\n\nContoh hasil:\nnama  | math | science | english\nAlice | 90   | 85      | 88\nBob   | 75   | 80      | 70",
+    "starterCode": "-- Pivot nilai siswa: baris per siswa, kolom per mata pelajaran\nSELECT nama,\n  MAX(CASE WHEN mata_pelajaran = 'Math' THEN nilai END) AS math,\n  MAX(CASE WHEN mata_pelajaran = 'Science' THEN nilai END) AS science,\n  MAX(CASE WHEN mata_pelajaran = 'English' THEN nilai END) AS english\nFROM nilai_siswa\nGROUP BY\nORDER BY nama",
+    "thinkingGuide": "Pivot mengubah nilai baris menjadi kolom. Tekniknya: gunakan CASE WHEN untuk mengekstrak nilai per mata pelajaran (NULL untuk yang tidak cocok), lalu MAX() untuk mengambil nilai non-NULL dari setiap kelompok. GROUP BY nama mengelompokkan per siswa. Ini adalah teknik pivot manual yang bekerja di semua database SQL.",
+    "hints": [
+      "Gunakan CASE WHEN mata_pelajaran = 'Math' THEN nilai END untuk mengekstrak nilai Math (NULL untuk baris lain).",
+      "Bungkus dengan MAX() agar GROUP BY bisa mengambil nilai non-NULL: MAX(CASE WHEN ... END).",
+      "GROUP BY nama mengelompokkan per siswa, sehingga setiap siswa menjadi satu baris dengan semua nilai."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0004-000000000019",
+    "testCases": [
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":90},{\"id\":2,\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":85},{\"id\":3,\"nama\":\"Alice\",\"mata_pelajaran\":\"English\",\"nilai\":88},{\"id\":4,\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":75},{\"id\":5,\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":80},{\"id\":6,\"nama\":\"Bob\",\"mata_pelajaran\":\"English\",\"nilai\":70}]}}",
+        "expectedOutput": "[{\"nama\":\"Alice\",\"math\":90,\"science\":85,\"english\":88},{\"nama\":\"Bob\",\"math\":75,\"science\":80,\"english\":70}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Citra\",\"mata_pelajaran\":\"Math\",\"nilai\":100},{\"id\":2,\"nama\":\"Citra\",\"mata_pelajaran\":\"Science\",\"nilai\":95},{\"id\":3,\"nama\":\"Citra\",\"mata_pelajaran\":\"English\",\"nilai\":90}]}}",
+        "expectedOutput": "[{\"nama\":\"Citra\",\"math\":100,\"science\":95,\"english\":90}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Dodi\",\"mata_pelajaran\":\"Math\",\"nilai\":60},{\"id\":2,\"nama\":\"Eka\",\"mata_pelajaran\":\"Math\",\"nilai\":70},{\"id\":3,\"nama\":\"Dodi\",\"mata_pelajaran\":\"Science\",\"nilai\":65},{\"id\":4,\"nama\":\"Eka\",\"mata_pelajaran\":\"Science\",\"nilai\":75},{\"id\":5,\"nama\":\"Dodi\",\"mata_pelajaran\":\"English\",\"nilai\":70},{\"id\":6,\"nama\":\"Eka\",\"mata_pelajaran\":\"English\",\"nilai\":80}]}}",
+        "expectedOutput": "[{\"nama\":\"Dodi\",\"math\":60,\"science\":65,\"english\":70},{\"nama\":\"Eka\",\"math\":70,\"science\":75,\"english\":80}]",
+        "isHidden": false
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Fani\",\"mata_pelajaran\":\"Math\",\"nilai\":55},{\"id\":2,\"nama\":\"Fani\",\"mata_pelajaran\":\"Science\",\"nilai\":60},{\"id\":3,\"nama\":\"Fani\",\"mata_pelajaran\":\"English\",\"nilai\":65},{\"id\":4,\"nama\":\"Gita\",\"mata_pelajaran\":\"Math\",\"nilai\":95},{\"id\":5,\"nama\":\"Gita\",\"mata_pelajaran\":\"Science\",\"nilai\":90},{\"id\":6,\"nama\":\"Gita\",\"mata_pelajaran\":\"English\",\"nilai\":85}]}}",
+        "expectedOutput": "[{\"nama\":\"Fani\",\"math\":55,\"science\":60,\"english\":65},{\"nama\":\"Gita\",\"math\":95,\"science\":90,\"english\":85}]",
+        "isHidden": true
+      },
+      {
+        "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Hadi\",\"mata_pelajaran\":\"Math\",\"nilai\":77},{\"id\":2,\"nama\":\"Hadi\",\"mata_pelajaran\":\"Science\",\"nilai\":88},{\"id\":3,\"nama\":\"Hadi\",\"mata_pelajaran\":\"English\",\"nilai\":99}]}}",
+        "expectedOutput": "[{\"nama\":\"Hadi\",\"math\":77,\"science\":88,\"english\":99}]",
+        "isHidden": true
+      }
+    ]
+  }
+]

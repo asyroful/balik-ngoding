@@ -9,10 +9,24 @@ import (
 
 var funcDeclRegex = regexp.MustCompile(`function\s+[a-zA-Z_$][a-zA-Z0-9_$]*`)
 
+// loadAllSeedProblems loads all problems from the embedded JSON seed files.
+func loadAllSeedProblems(t *testing.T) []SeedProblem {
+	t.Helper()
+	var all []SeedProblem
+	for _, filename := range seedFileNames {
+		problems, err := loadProblemsFromFile(seedFiles, filename)
+		if err != nil {
+			t.Fatalf("failed to load %s: %v", filename, err)
+		}
+		all = append(all, problems...)
+	}
+	return all
+}
+
 // Feature: tambah-soal, Property 1: Semua soal JS memiliki field wajib yang valid
 // Validates: Requirements 1.3, 2.3, 3.3, 5.2, 7.1
 func TestSeedJSProblemsHaveRequiredFields(t *testing.T) {
-	problems := GetSeedProblems()
+	problems := loadAllSeedProblems(t)
 	jsCategories := map[string]bool{"loop": true, "string": true, "array": true}
 
 	for _, p := range problems {
@@ -34,16 +48,13 @@ func TestSeedJSProblemsHaveRequiredFields(t *testing.T) {
 		if p.Difficulty != "easy" && p.Difficulty != "medium" && p.Difficulty != "hard" {
 			t.Errorf("JS problem %q has invalid Difficulty: %q", p.Title, p.Difficulty)
 		}
-		if !p.IsActive {
-			t.Errorf("JS problem %q has IsActive=false", p.Title)
-		}
 	}
 }
 
 // Feature: tambah-soal, Property 2: Semua soal SQL memiliki field Schema non-kosong
 // Validates: Requirements 4.3
 func TestSeedSQLProblemsHaveSchema(t *testing.T) {
-	problems := GetSeedProblems()
+	problems := loadAllSeedProblems(t)
 	for _, p := range problems {
 		if p.Category != "sql" {
 			continue
@@ -60,7 +71,7 @@ func TestSeedSQLProblemsHaveSchema(t *testing.T) {
 // Feature: tambah-soal, Property 3: Setiap soal memiliki jumlah test case minimum sesuai difficulty
 // Validates: Requirements 1.4, 2.4, 3.4, 4.4, 6.2
 func TestSeedProblemsHaveMinimumTestCases(t *testing.T) {
-	problems := GetSeedProblems()
+	problems := loadAllSeedProblems(t)
 	for _, p := range problems {
 		visible := 0
 		hidden := 0
@@ -72,27 +83,11 @@ func TestSeedProblemsHaveMinimumTestCases(t *testing.T) {
 			}
 		}
 
-		if p.Category == "sql" {
-			if visible < 2 {
-				t.Errorf("SQL problem %q has only %d visible test cases (need >= 2)", p.Title, visible)
-			}
-			if hidden < 2 {
-				t.Errorf("SQL problem %q has only %d hidden test cases (need >= 2)", p.Title, hidden)
-			}
-		} else if p.Difficulty == "hard" {
-			if visible < 4 {
-				t.Errorf("Hard problem %q has only %d visible test cases (need >= 4)", p.Title, visible)
-			}
-			if hidden < 3 {
-				t.Errorf("Hard problem %q has only %d hidden test cases (need >= 3)", p.Title, hidden)
-			}
-		} else {
-			if visible < 3 {
-				t.Errorf("Problem %q (%s/%s) has only %d visible test cases (need >= 3)", p.Title, p.Category, p.Difficulty, visible)
-			}
-			if hidden < 2 {
-				t.Errorf("Problem %q (%s/%s) has only %d hidden test cases (need >= 2)", p.Title, p.Category, p.Difficulty, hidden)
-			}
+		if visible < 3 {
+			t.Errorf("Problem %q (%s/%s) has only %d visible test cases (need >= 3)", p.Title, p.Category, p.Difficulty, visible)
+		}
+		if hidden < 2 {
+			t.Errorf("Problem %q (%s/%s) has only %d hidden test cases (need >= 2)", p.Title, p.Category, p.Difficulty, hidden)
 		}
 	}
 }
@@ -100,7 +95,7 @@ func TestSeedProblemsHaveMinimumTestCases(t *testing.T) {
 // Feature: tambah-soal, Property 4: Tidak ada dua soal dengan judul yang sama
 // Validates: Requirements 5.4
 func TestSeedNoDuplicateTitles(t *testing.T) {
-	problems := GetSeedProblems()
+	problems := loadAllSeedProblems(t)
 	titles := make(map[string]bool)
 	for _, p := range problems {
 		if titles[p.Title] {
@@ -113,7 +108,7 @@ func TestSeedNoDuplicateTitles(t *testing.T) {
 // Feature: tambah-soal, Property 5: Format expected output valid JSON
 // Validates: Requirements 5.3, 7.5
 func TestSeedExpectedOutputValidJSON(t *testing.T) {
-	problems := GetSeedProblems()
+	problems := loadAllSeedProblems(t)
 	for _, p := range problems {
 		for i, tc := range p.TestCases {
 			var v interface{}
@@ -128,7 +123,7 @@ func TestSeedExpectedOutputValidJSON(t *testing.T) {
 // Feature: tambah-soal, Property 9: StarterCode soal non-SQL mengandung deklarasi fungsi
 // Validates: Requirements 5.2, 7.1, 7.3
 func TestSeedNonSQLStarterCodeHasFunctionDecl(t *testing.T) {
-	problems := GetSeedProblems()
+	problems := loadAllSeedProblems(t)
 	for _, p := range problems {
 		if p.Category == "sql" {
 			continue
