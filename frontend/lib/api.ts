@@ -1,4 +1,5 @@
-import { Problem, SubmissionResult, SubmitRequest, CategorySummary } from './types';
+import { Problem, SubmissionResult, SubmitRequest, CategorySummary, AnalyticsStats } from './types';
+import { getOrCreateAnonymousId } from './anonymousId';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
@@ -25,10 +26,11 @@ export async function getProblemById(id: string): Promise<Problem> {
 }
 
 export async function submitSolution(req: SubmitRequest): Promise<SubmissionResult> {
+  const anonymousId = getOrCreateAnonymousId();
   const res = await fetch(`${BASE_URL}/submit`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(req),
+    body: JSON.stringify({ ...req, anonymousId }),
   });
   return handleResponse<SubmissionResult>(res);
 }
@@ -36,4 +38,9 @@ export async function submitSolution(req: SubmitRequest): Promise<SubmissionResu
 export async function getProblemsSummary(): Promise<CategorySummary[]> {
   const res = await fetch(`${BASE_URL}/problems/summary`);
   return handleResponse<CategorySummary[]>(res);
+}
+
+export async function getAnalyticsStats(): Promise<AnalyticsStats> {
+  const res = await fetch(`${BASE_URL}/analytics/stats`, { cache: 'no-store' });
+  return handleResponse<AnalyticsStats>(res);
 }

@@ -41,6 +41,21 @@ export interface SubmitRequest {
   problemId: string;
   code: string;
   language: string;
+  anonymousId?: string;
+}
+
+export interface TopProblem {
+  problemId: string;
+  title: string;
+  submissionCount: number;
+}
+
+export interface AnalyticsStats {
+  uniqueDevices: number;
+  totalSubmissions: number;
+  totalAccepted: number;
+  devicesWithAccepted: number;
+  topProblems: TopProblem[];
 }
 
 export interface CategorySummary {

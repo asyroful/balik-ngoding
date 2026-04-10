@@ -14,9 +14,10 @@ import (
 
 // SubmitRequest holds the input for a submission.
 type SubmitRequest struct {
-	ProblemID string `json:"problemId"`
-	Code      string `json:"code"`
-	Language  string `json:"language"`
+	ProblemID   string  `json:"problemId"`
+	Code        string  `json:"code"`
+	Language    string  `json:"language"`
+	AnonymousID *string `json:"anonymousId"` // nullable — not required
 }
 
 // TestCaseResult is the per-test-case result DTO.
@@ -125,6 +126,7 @@ func (s *SubmissionsService) Submit(req SubmitRequest) (*SubmissionResult, error
 	// Persist submission
 	submission := models.Submission{
 		ProblemID:    req.ProblemID,
+		AnonymousID:  req.AnonymousID,
 		Code:         req.Code,
 		Language:     req.Language,
 		Status:       status,
