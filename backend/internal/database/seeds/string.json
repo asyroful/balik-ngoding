@@ -1,0 +1,460 @@
+[
+  {
+    "id": "00000000-0000-0000-0002-000000000001",
+    "title": "Ubah ke Huruf Kapital",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah string, kembalikan string tersebut dalam huruf kapital semua.\n\nContoh: ubahKapital(\"halo\") -> \"HALO\"\nContoh: ubahKapital(\"dunia\") -> \"DUNIA\"\nContoh: ubahKapital(\"Balik Ngoding\") -> \"BALIK NGODING\"",
+    "starterCode": "function ubahKapital(str) {\n  // Gunakan method bawaan JavaScript untuk mengubah ke huruf kapital\n  return str;\n}",
+    "thinkingGuide": "JavaScript menyediakan method bawaan pada tipe data string untuk mengubah huruf. Method toUpperCase() mengubah semua karakter menjadi huruf kapital tanpa mengubah string aslinya (string bersifat immutable). Cukup panggil method ini pada string yang diberikan dan kembalikan hasilnya.",
+    "hints": [
+      "String di JavaScript memiliki method bawaan untuk mengubah huruf besar/kecil.",
+      "Coba cari method yang namanya mengandung kata 'Upper' pada objek string.",
+      "Gunakan str.toUpperCase() untuk mengubah semua huruf menjadi kapital."
+    ],
+    "prerequisiteId": null,
+    "testCases": [
+      { "input": "\"halo\"", "expectedOutput": "\"HALO\"", "isHidden": false },
+      { "input": "\"dunia\"", "expectedOutput": "\"DUNIA\"", "isHidden": false },
+      { "input": "\"Balik Ngoding\"", "expectedOutput": "\"BALIK NGODING\"", "isHidden": false },
+      { "input": "\"javascript\"", "expectedOutput": "\"JAVASCRIPT\"", "isHidden": true },
+      { "input": "\"\"", "expectedOutput": "\"\"", "isHidden": true }
+    ]
+  },
+  {
+    "id": "00000000-0000-0000-0002-000000000002",
+    "title": "Panjang String",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah string, kembalikan panjang (jumlah karakter) dari string tersebut.\n\nContoh: panjangString(\"halo\") -> 4\nContoh: panjangString(\"JavaScript\") -> 10\nContoh: panjangString(\"\") -> 0",
+    "starterCode": "function panjangString(str) {\n  // Kembalikan jumlah karakter dalam string\n  return 0;\n}",
+    "thinkingGuide": "Setiap string di JavaScript memiliki properti 'length' yang menyimpan jumlah karakter di dalamnya. Berbeda dengan method (yang dipanggil dengan tanda kurung), properti diakses langsung tanpa tanda kurung. Spasi juga dihitung sebagai karakter.",
+    "hints": [
+      "String memiliki properti (bukan method) yang menyimpan jumlah karakternya.",
+      "Properti ini bernama 'length' dan diakses tanpa tanda kurung.",
+      "Gunakan str.length untuk mendapatkan panjang string."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000001",
+    "testCases": [
+      { "input": "\"halo\"", "expectedOutput": "4", "isHidden": false },
+      { "input": "\"JavaScript\"", "expectedOutput": "10", "isHidden": false },
+      { "input": "\"\"", "expectedOutput": "0", "isHidden": false },
+      { "input": "\"satu dua\"", "expectedOutput": "8", "isHidden": true },
+      { "input": "\"a\"", "expectedOutput": "1", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000003",
+    "title": "Balik String",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah string, kembalikan string tersebut dalam urutan karakter yang terbalik.\n\nContoh: balikString(\"halo\") -> \"olah\"\nContoh: balikString(\"abcde\") -> \"edcba\"\nContoh: balikString(\"a\") -> \"a\"",
+    "starterCode": "function balikString(str) {\n  // Pecah string menjadi array, balik, lalu gabung kembali\n  return str;\n}",
+    "thinkingGuide": "String tidak memiliki method reverse() secara langsung, tapi array punya. Triknya adalah mengubah string menjadi array karakter terlebih dahulu menggunakan split(''), lalu membalik array dengan reverse(), kemudian menggabungkan kembali menjadi string dengan join(''). Ini adalah pola klasik untuk membalik string di JavaScript.",
+    "hints": [
+      "String tidak punya method reverse(), tapi Array punya. Ubah string ke array dulu.",
+      "Gunakan str.split('') untuk memecah string menjadi array karakter, lalu .reverse() untuk membaliknya.",
+      "Setelah dibalik, gabungkan kembali dengan .join(''). Rangkai: str.split('').reverse().join('')"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000002",
+    "testCases": [
+      { "input": "\"halo\"", "expectedOutput": "\"olah\"", "isHidden": false },
+      { "input": "\"abcde\"", "expectedOutput": "\"edcba\"", "isHidden": false },
+      { "input": "\"a\"", "expectedOutput": "\"a\"", "isHidden": false },
+      { "input": "\"12345\"", "expectedOutput": "\"54321\"", "isHidden": true },
+      { "input": "\"\"", "expectedOutput": "\"\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000004",
+    "title": "Cek Palindrom",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah string, kembalikan true jika string tersebut adalah palindrom (dibaca sama dari depan maupun belakang), false jika bukan. Abaikan perbedaan huruf besar/kecil.\n\nContoh: cekPalindrom(\"katak\") -> true\nContoh: cekPalindrom(\"Radar\") -> true\nContoh: cekPalindrom(\"halo\") -> false",
+    "starterCode": "function cekPalindrom(str) {\n  // Ubah ke lowercase, lalu bandingkan dengan versi terbaliknya\n  return false;\n}",
+    "thinkingGuide": "Palindrom adalah string yang sama jika dibaca dari depan maupun belakang. Langkah penyelesaiannya: (1) ubah string ke lowercase agar perbandingan tidak case-sensitive, (2) balik string tersebut menggunakan split/reverse/join, (3) bandingkan string asli (lowercase) dengan string yang sudah dibalik. Jika sama, maka palindrom.",
+    "hints": [
+      "Ubah string ke lowercase terlebih dahulu agar 'Radar' dan 'radar' dianggap sama.",
+      "Balik string menggunakan split('').reverse().join(''), lalu bandingkan dengan string lowercase aslinya.",
+      "Kembalikan hasil perbandingan: str.toLowerCase() === str.toLowerCase().split('').reverse().join('')"
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000003",
+    "testCases": [
+      { "input": "\"katak\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"Radar\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"halo\"", "expectedOutput": "false", "isHidden": false },
+      { "input": "\"a\"", "expectedOutput": "true", "isHidden": true },
+      { "input": "\"abba\"", "expectedOutput": "true", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000005",
+    "title": "Hitung Kemunculan Karakter",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah string dan sebuah karakter, kembalikan berapa kali karakter tersebut muncul dalam string.\n\nContoh: hitungKarakter(\"banana\", \"a\") -> 3\nContoh: hitungKarakter(\"hello\", \"l\") -> 2\nContoh: hitungKarakter(\"abc\", \"z\") -> 0",
+    "starterCode": "function hitungKarakter(str, karakter) {\n  let count = 0;\n  // Loop melalui setiap karakter dan hitung kemunculannya\n  return count;\n}",
+    "thinkingGuide": "Untuk menghitung kemunculan karakter tertentu, kita perlu memeriksa setiap karakter dalam string satu per satu. Gunakan loop untuk mengiterasi setiap indeks string (dari 0 sampai str.length - 1), lalu bandingkan str[i] dengan karakter yang dicari. Jika sama, tambahkan counter.",
+    "hints": [
+      "Loop melalui setiap karakter string menggunakan indeks: for (let i = 0; i < str.length; i++)",
+      "Di dalam loop, bandingkan str[i] dengan parameter karakter menggunakan ===.",
+      "Jika cocok, tambahkan count++. Kembalikan count setelah loop selesai."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000004",
+    "testCases": [
+      { "input": "\"banana\", \"a\"", "expectedOutput": "3", "isHidden": false },
+      { "input": "\"hello\", \"l\"", "expectedOutput": "2", "isHidden": false },
+      { "input": "\"abc\", \"z\"", "expectedOutput": "0", "isHidden": false },
+      { "input": "\"aaaaaa\", \"a\"", "expectedOutput": "6", "isHidden": true },
+      { "input": "\"\", \"a\"", "expectedOutput": "0", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000006",
+    "title": "Gabung Array Menjadi String",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah array string dan sebuah separator, gabungkan semua elemen array menjadi satu string dengan separator di antara setiap elemen.\n\nContoh: gabungArray([\"halo\", \"dunia\"], \" \") -> \"halo dunia\"\nContoh: gabungArray([\"a\", \"b\", \"c\"], \"-\") -> \"a-b-c\"\nContoh: gabungArray([\"satu\"], \",\") -> \"satu\"",
+    "starterCode": "function gabungArray(arr, separator) {\n  // Gunakan method join pada array\n  return \"\";\n}",
+    "thinkingGuide": "Array di JavaScript memiliki method join() yang menggabungkan semua elemen menjadi satu string. Parameter yang diberikan ke join() adalah string yang akan disisipkan di antara setiap elemen. Jika array hanya memiliki satu elemen, tidak ada separator yang ditambahkan. Jika array kosong, hasilnya adalah string kosong.",
+    "hints": [
+      "Array memiliki method bawaan untuk menggabungkan semua elemennya menjadi satu string.",
+      "Method tersebut adalah join(), dan ia menerima separator sebagai argumen.",
+      "Gunakan arr.join(separator) untuk menggabungkan array dengan separator yang diberikan."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000005",
+    "testCases": [
+      { "input": "[\"halo\", \"dunia\"], \" \"", "expectedOutput": "\"halo dunia\"", "isHidden": false },
+      { "input": "[\"a\", \"b\", \"c\"], \"-\"", "expectedOutput": "\"a-b-c\"", "isHidden": false },
+      { "input": "[\"satu\"], \",\"", "expectedOutput": "\"satu\"", "isHidden": false },
+      { "input": "[\"x\", \"y\", \"z\"], \"\"", "expectedOutput": "\"xyz\"", "isHidden": true },
+      { "input": "[], \"-\"", "expectedOutput": "\"\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000007",
+    "title": "Potong String (Trim)",
+    "category": "string",
+    "difficulty": "easy",
+    "description": "Diberikan sebuah string yang mungkin memiliki spasi di awal dan/atau akhir, kembalikan string tersebut tanpa spasi di kedua ujungnya.\n\nContoh: potongSpasi(\"  halo  \") -> \"halo\"\nContoh: potongSpasi(\"  dunia\") -> \"dunia\"\nContoh: potongSpasi(\"baik \") -> \"baik\"",
+    "starterCode": "function potongSpasi(str) {\n  // Hapus spasi di awal dan akhir string\n  return str;\n}",
+    "thinkingGuide": "Spasi di awal dan akhir string sering menjadi masalah saat memproses input dari pengguna. JavaScript menyediakan method trim() yang menghapus semua whitespace (spasi, tab, newline) dari kedua ujung string. Ada juga trimStart() untuk hanya ujung kiri dan trimEnd() untuk hanya ujung kanan.",
+    "hints": [
+      "JavaScript memiliki method khusus untuk menghapus spasi di kedua ujung string.",
+      "Method tersebut bernama trim() dan tidak memerlukan argumen.",
+      "Gunakan str.trim() untuk menghapus spasi di awal dan akhir string."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000006",
+    "testCases": [
+      { "input": "\"  halo  \"", "expectedOutput": "\"halo\"", "isHidden": false },
+      { "input": "\"  dunia\"", "expectedOutput": "\"dunia\"", "isHidden": false },
+      { "input": "\"baik \"", "expectedOutput": "\"baik\"", "isHidden": false },
+      { "input": "\"   \"", "expectedOutput": "\"\"", "isHidden": true },
+      { "input": "\"tanpa spasi\"", "expectedOutput": "\"tanpa spasi\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000008",
+    "title": "Pisah String",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah string dan sebuah delimiter, pisahkan string tersebut menjadi array berdasarkan delimiter.\n\nContoh: pisahString(\"halo dunia baru\", \" \") -> [\"halo\", \"dunia\", \"baru\"]\nContoh: pisahString(\"a,b,c\", \",\") -> [\"a\", \"b\", \"c\"]\nContoh: pisahString(\"satu\", \"-\") -> [\"satu\"]",
+    "starterCode": "function pisahString(str, delimiter) {\n  // Pisahkan string berdasarkan delimiter\n  return [];\n}",
+    "thinkingGuide": "Method split() adalah kebalikan dari join(). split() memecah string menjadi array berdasarkan delimiter yang diberikan. Jika delimiter tidak ditemukan dalam string, hasilnya adalah array dengan satu elemen (string aslinya). Jika delimiter adalah string kosong '', setiap karakter menjadi elemen terpisah.",
+    "hints": [
+      "String memiliki method split() yang memecahnya menjadi array berdasarkan pemisah tertentu.",
+      "Method split() menerima delimiter sebagai argumen: str.split(delimiter).",
+      "Kembalikan langsung hasil str.split(delimiter) — hasilnya sudah berupa array."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000007",
+    "testCases": [
+      { "input": "\"halo dunia baru\", \" \"", "expectedOutput": "[\"halo\",\"dunia\",\"baru\"]", "isHidden": false },
+      { "input": "\"a,b,c\", \",\"", "expectedOutput": "[\"a\",\"b\",\"c\"]", "isHidden": false },
+      { "input": "\"satu\", \"-\"", "expectedOutput": "[\"satu\"]", "isHidden": false },
+      { "input": "\"x|y|z\", \"|\"", "expectedOutput": "[\"x\",\"y\",\"z\"]", "isHidden": true },
+      { "input": "\"\", \",\"", "expectedOutput": "[\"\"]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000009",
+    "title": "Ganti Substring",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah string, sebuah substring yang ingin diganti, dan string penggantinya, kembalikan string baru di mana semua kemunculan substring tersebut sudah diganti.\n\nContoh: gantiSubstring(\"halo dunia halo\", \"halo\", \"hai\") -> \"hai dunia hai\"\nContoh: gantiSubstring(\"aabbcc\", \"b\", \"x\") -> \"aaxxcc\"\nContoh: gantiSubstring(\"abc\", \"z\", \"y\") -> \"abc\"",
+    "starterCode": "function gantiSubstring(str, cari, ganti) {\n  // Ganti semua kemunculan 'cari' dengan 'ganti'\n  return str;\n}",
+    "thinkingGuide": "JavaScript memiliki dua method untuk mengganti substring: replace() yang hanya mengganti kemunculan pertama, dan replaceAll() yang mengganti semua kemunculan. Untuk soal ini kita perlu mengganti semua kemunculan, jadi gunakan replaceAll(). Jika substring tidak ditemukan, string dikembalikan apa adanya.",
+    "hints": [
+      "JavaScript punya method replace() untuk mengganti substring, tapi hanya mengganti kemunculan pertama.",
+      "Untuk mengganti semua kemunculan, gunakan replaceAll() yang tersedia di JavaScript modern.",
+      "Gunakan str.replaceAll(cari, ganti) untuk mengganti semua kemunculan sekaligus."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000008",
+    "testCases": [
+      { "input": "\"halo dunia halo\", \"halo\", \"hai\"", "expectedOutput": "\"hai dunia hai\"", "isHidden": false },
+      { "input": "\"aabbcc\", \"b\", \"x\"", "expectedOutput": "\"aaxxcc\"", "isHidden": false },
+      { "input": "\"abc\", \"z\", \"y\"", "expectedOutput": "\"abc\"", "isHidden": false },
+      { "input": "\"aaaa\", \"a\", \"b\"", "expectedOutput": "\"bbbb\"", "isHidden": true },
+      { "input": "\"hello world\", \" \", \"_\"", "expectedOutput": "\"hello_world\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000010",
+    "title": "Cek Awalan (startsWith)",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah string dan sebuah prefix, kembalikan true jika string tersebut diawali dengan prefix, false jika tidak.\n\nContoh: cekAwalan(\"halo dunia\", \"halo\") -> true\nContoh: cekAwalan(\"javascript\", \"java\") -> true\nContoh: cekAwalan(\"python\", \"java\") -> false",
+    "starterCode": "function cekAwalan(str, prefix) {\n  // Cek apakah str diawali dengan prefix\n  return false;\n}",
+    "thinkingGuide": "Untuk mengecek awalan, kita bisa mengambil substring dari awal string sepanjang prefix, lalu membandingkannya. Namun JavaScript sudah menyediakan method startsWith() yang lebih bersih dan mudah dibaca. Method ini mengembalikan boolean true/false secara langsung.",
+    "hints": [
+      "Kamu bisa mengambil substring awal dengan str.slice(0, prefix.length) lalu membandingkannya dengan prefix.",
+      "Tapi ada cara yang lebih mudah: JavaScript punya method startsWith() bawaan.",
+      "Gunakan str.startsWith(prefix) yang langsung mengembalikan true atau false."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000009",
+    "testCases": [
+      { "input": "\"halo dunia\", \"halo\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"javascript\", \"java\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"python\", \"java\"", "expectedOutput": "false", "isHidden": false },
+      { "input": "\"abc\", \"abc\"", "expectedOutput": "true", "isHidden": true },
+      { "input": "\"abc\", \"abcd\"", "expectedOutput": "false", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000011",
+    "title": "Cek Akhiran (endsWith)",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah string dan sebuah suffix, kembalikan true jika string tersebut diakhiri dengan suffix, false jika tidak.\n\nContoh: cekAkhiran(\"halo dunia\", \"dunia\") -> true\nContoh: cekAkhiran(\"index.html\", \".html\") -> true\nContoh: cekAkhiran(\"style.css\", \".html\") -> false",
+    "starterCode": "function cekAkhiran(str, suffix) {\n  // Cek apakah str diakhiri dengan suffix\n  return false;\n}",
+    "thinkingGuide": "Mirip dengan startsWith(), JavaScript juga menyediakan method endsWith() untuk mengecek akhiran string. Secara manual, kita bisa mengambil substring dari posisi (str.length - suffix.length) sampai akhir, lalu membandingkannya. Tapi endsWith() jauh lebih ringkas dan ekspresif.",
+    "hints": [
+      "Secara manual: ambil str.slice(str.length - suffix.length) lalu bandingkan dengan suffix.",
+      "Tapi JavaScript punya method endsWith() yang lebih mudah digunakan.",
+      "Gunakan str.endsWith(suffix) yang langsung mengembalikan true atau false."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000010",
+    "testCases": [
+      { "input": "\"halo dunia\", \"dunia\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"index.html\", \".html\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"style.css\", \".html\"", "expectedOutput": "false", "isHidden": false },
+      { "input": "\"abc\", \"abc\"", "expectedOutput": "true", "isHidden": true },
+      { "input": "\"abc\", \"xabc\"", "expectedOutput": "false", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000012",
+    "title": "Ekstrak Substring",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah string, indeks awal, dan indeks akhir, kembalikan substring dari indeks awal (inklusif) sampai indeks akhir (eksklusif).\n\nContoh: ekstrakSubstring(\"halo dunia\", 0, 4) -> \"halo\"\nContoh: ekstrakSubstring(\"javascript\", 4, 10) -> \"script\"\nContoh: ekstrakSubstring(\"abcdef\", 2, 5) -> \"cde\"",
+    "starterCode": "function ekstrakSubstring(str, awal, akhir) {\n  // Ambil bagian string dari indeks awal sampai akhir\n  return \"\";\n}",
+    "thinkingGuide": "Method slice(start, end) mengambil bagian dari string mulai dari indeks start (inklusif) hingga indeks end (eksklusif). Indeks dimulai dari 0. Jika end tidak diberikan, slice mengambil sampai akhir string. slice() tidak mengubah string asli karena string bersifat immutable.",
+    "hints": [
+      "JavaScript punya beberapa method untuk mengambil bagian string: substring(), substr(), dan slice().",
+      "Method slice(start, end) adalah yang paling umum digunakan — start inklusif, end eksklusif.",
+      "Gunakan str.slice(awal, akhir) untuk mengambil substring yang diinginkan."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000011",
+    "testCases": [
+      { "input": "\"halo dunia\", 0, 4", "expectedOutput": "\"halo\"", "isHidden": false },
+      { "input": "\"javascript\", 4, 10", "expectedOutput": "\"script\"", "isHidden": false },
+      { "input": "\"abcdef\", 2, 5", "expectedOutput": "\"cde\"", "isHidden": false },
+      { "input": "\"hello\", 1, 3", "expectedOutput": "\"el\"", "isHidden": true },
+      { "input": "\"xyz\", 0, 1", "expectedOutput": "\"x\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000013",
+    "title": "Hitung Kata",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah kalimat, kembalikan jumlah kata dalam kalimat tersebut. Kata dipisahkan oleh spasi. Abaikan spasi berlebih di awal, akhir, dan di antara kata.\n\nContoh: hitungKata(\"halo dunia\") -> 2\nContoh: hitungKata(\"satu dua tiga\") -> 3\nContoh: hitungKata(\"  spasi  berlebih  \") -> 2",
+    "starterCode": "function hitungKata(kalimat) {\n  // Pisahkan kalimat menjadi array kata, lalu hitung\n  return 0;\n}",
+    "thinkingGuide": "Pendekatan naif dengan split(' ') akan menghasilkan elemen kosong jika ada spasi berlebih. Solusi yang lebih robust: (1) trim() dulu untuk menghapus spasi di ujung, (2) jika string kosong kembalikan 0, (3) split dengan regex /\\s+/ yang memisahkan berdasarkan satu atau lebih whitespace, (4) kembalikan panjang array hasilnya.",
+    "hints": [
+      "Gunakan trim() terlebih dahulu untuk menghapus spasi di awal dan akhir kalimat.",
+      "Pisahkan dengan split(/\\s+/) untuk menangani spasi berlebih di antara kata.",
+      "Jika kalimat kosong setelah trim, kembalikan 0. Jika tidak, kembalikan panjang array hasil split."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000012",
+    "testCases": [
+      { "input": "\"halo dunia\"", "expectedOutput": "2", "isHidden": false },
+      { "input": "\"satu dua tiga\"", "expectedOutput": "3", "isHidden": false },
+      { "input": "\"  spasi  berlebih  \"", "expectedOutput": "2", "isHidden": false },
+      { "input": "\"satu\"", "expectedOutput": "1", "isHidden": true },
+      { "input": "\"\"", "expectedOutput": "0", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000014",
+    "title": "Title Case",
+    "category": "string",
+    "difficulty": "medium",
+    "description": "Diberikan sebuah kalimat, kembalikan kalimat tersebut dalam format Title Case di mana huruf pertama setiap kata dikapitalkan dan sisanya huruf kecil.\n\nContoh: titleCase(\"halo dunia\") -> \"Halo Dunia\"\nContoh: titleCase(\"belajar javascript itu menyenangkan\") -> \"Belajar Javascript Itu Menyenangkan\"\nContoh: titleCase(\"SEMUA KAPITAL\") -> \"Semua Kapital\"",
+    "starterCode": "function titleCase(kalimat) {\n  // Pisahkan kata, kapitalisasi huruf pertama setiap kata, gabungkan kembali\n  return \"\";\n}",
+    "thinkingGuide": "Untuk Title Case: (1) pisahkan kalimat menjadi array kata dengan split(' '), (2) untuk setiap kata, ambil huruf pertama dengan [0] lalu ubah ke uppercase, gabungkan dengan sisa kata (slice(1)) yang diubah ke lowercase, (3) gabungkan kembali semua kata dengan join(' '). Method map() sangat berguna di sini untuk memproses setiap kata.",
+    "hints": [
+      "Pisahkan kalimat menjadi array kata dengan split(' '), lalu proses setiap kata.",
+      "Untuk setiap kata: ambil huruf pertama (kata[0].toUpperCase()) dan gabungkan dengan sisa kata (kata.slice(1).toLowerCase()).",
+      "Gunakan map() untuk memproses setiap kata, lalu join(' ') untuk menggabungkan kembali."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000013",
+    "testCases": [
+      { "input": "\"halo dunia\"", "expectedOutput": "\"Halo Dunia\"", "isHidden": false },
+      { "input": "\"belajar javascript itu menyenangkan\"", "expectedOutput": "\"Belajar Javascript Itu Menyenangkan\"", "isHidden": false },
+      { "input": "\"SEMUA KAPITAL\"", "expectedOutput": "\"Semua Kapital\"", "isHidden": false },
+      { "input": "\"satu\"", "expectedOutput": "\"Satu\"", "isHidden": true },
+      { "input": "\"a b c\"", "expectedOutput": "\"A B C\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000015",
+    "title": "Kompresi String",
+    "category": "string",
+    "difficulty": "hard",
+    "description": "Implementasikan run-length encoding: kompres string dengan mengganti karakter berulang dengan karakter diikuti jumlah kemunculannya.\n\nContoh: kompresiString(\"aaabbc\") -> \"a3b2c1\"\nContoh: kompresiString(\"abcd\") -> \"a1b1c1d1\"\nContoh: kompresiString(\"aaaaaa\") -> \"a6\"",
+    "starterCode": "function kompresiString(str) {\n  if (str.length === 0) return \"\";\n  let hasil = \"\";\n  // Hitung kemunculan berturut-turut setiap karakter\n  return hasil;\n}",
+    "thinkingGuide": "Run-length encoding bekerja dengan menghitung berapa kali karakter yang sama muncul secara berturut-turut. Algoritma: (1) mulai dengan karakter pertama dan count = 1, (2) loop dari indeks 1, jika karakter sama dengan sebelumnya tambah count, jika berbeda tambahkan karakter+count ke hasil dan reset count ke 1, (3) setelah loop selesai tambahkan karakter terakhir beserta countnya.",
+    "hints": [
+      "Gunakan dua variabel: karakter saat ini dan hitungannya. Loop dari indeks 1 dan bandingkan dengan karakter sebelumnya.",
+      "Jika str[i] === str[i-1], tambah counter. Jika berbeda, tambahkan karakter+count ke hasil dan reset counter ke 1.",
+      "Setelah loop selesai, jangan lupa tambahkan karakter terakhir beserta countnya ke hasil."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000014",
+    "testCases": [
+      { "input": "\"aaabbc\"", "expectedOutput": "\"a3b2c1\"", "isHidden": false },
+      { "input": "\"abcd\"", "expectedOutput": "\"a1b1c1d1\"", "isHidden": false },
+      { "input": "\"aaaaaa\"", "expectedOutput": "\"a6\"", "isHidden": false },
+      { "input": "\"aabbaabb\"", "expectedOutput": "\"a2b2a2b2\"", "isHidden": true },
+      { "input": "\"a\"", "expectedOutput": "\"a1\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000016",
+    "title": "Anagram",
+    "category": "string",
+    "difficulty": "hard",
+    "description": "Diberikan dua string, kembalikan true jika keduanya adalah anagram (mengandung karakter yang sama dengan frekuensi yang sama, abaikan spasi dan huruf besar/kecil), false jika tidak.\n\nContoh: cekAnagram(\"listen\", \"silent\") -> true\nContoh: cekAnagram(\"hello\", \"world\") -> false\nContoh: cekAnagram(\"Astronomer\", \"Moon starer\") -> true",
+    "starterCode": "function cekAnagram(str1, str2) {\n  // Bersihkan, urutkan, dan bandingkan kedua string\n  return false;\n}",
+    "thinkingGuide": "Dua string adalah anagram jika setelah diurutkan karakternya menghasilkan string yang sama. Langkah: (1) ubah keduanya ke lowercase, (2) hapus spasi dengan replace(/\\s/g, ''), (3) urutkan karakter dengan split('').sort().join(''), (4) bandingkan hasilnya. Jika panjang berbeda setelah dibersihkan, langsung false.",
+    "hints": [
+      "Bersihkan kedua string: ubah ke lowercase dan hapus spasi dengan replace(/\\s/g, '').",
+      "Urutkan karakter setiap string: str.split('').sort().join('').",
+      "Bandingkan kedua string yang sudah diurutkan — jika sama, mereka adalah anagram."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000015",
+    "testCases": [
+      { "input": "\"listen\", \"silent\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"hello\", \"world\"", "expectedOutput": "false", "isHidden": false },
+      { "input": "\"Astronomer\", \"Moon starer\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"abc\", \"cba\"", "expectedOutput": "true", "isHidden": true },
+      { "input": "\"rat\", \"car\"", "expectedOutput": "false", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000017",
+    "title": "Temukan Semua Indeks",
+    "category": "string",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah string dan sebuah substring, kembalikan array berisi semua indeks di mana substring tersebut ditemukan dalam string.\n\nContoh: temukanIndeks(\"abcabcabc\", \"abc\") -> [0, 3, 6]\nContoh: temukanIndeks(\"aaa\", \"a\") -> [0, 1, 2]\nContoh: temukanIndeks(\"hello\", \"xyz\") -> []",
+    "starterCode": "function temukanIndeks(str, sub) {\n  let hasil = [];\n  // Cari semua posisi kemunculan sub dalam str\n  return hasil;\n}",
+    "thinkingGuide": "Method indexOf(sub, fromIndex) mencari kemunculan pertama substring mulai dari posisi fromIndex. Kita bisa menggunakannya berulang kali: mulai dari indeks 0, temukan kemunculan pertama, simpan indeksnya, lalu cari lagi mulai dari indeks+1. Ulangi sampai indexOf mengembalikan -1 (tidak ditemukan lagi).",
+    "hints": [
+      "Gunakan indexOf(sub, startPos) yang menerima posisi awal pencarian sebagai argumen kedua.",
+      "Loop: cari indexOf mulai dari posisi 0, jika ditemukan (bukan -1) push ke hasil dan lanjutkan pencarian dari posisi+1.",
+      "Hentikan loop ketika indexOf mengembalikan -1, artinya tidak ada kemunculan lagi."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000016",
+    "testCases": [
+      { "input": "\"abcabcabc\", \"abc\"", "expectedOutput": "[0,3,6]", "isHidden": false },
+      { "input": "\"aaa\", \"a\"", "expectedOutput": "[0,1,2]", "isHidden": false },
+      { "input": "\"hello\", \"xyz\"", "expectedOutput": "[]", "isHidden": false },
+      { "input": "\"abab\", \"ab\"", "expectedOutput": "[0,2]", "isHidden": true },
+      { "input": "\"aaaa\", \"aa\"", "expectedOutput": "[0,1,2]", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000018",
+    "title": "Rotasi String",
+    "category": "string",
+    "difficulty": "hard",
+    "description": "Diberikan dua string, kembalikan true jika string kedua adalah rotasi dari string pertama. Rotasi berarti memindahkan beberapa karakter dari depan ke belakang.\n\nContoh: cekRotasi(\"abcde\", \"cdeab\") -> true\nContoh: cekRotasi(\"waterbottle\", \"erbottlewat\") -> true\nContoh: cekRotasi(\"abc\", \"acb\") -> false",
+    "starterCode": "function cekRotasi(str1, str2) {\n  // Gunakan trik penggabungan string untuk cek rotasi\n  return false;\n}",
+    "thinkingGuide": "Trik cerdas: jika str2 adalah rotasi dari str1, maka str2 pasti muncul sebagai substring dari str1+str1. Misalnya 'cdeab' ada di dalam 'abcdeabcde'. Langkah: (1) pastikan panjang keduanya sama, jika tidak langsung false, (2) cek apakah str2 ada di dalam str1+str1 menggunakan includes().",
+    "hints": [
+      "Jika panjang kedua string berbeda, langsung kembalikan false.",
+      "Trik: gabungkan str1 dengan dirinya sendiri (str1+str1), lalu cek apakah str2 ada di dalamnya.",
+      "Gunakan (str1 + str1).includes(str2) setelah memastikan panjang keduanya sama."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000017",
+    "testCases": [
+      { "input": "\"abcde\", \"cdeab\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"waterbottle\", \"erbottlewat\"", "expectedOutput": "true", "isHidden": false },
+      { "input": "\"abc\", \"acb\"", "expectedOutput": "false", "isHidden": false },
+      { "input": "\"hello\", \"llohe\"", "expectedOutput": "true", "isHidden": true },
+      { "input": "\"abc\", \"abcd\"", "expectedOutput": "false", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000019",
+    "title": "Hapus Duplikat Karakter",
+    "category": "string",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah string, kembalikan string baru yang hanya berisi karakter unik dengan mempertahankan urutan kemunculan pertama setiap karakter.\n\nContoh: hapusDuplikat(\"aabbcc\") -> \"abc\"\nContoh: hapusDuplikat(\"abcabc\") -> \"abc\"\nContoh: hapusDuplikat(\"programming\") -> \"progamin\"",
+    "starterCode": "function hapusDuplikat(str) {\n  let hasil = \"\";\n  // Tambahkan karakter hanya jika belum ada di hasil\n  return hasil;\n}",
+    "thinkingGuide": "Ada beberapa pendekatan: (1) loop dan cek apakah karakter sudah ada di hasil dengan includes(), (2) gunakan Set untuk melacak karakter yang sudah dilihat — Set hanya menyimpan nilai unik sehingga sangat efisien, (3) gunakan [...new Set(str.split(''))].join('') sebagai solusi satu baris. Urutan kemunculan pertama harus dipertahankan.",
+    "hints": [
+      "Loop melalui setiap karakter, dan hanya tambahkan ke hasil jika belum ada di hasil.",
+      "Gunakan Set untuk melacak karakter yang sudah dilihat: if (!seen.has(char)) { seen.add(char); hasil += char; }",
+      "Atau gunakan [...new Set(str.split(''))].join('') sebagai solusi satu baris yang elegan."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000018",
+    "testCases": [
+      { "input": "\"aabbcc\"", "expectedOutput": "\"abc\"", "isHidden": false },
+      { "input": "\"abcabc\"", "expectedOutput": "\"abc\"", "isHidden": false },
+      { "input": "\"programming\"", "expectedOutput": "\"progamin\"", "isHidden": false },
+      { "input": "\"aaaa\"", "expectedOutput": "\"a\"", "isHidden": true },
+      { "input": "\"abcd\"", "expectedOutput": "\"abcd\"", "isHidden": true }
+    ]
+  },
+
+  {
+    "id": "00000000-0000-0000-0002-000000000020",
+    "title": "Terpanjang Tanpa Pengulangan",
+    "category": "string",
+    "difficulty": "hard",
+    "description": "Diberikan sebuah string, temukan panjang substring terpanjang yang tidak mengandung karakter berulang.\n\nContoh: terpanjangTanpaUlang(\"abcabcbb\") -> 3 (substring \"abc\")\nContoh: terpanjangTanpaUlang(\"bbbbb\") -> 1 (substring \"b\")\nContoh: terpanjangTanpaUlang(\"pwwkew\") -> 3 (substring \"wke\")",
+    "starterCode": "function terpanjangTanpaUlang(str) {\n  // Gunakan sliding window dengan Set\n  let maks = 0;\n  return maks;\n}",
+    "thinkingGuide": "Gunakan teknik sliding window dengan dua pointer (left dan right) dan sebuah Set. Gerakkan pointer right ke kanan satu per satu. Jika karakter baru belum ada di Set, tambahkan dan perbarui panjang maksimum. Jika sudah ada, gerakkan pointer left ke kanan sambil menghapus karakter dari Set sampai karakter duplikat hilang.",
+    "hints": [
+      "Gunakan dua pointer: left dan right, serta Set untuk melacak karakter dalam window saat ini.",
+      "Gerakkan right ke kanan. Jika str[right] sudah ada di Set, gerakkan left ke kanan sambil hapus str[left] dari Set.",
+      "Perbarui maks = Math.max(maks, right - left + 1) setiap kali karakter baru berhasil ditambahkan ke Set."
+    ],
+    "prerequisiteId": "00000000-0000-0000-0002-000000000019",
+    "testCases": [
+      { "input": "\"abcabcbb\"", "expectedOutput": "3", "isHidden": false },
+      { "input": "\"bbbbb\"", "expectedOutput": "1", "isHidden": false },
+      { "input": "\"pwwkew\"", "expectedOutput": "3", "isHidden": false },
+      { "input": "\"abcdef\"", "expectedOutput": "6", "isHidden": true },
+      { "input": "\"\"", "expectedOutput": "0", "isHidden": true }
+    ]
+  }
+]

@@ -4,7 +4,7 @@
 import React from 'react';
 import * as fc from 'fast-check';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, within } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 // Mock useProgress before importing ProblemTable
 vi.mock('../hooks/useProgress', () => ({
@@ -33,11 +33,15 @@ const arbProblem = fc.record({
   starterCode: fc.constant(''),
   isActive: fc.constant(true),
   createdAt: fc.constant('2024-01-01T00:00:00Z'),
+  thinkingGuide: fc.constant(null),
+  hints: fc.constant(null),
+  prerequisiteId: fc.constant(null),
+  prerequisiteTitle: fc.constant(null),
 });
 
 // Validates: Requirements 3.4, 3.5, 3.6
 describe('Property 11: Accepted problems show visual indicator in table', () => {
-  it('each accepted row shows "Selesai" badge; non-accepted rows do not', () => {
+  it('each accepted row shows green checkmark SVG; non-accepted rows show gray circle SVG', () => {
     fc.assert(
       fc.property(
         fc.array(arbProblem, { minLength: 1, maxLength: 10 }),
@@ -46,9 +50,10 @@ describe('Property 11: Accepted problems show visual indicator in table', () => 
           const acceptedIds = new Set(problems.filter((_, i) => i % 2 === 0).map((p) => p.id));
 
           mockUseProgress.mockReturnValue({
-            progress: Object.fromEntries([...acceptedIds].map((id) => [id, 'accepted'])),
             markAccepted: vi.fn(),
             isAccepted: (id: string) => acceptedIds.has(id),
+            getHintsUnlocked: vi.fn().mockReturnValue(0),
+            unlockNextHint: vi.fn(),
           });
 
           const { container, unmount } = render(
@@ -63,12 +68,13 @@ describe('Property 11: Accepted problems show visual indicator in table', () => 
             const row = rows[index];
             if (!row) { result = false; return; }
 
-            const hasSelesai = within(row as HTMLElement).queryByText(/Selesai/i) !== null;
+            const greenCheck = row.querySelector('svg.text-green-600');
+            const grayCircle = row.querySelector('svg.text-gray-300');
 
             if (acceptedIds.has(problem.id)) {
-              if (!hasSelesai) result = false;
+              if (!greenCheck) result = false;
             } else {
-              if (hasSelesai) result = false;
+              if (grayCircle === null) result = false;
             }
           });
 

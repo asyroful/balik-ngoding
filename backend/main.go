@@ -56,6 +56,7 @@ func setupRouter() *gin.Engine {
 
 	// Problems routes
 	problemsHandler := problems.NewHandler()
+	r.GET("/problems/summary", problemsHandler.GetSummary)
 	r.GET("/problems", problemsHandler.GetProblems)
 	r.GET("/problems/:id", problemsHandler.GetProblemByID)
 
@@ -68,7 +69,9 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	database.Init()
-	database.Seed(database.DB)
+	if err := database.SeedFromJSON(database.DB); err != nil {
+		log.Fatalf("Failed to seed database: %v", err)
+	}
 
 	r := setupRouter()
 

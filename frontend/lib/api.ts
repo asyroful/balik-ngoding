@@ -1,4 +1,4 @@
-import { Problem, SubmissionResult, SubmitRequest } from './types';
+import { Problem, SubmissionResult, SubmitRequest, CategorySummary } from './types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
@@ -31,4 +31,9 @@ export async function submitSolution(req: SubmitRequest): Promise<SubmissionResu
     body: JSON.stringify(req),
   });
   return handleResponse<SubmissionResult>(res);
+}
+
+export async function getProblemsSummary(): Promise<CategorySummary[]> {
+  const res = await fetch(`${BASE_URL}/problems/summary`);
+  return handleResponse<CategorySummary[]>(res);
 }

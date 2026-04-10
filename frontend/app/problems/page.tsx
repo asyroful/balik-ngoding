@@ -2,8 +2,8 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getProblems } from '@/lib/api';
-import { Problem } from '@/lib/types';
+import { getProblems, getProblemsSummary } from '@/lib/api';
+import { Problem, CategorySummary } from '@/lib/types';
 import CategoryFilter from '@/components/ProblemList/CategoryFilter';
 import ProblemTable from '@/components/ProblemList/ProblemTable';
 import { ProblemListSkeleton } from '@/components/Skeleton';
@@ -12,9 +12,9 @@ import { useProgress } from '@/hooks/useProgress';
 function ProblemsPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { progress } = useProgress();
+  const { isAccepted } = useProgress();
   const [problems, setProblems] = useState<Problem[]>([]);
-  const [allProblems, setAllProblems] = useState<Problem[]>([]);
+  const [summary, setSummary] = useState<CategorySummary[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(() => searchParams.get('category') ?? 'loop');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,24 +32,21 @@ function ProblemsPageInner() {
     }
   };
 
-  // fetch all problems once for global progress
+  // Fetch summary once on mount for Progress Tracker
   useEffect(() => {
-    Promise.all([
-      getProblems('loop'),
-      getProblems('string'),
-      getProblems('array'),
-      getProblems('sql'),
-    ]).then((results) => setAllProblems(results.flat())).catch(() => {});
+    getProblemsSummary().then(setSummary).catch(() => {});
   }, []);
 
   useEffect(() => {
     fetchProblems(selectedCategory);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     router.replace(`/problems?category=${selectedCategory}`, { scroll: false });
   }, [selectedCategory]);
 
-  const completedCount = allProblems.filter((p) => progress[p.id] === 'accepted').length;
-  const totalCount = allProblems.length;
+  const totalCount = summary.reduce((acc, s) => acc + s.total, 0);
+  const completedCount = problems.filter((p) => isAccepted(p.id)).length;
   const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
