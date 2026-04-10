@@ -106,7 +106,7 @@ export default function ResultPanel({ starterCode, problems, currentProblemId }:
         >
           Coba Lagi
         </button>
-        {nextProblemId && (
+        {nextProblemId && result?.status === 'accepted' && (
           <a
             href={`/problems/${nextProblemId}`}
             className="rounded-lg bg-indigo-700 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-800 transition"
