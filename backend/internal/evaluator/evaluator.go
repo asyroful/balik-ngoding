@@ -1,9 +1,11 @@
 package evaluator
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -96,19 +98,20 @@ func (e *EvaluatorService) Evaluate(code string, input string, expected string) 
 	// Build the full script to execute
 	var script string
 	if funcName != "" {
-		// Call the user's function with the parsed input
+		// Prepare input - try JSON parse, fallback to comma-separated
+		inputValue := prepareInput(input)
+
 		script = fmt.Sprintf(`
 %s
 (function() {
   try {
-    var __input = JSON.parse(%s);
-    var __result = %s(__input);
+    var __result = %s(%s);
     console.log(JSON.stringify(__result));
   } catch(e) {
     throw e;
   }
 })();
-`, code, jsonStringLiteral(input), funcName)
+`, code, funcName, inputValue)
 	} else {
 		// Fallback: inject input as a variable and run code as-is
 		script = fmt.Sprintf(`
@@ -172,20 +175,53 @@ func extractFunctionName(code string) string {
 	return ""
 }
 
+// prepareInput converts input string to JavaScript code that can be passed to a function.
+// If input is valid JSON, it's used as-is. Otherwise, it's treated as comma-separated arguments.
+func prepareInput(input string) string {
+	trimmed := strings.TrimSpace(input)
+	if len(trimmed) == 0 {
+		return `""`
+	}
+
+	// Try to parse as JSON first
+	var jsonValue interface{}
+	if err := json.Unmarshal([]byte(trimmed), &jsonValue); err == nil {
+		// Valid JSON, use as-is
+		return trimmed
+	}
+
+	// Not valid JSON, treat as comma-separated arguments
+	// Split by comma and wrap each part
+	parts := strings.Split(trimmed, ",")
+	var args []string
+	for _, part := range parts {
+		trimmedPart := strings.TrimSpace(part)
+		// Try to parse as number
+		if _, err := strconv.ParseFloat(trimmedPart, 64); err == nil {
+			args = append(args, trimmedPart)
+		} else {
+			// Wrap as string
+			args = append(args, fmt.Sprintf("%q", trimmedPart))
+		}
+	}
+	return strings.Join(args, ", ")
+}
+
 // jsonStringLiteral wraps a raw string value in a JSON string literal for safe embedding in JS.
-// If the input is already a valid JSON value (object, array, number, bool, null), it is used as-is.
+// If the input is valid JSON, it's used as-is. Otherwise, it's wrapped as a JSON string.
 func jsonStringLiteral(input string) string {
 	trimmed := strings.TrimSpace(input)
 	if len(trimmed) == 0 {
 		return `""`
 	}
-	// If it looks like a JSON value (starts with {, [, digit, -, t, f, n, or is a quoted string), use as-is
-	first := trimmed[0]
-	if first == '{' || first == '[' || first == '"' ||
-		(first >= '0' && first <= '9') || first == '-' ||
-		trimmed == "true" || trimmed == "false" || trimmed == "null" {
+
+	// Try to parse as JSON first
+	var jsonValue interface{}
+	if err := json.Unmarshal([]byte(trimmed), &jsonValue); err == nil {
+		// Valid JSON, use as-is
 		return trimmed
 	}
-	// Otherwise wrap as a JSON string
+
+	// Not valid JSON, wrap as string
 	return fmt.Sprintf("%q", trimmed)
 }

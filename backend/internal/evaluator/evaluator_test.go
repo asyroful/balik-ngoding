@@ -345,3 +345,79 @@ func TestEvaluatorServiceJSRoutingProperty(t *testing.T) {
 		}
 	})
 }
+
+// Feature: tambah-soal, Test: CommaSeparatedArgumentsProperty
+// Validates: Evaluator handles comma-separated arguments (e.g., "3, 4") for multi-parameter functions
+func TestCommaSeparatedArgumentsProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	// Test case 1: kaliTanpaBintang(3, 4) should return 12
+	code := `function kaliTanpaBintang(a, b) {
+  let hasil = 0;
+  for (let i = 0; i < b; i++) {
+    hasil += a;
+  }
+  return hasil;
+}`
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{"3, 4", "12"},
+		{"5, 2", "10"},
+		{"0, 7", "0"},
+	}
+
+	for _, tt := range tests {
+		result := svc.Evaluate(code, tt.input, tt.expected)
+		if !result.Passed {
+			t.Errorf("kaliTanpaBintang(%s) failed: expected %s, got %q, error: %s", tt.input, tt.expected, result.Actual, result.Error)
+		}
+	}
+}
+
+// Feature: tambah-soal, Test: JSONArrayInputProperty
+// Validates: Evaluator handles JSON array input correctly
+func TestJSONArrayInputProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function nilaiMaksimum(arr) {
+  let maks = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maks) {
+      maks = arr[i];
+    }
+  }
+  return maks;
+}`
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{"[3,1,4,1,5,9,2]", "9"},
+		{"[10,5,8]", "10"},
+		{"[7]", "7"},
+	}
+
+	for _, tt := range tests {
+		result := svc.Evaluate(code, tt.input, tt.expected)
+		if !result.Passed {
+			t.Errorf("nilaiMaksimum(%s) failed: expected %s, got %q, error: %s", tt.input, tt.expected, result.Actual, result.Error)
+		}
+	}
+}
+
+// Feature: tambah-soal, Test: NullInputProperty
+// Validates: Evaluator handles null input correctly
+func TestNullInputProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function greet(n) { return 'hello world'; }`
+	input := "null"
+	expected := `"hello world"`
+
+	result := svc.Evaluate(code, input, expected)
+	if !result.Passed {
+		t.Errorf("greet(null) failed: expected %q, got %q, error: %s", expected, result.Actual, result.Error)
+	}
+}
