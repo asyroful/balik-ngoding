@@ -8,6 +8,7 @@ import (
 	"balik-ngoding-backend/internal/database"
 	"balik-ngoding-backend/internal/evaluator"
 	"balik-ngoding-backend/internal/models"
+	"balik-ngoding-backend/internal/storage"
 
 	"gorm.io/gorm"
 )
@@ -40,13 +41,15 @@ type SubmissionResult struct {
 
 // SubmissionsService handles submission business logic.
 type SubmissionsService struct {
-	evaluator *evaluator.EvaluatorService
+	evaluator   *evaluator.EvaluatorService
+	fileStorage *storage.FileStorageService
 }
 
 // NewSubmissionsService creates a new SubmissionsService.
-func NewSubmissionsService() *SubmissionsService {
+func NewSubmissionsService(fileStorage *storage.FileStorageService) *SubmissionsService {
 	return &SubmissionsService{
-		evaluator: evaluator.NewEvaluatorService(),
+		evaluator:   evaluator.NewEvaluatorService(),
+		fileStorage: fileStorage,
 	}
 }
 
@@ -57,7 +60,7 @@ func (s *SubmissionsService) Submit(req SubmitRequest) (*SubmissionResult, error
 	var testCases []models.TestCase
 	result := database.DB.Where("problem_id = ?", req.ProblemID).Find(&testCases)
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, fmt.Errorf("failed to fetch test cases: %w", result.Error)
 	}
 
 	// Verify the problem exists
@@ -67,7 +70,7 @@ func (s *SubmissionsService) Submit(req SubmitRequest) (*SubmissionResult, error
 		if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 			return nil, nil // caller will 404
 		}
-		return nil, res.Error
+		return nil, fmt.Errorf("failed to fetch problem: %w", res.Error)
 	}
 
 	// Validate SQL problems have a schema
@@ -123,11 +126,17 @@ func (s *SubmissionsService) Submit(req SubmitRequest) (*SubmissionResult, error
 		return nil, err
 	}
 
-	// Persist submission
+	// Save code to file storage
+	codePath, err := s.fileStorage.SaveCode(req.ProblemID, req.Language, req.Code)
+	if err != nil {
+		return nil, fmt.Errorf("failed to save code: %w", err)
+	}
+
+	// Persist submission with code path reference
 	submission := models.Submission{
 		ProblemID:    req.ProblemID,
 		AnonymousID:  req.AnonymousID,
-		Code:         req.Code,
+		CodePath:     codePath,
 		Language:     req.Language,
 		Status:       status,
 		Score:        score,
@@ -135,7 +144,7 @@ func (s *SubmissionsService) Submit(req SubmitRequest) (*SubmissionResult, error
 		ResultDetail: json.RawMessage(resultDetailJSON),
 	}
 	if err := database.DB.Create(&submission).Error; err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create submission: %w", err)
 	}
 
 	return &SubmissionResult{

@@ -1,6 +1,8 @@
 package submissions
 
 import (
+	"balik-ngoding-backend/internal/storage"
+	"log"
 	"net/http"
 	"strings"
 
@@ -21,8 +23,8 @@ type Handler struct {
 }
 
 // NewHandler creates a new submissions Handler.
-func NewHandler() *Handler {
-	return &Handler{service: NewSubmissionsService()}
+func NewHandler(fileStorage *storage.FileStorageService) *Handler {
+	return &Handler{service: NewSubmissionsService(fileStorage)}
 }
 
 // Submit handles POST /submit
@@ -62,6 +64,7 @@ func (h *Handler) Submit(c *gin.Context) {
 
 	result, err := h.service.Submit(req)
 	if err != nil {
+		log.Printf("Submission error for problem %s: %v", req.ProblemID, err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"statusCode": http.StatusInternalServerError,
 			"message":    "Gagal memproses submission",

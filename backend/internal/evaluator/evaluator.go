@@ -10,6 +10,23 @@ import (
 	"github.com/dop251/goja"
 )
 
+// normalizeOutput normalizes output for comparison by:
+// 1. Trimming leading/trailing whitespace
+// 2. Replacing multiple spaces with single space
+// 3. Normalizing newlines (\r\n to \n)
+func normalizeOutput(s string) string {
+	// Trim leading/trailing whitespace
+	s = strings.TrimSpace(s)
+
+	// Replace multiple spaces with single space
+	s = regexp.MustCompile(`\s+`).ReplaceAllString(s, " ")
+
+	// Normalize newlines (convert \r\n to \n)
+	s = strings.ReplaceAll(s, "\r\n", "\n")
+
+	return s
+}
+
 // EvalResult holds the result of a single test case evaluation.
 type EvalResult struct {
 	Passed bool   `json:"passed"`
@@ -30,13 +47,13 @@ func NewEvaluatorService() *EvaluatorService {
 }
 
 // EvaluateWithLanguage routes evaluation to the appropriate evaluator based on language.
-// For "sql", it delegates to the SQL evaluator (input is ignored).
+// For "sql", it delegates to the SQL evaluator with input data.
 // For "javascript" or empty string, it delegates to the JS evaluator.
 // Unknown languages fall back to the JS evaluator with a warning log.
 func (e *EvaluatorService) EvaluateWithLanguage(language, schema, code, input, expected string) EvalResult {
 	switch language {
 	case "sql":
-		return e.sqlEvaluator.Evaluate(schema, code, expected)
+		return e.sqlEvaluator.Evaluate(schema, code, input, expected)
 	case "javascript", "":
 		return e.Evaluate(code, input, expected)
 	default:
@@ -136,8 +153,8 @@ var input = JSON.parse(%s);
 	// Normalize actual output (task 4.4)
 	actual := strings.TrimSpace(outputBuf.String())
 
-	// Compare with expected
-	passed := actual == strings.TrimSpace(expected)
+	// Compare with expected using normalized output
+	passed := normalizeOutput(actual) == normalizeOutput(expected)
 
 	return EvalResult{
 		Passed: passed,

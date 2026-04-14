@@ -134,3 +134,47 @@ func TestSeedNonSQLStarterCodeHasFunctionDecl(t *testing.T) {
 		}
 	}
 }
+
+// Feature: sql-seed-schema-bugfix, Property 1: Bug Condition - SQL Schema Missing Error
+// Validates: Requirements 1.1, 1.2, 1.3
+//
+// This test demonstrates the bug exists on unfixed code by checking that SQL problems
+// in the seed file have empty schema fields. The test MUST FAIL on unfixed code
+// (when schema fields are empty) to prove the bug exists. When the bug is fixed
+// (schema fields populated), this test will PASS.
+//
+// The test loads all SQL problems from the seed file and verifies that they have
+// non-empty schema fields. On unfixed code, SQL problems will have empty schemas,
+// causing this test to fail and proving the bug exists.
+func TestSQLSubmissionBugConditionExplorationProperty(t *testing.T) {
+	// Load all SQL problems from the seed file
+	problems := loadAllSeedProblems(t)
+
+	// Filter to only SQL problems
+	var sqlProblems []SeedProblem
+	for _, p := range problems {
+		if p.Category == "sql" {
+			sqlProblems = append(sqlProblems, p)
+		}
+	}
+
+	if len(sqlProblems) == 0 {
+		t.Fatal("no SQL problems found in seed file")
+	}
+
+	// Property: SQL problems MUST have non-empty schema fields
+	// On unfixed code, this assertion will fail, proving the bug exists
+	// The bug condition is: problem.Category == "sql" && problem.Schema == ""
+	for _, problem := range sqlProblems {
+		if problem.Schema == "" {
+			t.Fatalf("BUG CONDITION DETECTED: SQL problem %q (ID: %s) has empty schema field. "+
+				"This causes submission service to return error 'Schema soal SQL tidak ditemukan'",
+				problem.Title, problem.ID)
+		}
+
+		// Verify schema contains CREATE TABLE statements
+		if !strings.Contains(strings.ToUpper(problem.Schema), "CREATE TABLE") {
+			t.Fatalf("SQL problem %q schema does not contain CREATE TABLE statement", problem.Title)
+		}
+	}
+}
