@@ -34,7 +34,7 @@ type Submission struct {
 	ID           string          `json:"id" gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 	ProblemID    string          `json:"problemId" gorm:"type:uuid;not null;index:idx_submissions_problem_id"`
 	AnonymousID  *string         `json:"anonymousId" gorm:"type:varchar(36);index"`
-	CodePath     string          `json:"codePath" gorm:"type:varchar(255);not null"` // File path to stored code
+	CodePath     *string         `json:"codePath" gorm:"type:varchar(255)"` // File path to stored code
 	Language     string          `json:"language" gorm:"default:'javascript'"`
 	Status       string          `json:"status"` // 'accepted' | 'wrong_answer' | 'error'
 	Score        int             `json:"score"`
