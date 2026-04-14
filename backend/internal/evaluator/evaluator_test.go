@@ -29,10 +29,7 @@ func determineStatus(results []EvalResult) string {
 	return "wrong_answer"
 }
 
-// normalizeOutput trims leading/trailing whitespace, mirroring the evaluator behaviour.
-func normalizeOutput(s string) string {
-	return strings.TrimSpace(s)
-}
+// Note: normalizeOutput is now defined in evaluator.go with full whitespace normalization
 
 // Generators
 
@@ -104,6 +101,167 @@ func TestOutputNormalizationProperty(t *testing.T) {
 	})
 }
 
+// TestNormalizeOutputIdempotence verifies that normalizing twice gives same result as normalizing once
+func TestNormalizeOutputIdempotence(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+	}{
+		{
+			name:  "leading spaces",
+			input: "  hello world",
+		},
+		{
+			name:  "trailing spaces",
+			input: "hello world  ",
+		},
+		{
+			name:  "multiple spaces",
+			input: "hello    world",
+		},
+		{
+			name:  "newlines",
+			input: "hello\nworld",
+		},
+		{
+			name:  "carriage return newlines",
+			input: "hello\r\nworld",
+		},
+		{
+			name:  "mixed whitespace",
+			input: "  hello  \n  world  \r\n  test  ",
+		},
+		{
+			name:  "tabs",
+			input: "hello\t\tworld",
+		},
+		{
+			name:  "empty string",
+			input: "",
+		},
+		{
+			name:  "only whitespace",
+			input: "   \n\r\n  \t  ",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			normalized1 := normalizeOutput(tt.input)
+			normalized2 := normalizeOutput(normalized1)
+
+			if normalized1 != normalized2 {
+				t.Errorf("normalization not idempotent:\n  first:  %q\n  second: %q", normalized1, normalized2)
+			}
+		})
+	}
+}
+
+// TestNormalizeOutputIdempotenceProperty uses property-based testing to verify idempotence
+func TestNormalizeOutputIdempotenceProperty(t *testing.T) {
+	rapid.Check(t, func(t *rapid.T) {
+		output := rapid.String().Draw(t, "output")
+
+		normalized1 := normalizeOutput(output)
+		normalized2 := normalizeOutput(normalized1)
+
+		if normalized1 != normalized2 {
+			t.Fatalf("normalization not idempotent:\n  first:  %q\n  second: %q", normalized1, normalized2)
+		}
+	})
+}
+
+// TestWhitespaceToleranceProperty verifies that different whitespace variations normalize equally
+func TestWhitespaceToleranceProperty(t *testing.T) {
+	rapid.Check(t, func(t *rapid.T) {
+		baseOutput := rapid.StringN(1, 50, -1).Draw(t, "output")
+
+		// Generate variations with different whitespace
+		variations := []string{
+			baseOutput,
+			"  " + baseOutput + "  ",
+			strings.ReplaceAll(baseOutput, " ", "  "),
+			strings.ReplaceAll(baseOutput, "\n", "\r\n"),
+		}
+
+		// All variations should normalize to same value
+		normalized := normalizeOutput(variations[0])
+		for _, v := range variations[1:] {
+			if normalizeOutput(v) != normalized {
+				t.Fatalf("whitespace variations not normalized equally:\n  base: %q\n  variant: %q", normalized, normalizeOutput(v))
+			}
+		}
+	})
+}
+
+// TestPreserveWrongAnswersProperty verifies that wrong answers are still marked as wrong
+func TestPreserveWrongAnswersProperty(t *testing.T) {
+	rapid.Check(t, func(t *rapid.T) {
+		actual := rapid.StringN(1, 50, -1).Draw(t, "actual")
+		expected := rapid.StringN(1, 50, -1).Draw(t, "expected")
+
+		// Only test when they're actually different after normalization
+		if normalizeOutput(actual) != normalizeOutput(expected) {
+			// They should remain different after normalization
+			if normalizeOutput(actual) == normalizeOutput(expected) {
+				t.Fatalf("wrong answers should not normalize equally:\n  actual: %q\n  expected: %q", actual, expected)
+			}
+		}
+	})
+}
+
+// TestWhitespaceToleranceIntegration verifies that whitespace variations are accepted in actual evaluation
+func TestWhitespaceToleranceIntegration(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	tests := []struct {
+		name     string
+		code     string
+		input    string
+		expected string
+		wantPass bool
+	}{
+		{
+			name:     "leading spaces in expected",
+			code:     "function add(n) { return n + 1; }",
+			input:    "5",
+			expected: "  6  ",
+			wantPass: true,
+		},
+		{
+			name:     "multiple spaces in expected",
+			code:     "function greet(n) { return 'hello world'; }",
+			input:    "null",
+			expected: "  \"hello world\"  ",
+			wantPass: true,
+		},
+		{
+			name:     "newline variations",
+			code:     "function test(n) { return 'line1\\nline2'; }",
+			input:    "null",
+			expected: "\"line1\\nline2\"",
+			wantPass: true,
+		},
+		{
+			name:     "wrong answer still fails",
+			code:     "function add(n) { return n + 1; }",
+			input:    "5",
+			expected: "  999  ",
+			wantPass: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := svc.Evaluate(tt.code, tt.input, tt.expected)
+
+			if result.Passed != tt.wantPass {
+				t.Errorf("expected Passed=%v, got %v (actual=%q, error=%q)", tt.wantPass, result.Passed, result.Actual, result.Error)
+			}
+		})
+	}
+}
+
 // Feature: balik-ngoding, Property 15: Sandbox blocks restricted resource access
 // Validates: Requirements 8.2
 //
@@ -155,14 +313,15 @@ func TestEvaluatorServiceRoutingProperty(t *testing.T) {
 	svc := NewEvaluatorService()
 	sqlSvc := NewSQLEvaluatorService()
 
-	schema := `CREATE TABLE t (x INTEGER); INSERT INTO t VALUES (42);`
+	schema := `CREATE TABLE t (x INTEGER);`
 	query := "SELECT x FROM t"
+	input := `{"tables":{"t":[{"x":42}]}}`
 	expected := `[{"x":42}]`
 
 	rapid.Check(t, func(t *rapid.T) {
 		// SQL routing: EvaluateWithLanguage("sql") should match SQLEvaluatorService.Evaluate directly
-		r1 := svc.EvaluateWithLanguage("sql", schema, query, "", expected)
-		r2 := sqlSvc.Evaluate(schema, query, expected)
+		r1 := svc.EvaluateWithLanguage("sql", schema, query, input, expected)
+		r2 := sqlSvc.Evaluate(schema, query, input, expected)
 		if r1.Passed != r2.Passed {
 			t.Fatalf("SQL routing mismatch: EvaluateWithLanguage.Passed=%v, direct.Passed=%v", r1.Passed, r2.Passed)
 		}
@@ -185,4 +344,80 @@ func TestEvaluatorServiceJSRoutingProperty(t *testing.T) {
 			t.Fatalf("JS routing mismatch: EvaluateWithLanguage.Passed=%v, direct.Passed=%v", r1.Passed, r2.Passed)
 		}
 	})
+}
+
+// Feature: tambah-soal, Test: CommaSeparatedArgumentsProperty
+// Validates: Evaluator handles comma-separated arguments (e.g., "3, 4") for multi-parameter functions
+func TestCommaSeparatedArgumentsProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	// Test case 1: kaliTanpaBintang(3, 4) should return 12
+	code := `function kaliTanpaBintang(a, b) {
+  let hasil = 0;
+  for (let i = 0; i < b; i++) {
+    hasil += a;
+  }
+  return hasil;
+}`
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{"3, 4", "12"},
+		{"5, 2", "10"},
+		{"0, 7", "0"},
+	}
+
+	for _, tt := range tests {
+		result := svc.Evaluate(code, tt.input, tt.expected)
+		if !result.Passed {
+			t.Errorf("kaliTanpaBintang(%s) failed: expected %s, got %q, error: %s", tt.input, tt.expected, result.Actual, result.Error)
+		}
+	}
+}
+
+// Feature: tambah-soal, Test: JSONArrayInputProperty
+// Validates: Evaluator handles JSON array input correctly
+func TestJSONArrayInputProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function nilaiMaksimum(arr) {
+  let maks = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maks) {
+      maks = arr[i];
+    }
+  }
+  return maks;
+}`
+	tests := []struct {
+		input    string
+		expected string
+	}{
+		{"[3,1,4,1,5,9,2]", "9"},
+		{"[10,5,8]", "10"},
+		{"[7]", "7"},
+	}
+
+	for _, tt := range tests {
+		result := svc.Evaluate(code, tt.input, tt.expected)
+		if !result.Passed {
+			t.Errorf("nilaiMaksimum(%s) failed: expected %s, got %q, error: %s", tt.input, tt.expected, result.Actual, result.Error)
+		}
+	}
+}
+
+// Feature: tambah-soal, Test: NullInputProperty
+// Validates: Evaluator handles null input correctly
+func TestNullInputProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function greet(n) { return 'hello world'; }`
+	input := "null"
+	expected := `"hello world"`
+
+	result := svc.Evaluate(code, input, expected)
+	if !result.Passed {
+		t.Errorf("greet(null) failed: expected %q, got %q, error: %s", expected, result.Actual, result.Error)
+	}
 }

@@ -5,7 +5,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'karyawan' dengan kolom id, nama, dan gaji, tuliskan query SQL untuk menampilkan semua data dari tabel tersebut.\n\nContoh hasil:\nid | nama  | gaji\n1  | Alice | 5000\n2  | Bob   | 3000",
-    "starterCode": "-- Tampilkan semua data dari tabel karyawan\nSELECT",
+    "starterCode": "",
     "thinkingGuide": "SELECT adalah perintah dasar SQL untuk mengambil data dari tabel. Tanda bintang (*) adalah wildcard yang berarti 'semua kolom'. Sintaks dasarnya adalah SELECT kolom FROM nama_tabel. Menggunakan SELECT * praktis untuk eksplorasi data, tapi dalam produksi lebih baik menyebutkan kolom secara eksplisit untuk performa dan kejelasan.",
     "hints": [
       "Gunakan SELECT untuk mengambil data dan FROM untuk menentukan tabel sumber.",
@@ -13,6 +13,7 @@
       "Sintaks lengkapnya: SELECT * FROM nama_tabel;"
     ],
     "prerequisiteId": null,
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, gaji INTEGER); INSERT INTO karyawan VALUES (1, 'Alice', 5000); INSERT INTO karyawan VALUES (2, 'Bob', 3000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000}]}}",
@@ -47,7 +48,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'karyawan' dengan kolom id, nama, dan gaji, tuliskan query untuk menampilkan hanya kolom nama dan gaji.\n\nContoh hasil:\nnama  | gaji\nAlice | 5000\nBob   | 3000",
-    "starterCode": "-- Tampilkan hanya kolom nama dan gaji dari tabel karyawan\nSELECT",
+    "starterCode": "",
     "thinkingGuide": "Daripada menggunakan SELECT *, kita bisa menyebutkan kolom-kolom yang ingin ditampilkan secara eksplisit. Ini lebih efisien karena database tidak perlu mengambil data kolom yang tidak diperlukan. Pisahkan nama kolom dengan koma. Urutan kolom dalam SELECT menentukan urutan kolom dalam hasil.",
     "hints": [
       "Sebutkan nama kolom yang ingin ditampilkan setelah kata SELECT, pisahkan dengan koma.",
@@ -55,6 +56,7 @@
       "Gunakan SELECT nama, gaji FROM karyawan; untuk menampilkan hanya dua kolom tersebut."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000001",
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, gaji INTEGER); INSERT INTO karyawan VALUES (1, 'Alice', 5000); INSERT INTO karyawan VALUES (2, 'Bob', 3000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000}]}}",
@@ -89,7 +91,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'karyawan' (id, nama, gaji), tampilkan nama dan gaji karyawan yang gajinya lebih dari 4000.\n\nContoh hasil (dari data Alice=5000, Bob=3000, Citra=4500):\nnama  | gaji\nAlice | 5000\nCitra | 4500",
-    "starterCode": "-- Tampilkan karyawan dengan gaji lebih dari 4000\nSELECT nama, gaji FROM karyawan\nWHERE",
+    "starterCode": "",
     "thinkingGuide": "Klausa WHERE digunakan untuk memfilter baris berdasarkan kondisi. Hanya baris yang memenuhi kondisi WHERE yang akan ditampilkan. Operator perbandingan yang tersedia: = (sama), != atau <> (tidak sama), > (lebih dari), < (kurang dari), >= (lebih dari atau sama), <= (kurang dari atau sama).",
     "hints": [
       "Gunakan klausa WHERE setelah FROM untuk memfilter baris berdasarkan kondisi.",
@@ -97,6 +99,7 @@
       "Sintaks lengkap: SELECT nama, gaji FROM karyawan WHERE gaji > 4000;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000002",
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, gaji INTEGER); INSERT INTO karyawan VALUES (1, 'Alice', 5000); INSERT INTO karyawan VALUES (2, 'Bob', 3000); INSERT INTO karyawan VALUES (3, 'Citra', 4500);",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000},{\"id\":3,\"nama\":\"Citra\",\"gaji\":4500}]}}",
@@ -131,7 +134,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'karyawan' (id, nama, gaji), tampilkan nama dan gaji semua karyawan diurutkan berdasarkan gaji dari yang terbesar ke terkecil.\n\nContoh hasil:\nnama  | gaji\nEka   | 7000\nAlice | 5000\nBob   | 3000",
-    "starterCode": "-- Tampilkan nama dan gaji, urutkan dari gaji terbesar\nSELECT nama, gaji FROM karyawan\nORDER BY",
+    "starterCode": "",
     "thinkingGuide": "ORDER BY digunakan untuk mengurutkan hasil query. Secara default ORDER BY mengurutkan secara ascending (ASC, dari kecil ke besar). Untuk urutan descending (dari besar ke kecil) tambahkan kata kunci DESC. Kita bisa mengurutkan berdasarkan beberapa kolom sekaligus dengan memisahkannya menggunakan koma.",
     "hints": [
       "Gunakan ORDER BY diikuti nama kolom untuk mengurutkan hasil.",
@@ -139,6 +142,7 @@
       "Sintaks: ORDER BY gaji DESC; untuk mengurutkan dari gaji terbesar."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000003",
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, gaji INTEGER); INSERT INTO karyawan VALUES (1, 'Alice', 5000); INSERT INTO karyawan VALUES (2, 'Bob', 3000); INSERT INTO karyawan VALUES (3, 'Eka', 7000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":5000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000},{\"id\":3,\"nama\":\"Eka\",\"gaji\":7000}]}}",
@@ -173,7 +177,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'produk' (id, nama, harga), tampilkan nama dan harga 3 produk termahal.\n\nContoh hasil (dari 6 produk):\nnama    | harga\nLaptop  | 15000000\nHP      | 8000000\nTablet  | 5000000",
-    "starterCode": "-- Tampilkan 3 produk dengan harga tertinggi\nSELECT nama, harga FROM produk\nORDER BY harga DESC\nLIMIT",
+    "starterCode": "",
     "thinkingGuide": "LIMIT digunakan untuk membatasi jumlah baris yang dikembalikan oleh query. Biasanya dikombinasikan dengan ORDER BY untuk mendapatkan 'top N' dari suatu urutan. Urutan klausa SQL: SELECT → FROM → WHERE → ORDER BY → LIMIT. LIMIT selalu ditulis paling akhir.",
     "hints": [
       "Gunakan LIMIT diikuti angka untuk membatasi jumlah baris hasil.",
@@ -181,6 +185,7 @@
       "Sintaks: SELECT nama, harga FROM produk ORDER BY harga DESC LIMIT 3;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000004",
+    "schema": "CREATE TABLE produk (id INTEGER PRIMARY KEY, nama TEXT, harga INTEGER); INSERT INTO produk VALUES (1, 'Laptop', 15000000); INSERT INTO produk VALUES (2, 'HP', 8000000); INSERT INTO produk VALUES (3, 'Tablet', 5000000); INSERT INTO produk VALUES (4, 'Charger', 200000); INSERT INTO produk VALUES (5, 'Kabel', 50000); INSERT INTO produk VALUES (6, 'Mouse', 300000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"Laptop\",\"harga\":15000000},{\"id\":2,\"nama\":\"HP\",\"harga\":8000000},{\"id\":3,\"nama\":\"Tablet\",\"harga\":5000000},{\"id\":4,\"nama\":\"Charger\",\"harga\":200000},{\"id\":5,\"nama\":\"Kabel\",\"harga\":50000},{\"id\":6,\"nama\":\"Mouse\",\"harga\":300000}]}}",
@@ -215,7 +220,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'siswa' (id, nama, kelas), hitung berapa banyak siswa yang ada di kelas '10A'.\n\nContoh hasil:\njumlah\n3",
-    "starterCode": "-- Hitung jumlah siswa di kelas 10A\nSELECT COUNT(*) AS jumlah\nFROM siswa\nWHERE",
+    "starterCode": "",
     "thinkingGuide": "COUNT(*) adalah fungsi agregat yang menghitung jumlah baris. Dikombinasikan dengan WHERE, kita bisa menghitung baris yang memenuhi kondisi tertentu. AS digunakan untuk memberi alias (nama lain) pada kolom hasil — ini membuat output lebih mudah dibaca.",
     "hints": [
       "Gunakan COUNT(*) untuk menghitung jumlah baris yang memenuhi kondisi.",
@@ -223,6 +228,7 @@
       "Sintaks: SELECT COUNT(*) AS jumlah FROM siswa WHERE kelas = '10A';"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000005",
+    "schema": "CREATE TABLE siswa (id INTEGER PRIMARY KEY, nama TEXT, kelas TEXT); INSERT INTO siswa VALUES (1, 'Andi', '10A'); INSERT INTO siswa VALUES (2, 'Budi', '10B'); INSERT INTO siswa VALUES (3, 'Cici', '10A'); INSERT INTO siswa VALUES (4, 'Deni', '10A');",
     "testCases": [
       {
         "input": "{\"tables\":{\"siswa\":[{\"id\":1,\"nama\":\"Andi\",\"kelas\":\"10A\"},{\"id\":2,\"nama\":\"Budi\",\"kelas\":\"10B\"},{\"id\":3,\"nama\":\"Cici\",\"kelas\":\"10A\"},{\"id\":4,\"nama\":\"Deni\",\"kelas\":\"10A\"}]}}",
@@ -257,7 +263,7 @@
     "category": "sql",
     "difficulty": "easy",
     "description": "Diberikan tabel 'penjualan' (id, produk, kota), tampilkan daftar kota unik yang pernah melakukan pembelian, diurutkan secara ascending.\n\nContoh hasil:\nkota\nBandung\nJakarta\nSurabaya",
-    "starterCode": "-- Tampilkan daftar kota unik dari tabel penjualan\nSELECT DISTINCT kota\nFROM penjualan\nORDER BY",
+    "starterCode": "",
     "thinkingGuide": "DISTINCT menghilangkan baris duplikat dari hasil query. Ketika digunakan dengan SELECT, hanya nilai unik yang dikembalikan. Ini berguna untuk melihat daftar nilai yang berbeda dalam suatu kolom tanpa pengulangan.",
     "hints": [
       "SELECT DISTINCT kolom akan mengembalikan hanya nilai unik dari kolom tersebut.",
@@ -265,6 +271,7 @@
       "Sintaks: SELECT DISTINCT kota FROM penjualan ORDER BY kota;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000006",
+    "schema": "CREATE TABLE penjualan (id INTEGER PRIMARY KEY, produk TEXT, kota TEXT); INSERT INTO penjualan VALUES (1, 'A', 'Jakarta'); INSERT INTO penjualan VALUES (2, 'B', 'Bandung'); INSERT INTO penjualan VALUES (3, 'C', 'Jakarta'); INSERT INTO penjualan VALUES (4, 'D', 'Surabaya');",
     "testCases": [
       {
         "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\"},{\"id\":2,\"produk\":\"B\",\"kota\":\"Bandung\"},{\"id\":3,\"produk\":\"C\",\"kota\":\"Jakarta\"},{\"id\":4,\"produk\":\"D\",\"kota\":\"Surabaya\"}]}}",
@@ -299,7 +306,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'penjualan' (id, produk, kota, jumlah), hitung total jumlah penjualan per kota, diurutkan berdasarkan kota secara ascending.\n\nContoh hasil:\nkota      | total_penjualan\nBandung   | 15\nJakarta   | 30\nSurabaya  | 10",
-    "starterCode": "-- Hitung total penjualan per kota\nSELECT kota, SUM(jumlah) AS total_penjualan\nFROM penjualan\nGROUP BY",
+    "starterCode": "",
     "thinkingGuide": "GROUP BY mengelompokkan baris yang memiliki nilai sama pada kolom tertentu. Fungsi agregat seperti SUM(), COUNT(), AVG(), MAX(), MIN() kemudian diterapkan pada setiap kelompok. Kolom yang tidak ada dalam fungsi agregat harus disebutkan dalam GROUP BY.",
     "hints": [
       "GROUP BY kota akan mengelompokkan semua baris dengan kota yang sama.",
@@ -307,6 +314,7 @@
       "Sintaks: SELECT kota, SUM(jumlah) AS total_penjualan FROM penjualan GROUP BY kota ORDER BY kota;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000007",
+    "schema": "CREATE TABLE penjualan (id INTEGER PRIMARY KEY, produk TEXT, kota TEXT, jumlah INTEGER); INSERT INTO penjualan VALUES (1, 'A', 'Jakarta', 10); INSERT INTO penjualan VALUES (2, 'B', 'Bandung', 5); INSERT INTO penjualan VALUES (3, 'C', 'Jakarta', 20); INSERT INTO penjualan VALUES (4, 'D', 'Surabaya', 10); INSERT INTO penjualan VALUES (5, 'E', 'Bandung', 10);",
     "testCases": [
       {
         "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\",\"jumlah\":10},{\"id\":2,\"produk\":\"B\",\"kota\":\"Bandung\",\"jumlah\":5},{\"id\":3,\"produk\":\"C\",\"kota\":\"Jakarta\",\"jumlah\":20},{\"id\":4,\"produk\":\"D\",\"kota\":\"Surabaya\",\"jumlah\":10},{\"id\":5,\"produk\":\"E\",\"kota\":\"Bandung\",\"jumlah\":10}]}}",
@@ -341,7 +349,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'penjualan' (id, produk, kota, jumlah), tampilkan kota yang total penjualannya lebih dari 20, diurutkan berdasarkan total_penjualan descending.\n\nContoh hasil:\nkota    | total_penjualan\nJakarta | 30\nBandung | 25",
-    "starterCode": "-- Tampilkan kota dengan total penjualan > 20\nSELECT kota, SUM(jumlah) AS total_penjualan\nFROM penjualan\nGROUP BY kota\nHAVING",
+    "starterCode": "",
     "thinkingGuide": "HAVING adalah seperti WHERE tapi untuk hasil GROUP BY. WHERE memfilter baris sebelum pengelompokan, HAVING memfilter kelompok setelah agregasi. Kita tidak bisa menggunakan WHERE untuk memfilter hasil fungsi agregat (seperti SUM, COUNT) — harus menggunakan HAVING.",
     "hints": [
       "HAVING digunakan untuk memfilter hasil GROUP BY berdasarkan kondisi agregat.",
@@ -349,6 +357,7 @@
       "Sintaks: GROUP BY kota HAVING SUM(jumlah) > 20 ORDER BY total_penjualan DESC;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000008",
+    "schema": "CREATE TABLE penjualan (id INTEGER PRIMARY KEY, produk TEXT, kota TEXT, jumlah INTEGER); INSERT INTO penjualan VALUES (1, 'A', 'Jakarta', 10); INSERT INTO penjualan VALUES (2, 'B', 'Bandung', 15); INSERT INTO penjualan VALUES (3, 'C', 'Jakarta', 20); INSERT INTO penjualan VALUES (4, 'D', 'Surabaya', 5); INSERT INTO penjualan VALUES (5, 'E', 'Bandung', 10);",
     "testCases": [
       {
         "input": "{\"tables\":{\"penjualan\":[{\"id\":1,\"produk\":\"A\",\"kota\":\"Jakarta\",\"jumlah\":10},{\"id\":2,\"produk\":\"B\",\"kota\":\"Bandung\",\"jumlah\":15},{\"id\":3,\"produk\":\"C\",\"kota\":\"Jakarta\",\"jumlah\":20},{\"id\":4,\"produk\":\"D\",\"kota\":\"Surabaya\",\"jumlah\":5},{\"id\":5,\"produk\":\"E\",\"kota\":\"Bandung\",\"jumlah\":10}]}}",
@@ -383,7 +392,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'pesanan' (id, pelanggan_id, total) dan tabel 'pelanggan' (id, nama, kota), tampilkan nama pelanggan beserta total pesanan mereka, diurutkan berdasarkan nama ascending.\n\nContoh hasil:\nnama  | total\nAlice | 150000\nBob   | 75000",
-    "starterCode": "-- Gabungkan tabel pesanan dan pelanggan\nSELECT pelanggan.nama, pesanan.total\nFROM pesanan\nINNER JOIN pelanggan ON",
+    "starterCode": "",
     "thinkingGuide": "INNER JOIN menggabungkan dua tabel berdasarkan kondisi yang cocok di kedua tabel. Hanya baris yang memiliki pasangan di kedua tabel yang akan ditampilkan. Sintaks: FROM tabel1 INNER JOIN tabel2 ON tabel1.kolom = tabel2.kolom. Kolom yang sama nama di dua tabel perlu diawali nama tabel untuk menghindari ambiguitas.",
     "hints": [
       "INNER JOIN menggabungkan baris dari dua tabel yang memiliki nilai cocok pada kolom yang ditentukan.",
@@ -391,6 +400,7 @@
       "Sintaks: FROM pesanan INNER JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id ORDER BY pelanggan.nama;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000009",
+    "schema": "CREATE TABLE pelanggan (id INTEGER PRIMARY KEY, nama TEXT, kota TEXT); CREATE TABLE pesanan (id INTEGER PRIMARY KEY, pelanggan_id INTEGER, total INTEGER); INSERT INTO pelanggan VALUES (1, 'Alice', 'Jakarta'); INSERT INTO pelanggan VALUES (2, 'Bob', 'Bandung'); INSERT INTO pesanan VALUES (1, 1, 150000); INSERT INTO pesanan VALUES (2, 2, 75000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Alice\",\"kota\":\"Jakarta\"},{\"id\":2,\"nama\":\"Bob\",\"kota\":\"Bandung\"}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"total\":150000},{\"id\":2,\"pelanggan_id\":2,\"total\":75000}]}}",
@@ -425,7 +435,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'karyawan' (id, nama, departemen_id) dan tabel 'departemen' (id, nama_dept), tampilkan semua karyawan beserta nama departemennya. Karyawan tanpa departemen tetap ditampilkan dengan nama_dept NULL.\n\nContoh hasil:\nnama_karyawan | nama_dept\nAlice         | Engineering\nBob           | NULL\nCitra         | Marketing",
-    "starterCode": "-- Tampilkan semua karyawan beserta departemennya (termasuk yang tidak punya departemen)\nSELECT karyawan.nama AS nama_karyawan, departemen.nama_dept\nFROM karyawan\nLEFT JOIN departemen ON",
+    "starterCode": "",
     "thinkingGuide": "LEFT JOIN mengembalikan semua baris dari tabel kiri (karyawan), dan baris yang cocok dari tabel kanan (departemen). Jika tidak ada pasangan di tabel kanan, kolom dari tabel kanan akan berisi NULL. Ini berbeda dengan INNER JOIN yang hanya mengembalikan baris yang cocok di kedua tabel.",
     "hints": [
       "LEFT JOIN memastikan semua baris dari tabel kiri (karyawan) selalu muncul di hasil.",
@@ -433,6 +443,7 @@
       "Karyawan tanpa departemen akan memiliki nilai NULL pada kolom nama_dept."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000010",
+    "schema": "CREATE TABLE departemen (id INTEGER PRIMARY KEY, nama_dept TEXT); CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, departemen_id INTEGER); INSERT INTO departemen VALUES (1, 'Engineering'); INSERT INTO departemen VALUES (2, 'Marketing'); INSERT INTO karyawan VALUES (1, 'Alice', 1); INSERT INTO karyawan VALUES (2, 'Bob', NULL); INSERT INTO karyawan VALUES (3, 'Citra', 2);",
     "testCases": [
       {
         "input": "{\"tables\":{\"departemen\":[{\"id\":1,\"nama_dept\":\"Engineering\"},{\"id\":2,\"nama_dept\":\"Marketing\"}],\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"departemen_id\":1},{\"id\":2,\"nama\":\"Bob\",\"departemen_id\":null},{\"id\":3,\"nama\":\"Citra\",\"departemen_id\":2}]}}",
@@ -467,7 +478,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'karyawan' (id, nama, gaji, departemen), tampilkan nama dan gaji karyawan yang gajinya di atas rata-rata gaji seluruh karyawan, diurutkan berdasarkan gaji descending.\n\nContoh hasil:\nnama    | gaji\nCharlie | 9000\nAlice   | 8000",
-    "starterCode": "-- Tampilkan karyawan dengan gaji di atas rata-rata\nSELECT nama, gaji\nFROM karyawan\nWHERE gaji > (SELECT",
+    "starterCode": "",
     "thinkingGuide": "Subquery adalah query di dalam query. Query dalam tanda kurung dieksekusi terlebih dahulu, hasilnya digunakan oleh query luar. Di sini, subquery menghitung AVG(gaji) dari seluruh tabel, lalu query luar memfilter karyawan yang gajinya melebihi nilai tersebut.",
     "hints": [
       "Subquery ditulis di dalam tanda kurung dan dieksekusi terlebih dahulu.",
@@ -475,6 +486,7 @@
       "Sintaks: WHERE gaji > (SELECT AVG(gaji) FROM karyawan) ORDER BY gaji DESC;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000011",
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, gaji INTEGER, departemen TEXT); INSERT INTO karyawan VALUES (1, 'Alice', 8000, 'Eng'); INSERT INTO karyawan VALUES (2, 'Bob', 5000, 'Mkt'); INSERT INTO karyawan VALUES (3, 'Charlie', 9000, 'Eng'); INSERT INTO karyawan VALUES (4, 'Diana', 6000, 'HR'); INSERT INTO karyawan VALUES (5, 'Eve', 5000, 'Mkt');",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":8000,\"departemen\":\"Eng\"},{\"id\":2,\"nama\":\"Bob\",\"gaji\":5000,\"departemen\":\"Mkt\"},{\"id\":3,\"nama\":\"Charlie\",\"gaji\":9000,\"departemen\":\"Eng\"},{\"id\":4,\"nama\":\"Diana\",\"gaji\":6000,\"departemen\":\"HR\"},{\"id\":5,\"nama\":\"Eve\",\"gaji\":5000,\"departemen\":\"Mkt\"}]}}",
@@ -509,7 +521,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'produk' (id, nama, harga, kategori), tampilkan nama dan harga produk yang harganya antara 50000 dan 200000 DAN kategorinya adalah 'Elektronik' atau 'Aksesoris', diurutkan berdasarkan harga ascending.\n\nContoh hasil:\nnama     | harga\nCharger  | 75000\nHeadset  | 150000",
-    "starterCode": "-- Filter produk berdasarkan rentang harga dan kategori tertentu\nSELECT nama, harga\nFROM produk\nWHERE harga BETWEEN 50000 AND 200000\nAND kategori IN",
+    "starterCode": "",
     "thinkingGuide": "BETWEEN nilai1 AND nilai2 memfilter baris dengan nilai dalam rentang inklusif. IN (nilai1, nilai2, ...) memfilter baris yang nilainya cocok dengan salah satu dari daftar. Keduanya bisa dikombinasikan dengan AND/OR untuk kondisi yang lebih kompleks.",
     "hints": [
       "BETWEEN 50000 AND 200000 memfilter harga dalam rentang tersebut (inklusif di kedua ujung).",
@@ -517,6 +529,7 @@
       "Sintaks: WHERE harga BETWEEN 50000 AND 200000 AND kategori IN ('Elektronik', 'Aksesoris') ORDER BY harga;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000012",
+    "schema": "CREATE TABLE produk (id INTEGER PRIMARY KEY, nama TEXT, harga INTEGER, kategori TEXT); INSERT INTO produk VALUES (1, 'Laptop', 15000000, 'Elektronik'); INSERT INTO produk VALUES (2, 'Charger', 75000, 'Aksesoris'); INSERT INTO produk VALUES (3, 'Headset', 150000, 'Elektronik'); INSERT INTO produk VALUES (4, 'Baju', 100000, 'Fashion'); INSERT INTO produk VALUES (5, 'Kabel', 25000, 'Aksesoris');",
     "testCases": [
       {
         "input": "{\"tables\":{\"produk\":[{\"id\":1,\"nama\":\"Laptop\",\"harga\":15000000,\"kategori\":\"Elektronik\"},{\"id\":2,\"nama\":\"Charger\",\"harga\":75000,\"kategori\":\"Aksesoris\"},{\"id\":3,\"nama\":\"Headset\",\"harga\":150000,\"kategori\":\"Elektronik\"},{\"id\":4,\"nama\":\"Baju\",\"harga\":100000,\"kategori\":\"Fashion\"},{\"id\":5,\"nama\":\"Kabel\",\"harga\":25000,\"kategori\":\"Aksesoris\"}]}}",
@@ -551,7 +564,7 @@
     "category": "sql",
     "difficulty": "medium",
     "description": "Diberikan tabel 'nilai_siswa' (id, nama, mata_pelajaran, nilai), tampilkan rata-rata nilai per siswa beserta nilai tertinggi dan terendah mereka, diurutkan berdasarkan rata_nilai descending.\n\nContoh hasil:\nnama  | rata_nilai | nilai_max | nilai_min\nAlice | 88.33      | 95        | 80\nBob   | 75.00      | 85        | 65",
-    "starterCode": "-- Hitung statistik nilai per siswa\nSELECT nama,\n  ROUND(AVG(nilai), 2) AS rata_nilai,\n  MAX(nilai) AS nilai_max,\n  MIN(nilai) AS nilai_min\nFROM nilai_siswa\nGROUP BY",
+    "starterCode": "",
     "thinkingGuide": "Kita bisa menggunakan beberapa fungsi agregat sekaligus dalam satu query. AVG() menghitung rata-rata, MAX() nilai tertinggi, MIN() nilai terendah. ROUND(nilai, 2) membulatkan ke 2 desimal. Semua kolom non-agregat (nama) harus ada dalam GROUP BY.",
     "hints": [
       "Gunakan GROUP BY nama untuk mengelompokkan nilai per siswa.",
@@ -559,6 +572,7 @@
       "Sintaks: GROUP BY nama ORDER BY rata_nilai DESC;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000013",
+    "schema": "CREATE TABLE nilai_siswa (id INTEGER PRIMARY KEY, nama TEXT, mata_pelajaran TEXT, nilai INTEGER); INSERT INTO nilai_siswa VALUES (1, 'Alice', 'Math', 95); INSERT INTO nilai_siswa VALUES (2, 'Alice', 'Science', 80); INSERT INTO nilai_siswa VALUES (3, 'Alice', 'English', 90); INSERT INTO nilai_siswa VALUES (4, 'Bob', 'Math', 85); INSERT INTO nilai_siswa VALUES (5, 'Bob', 'Science', 65); INSERT INTO nilai_siswa VALUES (6, 'Bob', 'English', 75);",
     "testCases": [
       {
         "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":95},{\"id\":2,\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":80},{\"id\":3,\"nama\":\"Alice\",\"mata_pelajaran\":\"English\",\"nilai\":90},{\"id\":4,\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":85},{\"id\":5,\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":65},{\"id\":6,\"nama\":\"Bob\",\"mata_pelajaran\":\"English\",\"nilai\":75}]}}",
@@ -593,7 +607,7 @@
     "category": "sql",
     "difficulty": "hard",
     "description": "Diberikan tabel 'karyawan' (id, nama, manager_id) di mana manager_id merujuk ke id karyawan lain, tampilkan nama karyawan beserta nama manajernya. Karyawan tanpa manajer tetap ditampilkan dengan nama_manajer NULL, diurutkan berdasarkan nama_karyawan ascending.\n\nContoh hasil:\nnama_karyawan | nama_manajer\nAlice         | NULL\nBob           | Alice\nCitra         | Alice",
-    "starterCode": "-- Tampilkan karyawan beserta nama manajernya menggunakan self join\nSELECT k.nama AS nama_karyawan, m.nama AS nama_manajer\nFROM karyawan k\nLEFT JOIN karyawan m ON",
+    "starterCode": "",
     "thinkingGuide": "Self join adalah join tabel dengan dirinya sendiri menggunakan alias berbeda. Kita membuat dua alias: k untuk karyawan dan m untuk manajer. Kondisi join: k.manager_id = m.id — ini menghubungkan setiap karyawan ke manajernya. LEFT JOIN digunakan agar karyawan tanpa manajer (manager_id NULL) tetap muncul.",
     "hints": [
       "Gunakan alias untuk membedakan dua referensi ke tabel yang sama: FROM karyawan k LEFT JOIN karyawan m.",
@@ -601,6 +615,7 @@
       "LEFT JOIN memastikan karyawan tanpa manajer (manager_id NULL) tetap muncul dengan nama_manajer NULL."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000014",
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, manager_id INTEGER); INSERT INTO karyawan VALUES (1, 'Alice', NULL); INSERT INTO karyawan VALUES (2, 'Bob', 1); INSERT INTO karyawan VALUES (3, 'Citra', 1); INSERT INTO karyawan VALUES (4, 'Dodi', 2);",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"manager_id\":null},{\"id\":2,\"nama\":\"Bob\",\"manager_id\":1},{\"id\":3,\"nama\":\"Citra\",\"manager_id\":1},{\"id\":4,\"nama\":\"Dodi\",\"manager_id\":2}]}}",
@@ -635,7 +650,7 @@
     "category": "sql",
     "difficulty": "hard",
     "description": "Diberikan tabel 'nilai_ujian' (id, nama, mata_pelajaran, nilai), tampilkan nama, mata_pelajaran, nilai, dan peringkat (rank) berdasarkan nilai dalam setiap mata_pelajaran. Peringkat 1 adalah nilai tertinggi. Diurutkan berdasarkan mata_pelajaran ascending, lalu rank ascending.\n\nContoh hasil:\nnama  | mata_pelajaran | nilai | rank\nAlice | Math           | 95    | 1\nBob   | Math           | 80    | 2\nBob   | Science        | 90    | 1\nAlice | Science        | 85    | 2",
-    "starterCode": "-- Tampilkan peringkat nilai per mata pelajaran\nSELECT nama, mata_pelajaran, nilai,\n  RANK() OVER (PARTITION BY mata_pelajaran ORDER BY nilai DESC) AS rank\nFROM nilai_ujian\nORDER BY",
+    "starterCode": "",
     "thinkingGuide": "Window function RANK() menghitung peringkat dalam partisi data tanpa menggabungkan baris. PARTITION BY membagi data menjadi kelompok (seperti GROUP BY tapi tidak menggabungkan baris). ORDER BY di dalam OVER menentukan urutan peringkat. RANK() memberikan peringkat yang sama untuk nilai yang sama, dan melompati peringkat berikutnya.",
     "hints": [
       "RANK() OVER (PARTITION BY kolom ORDER BY kolom DESC) menghitung peringkat dalam setiap partisi.",
@@ -643,6 +658,7 @@
       "Sintaks: RANK() OVER (PARTITION BY mata_pelajaran ORDER BY nilai DESC) AS rank, lalu ORDER BY mata_pelajaran, rank;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000015",
+    "schema": "CREATE TABLE nilai_ujian (id INTEGER PRIMARY KEY, nama TEXT, mata_pelajaran TEXT, nilai INTEGER); INSERT INTO nilai_ujian VALUES (1, 'Alice', 'Math', 95); INSERT INTO nilai_ujian VALUES (2, 'Bob', 'Math', 80); INSERT INTO nilai_ujian VALUES (3, 'Bob', 'Science', 90); INSERT INTO nilai_ujian VALUES (4, 'Alice', 'Science', 85);",
     "testCases": [
       {
         "input": "{\"tables\":{\"nilai_ujian\":[{\"id\":1,\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":95},{\"id\":2,\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":80},{\"id\":3,\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":90},{\"id\":4,\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":85}]}}",
@@ -677,7 +693,7 @@
     "category": "sql",
     "difficulty": "hard",
     "description": "Diberikan tabel 'transaksi' (id, pelanggan_id, tanggal, jumlah), gunakan CTE untuk menghitung total transaksi per pelanggan, lalu tampilkan hanya pelanggan dengan total di atas rata-rata semua pelanggan. Diurutkan berdasarkan total_transaksi descending.\n\nContoh hasil:\npelanggan_id | total_transaksi\n3            | 500000\n1            | 350000",
-    "starterCode": "-- Gunakan CTE untuk menemukan pelanggan dengan transaksi di atas rata-rata\nWITH total_per_pelanggan AS (\n  SELECT pelanggan_id, SUM(jumlah) AS total_transaksi\n  FROM transaksi\n  GROUP BY pelanggan_id\n)\nSELECT pelanggan_id, total_transaksi\nFROM total_per_pelanggan\nWHERE total_transaksi > (SELECT AVG(total_transaksi) FROM total_per_pelanggan)\nORDER BY",
+    "starterCode": "",
     "thinkingGuide": "CTE (Common Table Expression) menggunakan sintaks WITH nama AS (query) untuk membuat hasil query sementara yang bisa direferensikan berkali-kali. Ini membuat query kompleks lebih mudah dibaca. Di sini CTE menghitung total per pelanggan, lalu query utama memfilter berdasarkan rata-rata dari CTE tersebut.",
     "hints": [
       "CTE didefinisikan dengan WITH nama_cte AS (SELECT ...) sebelum query utama.",
@@ -685,6 +701,7 @@
       "Subquery di WHERE menggunakan CTE yang sama: (SELECT AVG(total_transaksi) FROM total_per_pelanggan)."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000016",
+    "schema": "CREATE TABLE transaksi (id INTEGER PRIMARY KEY, pelanggan_id INTEGER, tanggal TEXT, jumlah INTEGER); INSERT INTO transaksi VALUES (1, 1, '2024-01-01', 200000); INSERT INTO transaksi VALUES (2, 2, '2024-01-02', 100000); INSERT INTO transaksi VALUES (3, 3, '2024-01-03', 500000); INSERT INTO transaksi VALUES (4, 1, '2024-01-04', 150000); INSERT INTO transaksi VALUES (5, 2, '2024-01-05', 50000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"transaksi\":[{\"id\":1,\"pelanggan_id\":1,\"tanggal\":\"2024-01-01\",\"jumlah\":200000},{\"id\":2,\"pelanggan_id\":2,\"tanggal\":\"2024-01-02\",\"jumlah\":100000},{\"id\":3,\"pelanggan_id\":3,\"tanggal\":\"2024-01-03\",\"jumlah\":500000},{\"id\":4,\"pelanggan_id\":1,\"tanggal\":\"2024-01-04\",\"jumlah\":150000},{\"id\":5,\"pelanggan_id\":2,\"tanggal\":\"2024-01-05\",\"jumlah\":50000}]}}",
@@ -719,7 +736,7 @@
     "category": "sql",
     "difficulty": "hard",
     "description": "Diberikan tabel 'karyawan' (id, nama, gaji), tampilkan nama, gaji, dan kategori gaji: 'Rendah' jika gaji < 5000, 'Menengah' jika 5000-9999, 'Tinggi' jika >= 10000. Diurutkan berdasarkan gaji descending.\n\nContoh hasil:\nnama  | gaji  | kategori_gaji\nEve   | 11000 | Tinggi\nAlice | 8000  | Menengah\nBob   | 3000  | Rendah",
-    "starterCode": "-- Kategorikan karyawan berdasarkan gaji\nSELECT nama, gaji,\n  CASE\n    WHEN gaji < 5000 THEN 'Rendah'\n    WHEN gaji < 10000 THEN 'Menengah'\n    ELSE 'Tinggi'\n  END AS kategori_gaji\nFROM karyawan\nORDER BY",
+    "starterCode": "",
     "thinkingGuide": "CASE WHEN adalah ekspresi kondisional SQL yang mirip dengan if-else. Dievaluasi dari atas ke bawah — kondisi pertama yang terpenuhi akan digunakan. ELSE menangani semua kasus yang tidak cocok dengan kondisi sebelumnya. Hasilnya bisa diberi alias dengan AS untuk penamaan kolom yang lebih deskriptif.",
     "hints": [
       "CASE WHEN dievaluasi dari atas ke bawah — kondisi pertama yang true akan digunakan.",
@@ -727,6 +744,7 @@
       "Sintaks: CASE WHEN kondisi1 THEN hasil1 WHEN kondisi2 THEN hasil2 ELSE hasil_default END AS alias;"
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000017",
+    "schema": "CREATE TABLE karyawan (id INTEGER PRIMARY KEY, nama TEXT, gaji INTEGER); INSERT INTO karyawan VALUES (1, 'Alice', 8000); INSERT INTO karyawan VALUES (2, 'Bob', 3000); INSERT INTO karyawan VALUES (3, 'Eve', 11000); INSERT INTO karyawan VALUES (4, 'Diana', 5000);",
     "testCases": [
       {
         "input": "{\"tables\":{\"karyawan\":[{\"id\":1,\"nama\":\"Alice\",\"gaji\":8000},{\"id\":2,\"nama\":\"Bob\",\"gaji\":3000},{\"id\":3,\"nama\":\"Eve\",\"gaji\":11000},{\"id\":4,\"nama\":\"Diana\",\"gaji\":5000}]}}",
@@ -761,7 +779,7 @@
     "category": "sql",
     "difficulty": "hard",
     "description": "Diberikan tabel 'pesanan' (id, pelanggan_id, produk_id, qty), 'pelanggan' (id, nama, kota), dan 'produk' (id, nama_produk, harga), tampilkan nama pelanggan, total item yang dibeli (SUM qty), dan total nilai belanja (SUM qty*harga), diurutkan berdasarkan total_nilai descending.\n\nContoh hasil:\nnama  | total_item | total_nilai\nAlice | 5          | 750000\nBob   | 3          | 300000",
-    "starterCode": "-- Gabungkan tiga tabel dan hitung statistik belanja per pelanggan\nSELECT pelanggan.nama,\n  SUM(pesanan.qty) AS total_item,\n  SUM(pesanan.qty * produk.harga) AS total_nilai\nFROM pesanan\nINNER JOIN pelanggan ON pesanan.pelanggan_id = pelanggan.id\nINNER JOIN produk ON pesanan.produk_id = produk.id\nGROUP BY\nORDER BY total_nilai DESC",
+    "starterCode": "",
     "thinkingGuide": "Query ini menggabungkan tiga tabel dengan dua INNER JOIN. Setelah join, kita bisa mengakses kolom dari semua tabel. GROUP BY pelanggan.nama mengelompokkan per pelanggan. SUM(qty * harga) menghitung nilai total dengan mengalikan kuantitas dan harga untuk setiap baris sebelum dijumlahkan.",
     "hints": [
       "Gunakan dua INNER JOIN: satu untuk menghubungkan pesanan ke pelanggan, satu lagi ke produk.",
@@ -769,6 +787,7 @@
       "GROUP BY pelanggan.nama (atau pelanggan.id) untuk mengelompokkan per pelanggan."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000018",
+    "schema": "CREATE TABLE pelanggan (id INTEGER PRIMARY KEY, nama TEXT, kota TEXT); CREATE TABLE produk (id INTEGER PRIMARY KEY, nama_produk TEXT, harga INTEGER); CREATE TABLE pesanan (id INTEGER PRIMARY KEY, pelanggan_id INTEGER, produk_id INTEGER, qty INTEGER); INSERT INTO pelanggan VALUES (1, 'Alice', 'Jakarta'); INSERT INTO pelanggan VALUES (2, 'Bob', 'Bandung'); INSERT INTO produk VALUES (1, 'Buku', 50000); INSERT INTO produk VALUES (2, 'Pulpen', 10000); INSERT INTO produk VALUES (3, 'Tas', 200000); INSERT INTO pesanan VALUES (1, 1, 3, 3); INSERT INTO pesanan VALUES (2, 1, 1, 2); INSERT INTO pesanan VALUES (3, 2, 1, 2); INSERT INTO pesanan VALUES (4, 2, 2, 1);",
     "testCases": [
       {
         "input": "{\"tables\":{\"pelanggan\":[{\"id\":1,\"nama\":\"Alice\",\"kota\":\"Jakarta\"},{\"id\":2,\"nama\":\"Bob\",\"kota\":\"Bandung\"}],\"produk\":[{\"id\":1,\"nama_produk\":\"Buku\",\"harga\":50000},{\"id\":2,\"nama_produk\":\"Pulpen\",\"harga\":10000},{\"id\":3,\"nama_produk\":\"Tas\",\"harga\":200000}],\"pesanan\":[{\"id\":1,\"pelanggan_id\":1,\"produk_id\":3,\"qty\":3},{\"id\":2,\"pelanggan_id\":1,\"produk_id\":1,\"qty\":2},{\"id\":3,\"pelanggan_id\":2,\"produk_id\":1,\"qty\":2},{\"id\":4,\"pelanggan_id\":2,\"produk_id\":2,\"qty\":1}]}}",
@@ -803,7 +822,7 @@
     "category": "sql",
     "difficulty": "hard",
     "description": "Diberikan tabel 'nilai_siswa' (id, nama, mata_pelajaran, nilai) dengan mata_pelajaran berupa 'Math', 'Science', 'English', buat pivot table yang menampilkan nilai setiap siswa per kolom mata pelajaran. Diurutkan berdasarkan nama ascending.\n\nContoh hasil:\nnama  | math | science | english\nAlice | 90   | 85      | 88\nBob   | 75   | 80      | 70",
-    "starterCode": "-- Pivot nilai siswa: baris per siswa, kolom per mata pelajaran\nSELECT nama,\n  MAX(CASE WHEN mata_pelajaran = 'Math' THEN nilai END) AS math,\n  MAX(CASE WHEN mata_pelajaran = 'Science' THEN nilai END) AS science,\n  MAX(CASE WHEN mata_pelajaran = 'English' THEN nilai END) AS english\nFROM nilai_siswa\nGROUP BY\nORDER BY nama",
+    "starterCode": "",
     "thinkingGuide": "Pivot mengubah nilai baris menjadi kolom. Tekniknya: gunakan CASE WHEN untuk mengekstrak nilai per mata pelajaran (NULL untuk yang tidak cocok), lalu MAX() untuk mengambil nilai non-NULL dari setiap kelompok. GROUP BY nama mengelompokkan per siswa. Ini adalah teknik pivot manual yang bekerja di semua database SQL.",
     "hints": [
       "Gunakan CASE WHEN mata_pelajaran = 'Math' THEN nilai END untuk mengekstrak nilai Math (NULL untuk baris lain).",
@@ -811,6 +830,7 @@
       "GROUP BY nama mengelompokkan per siswa, sehingga setiap siswa menjadi satu baris dengan semua nilai."
     ],
     "prerequisiteId": "00000000-0000-0000-0004-000000000019",
+    "schema": "CREATE TABLE nilai_siswa (id INTEGER PRIMARY KEY, nama TEXT, mata_pelajaran TEXT, nilai INTEGER); INSERT INTO nilai_siswa VALUES (1, 'Alice', 'Math', 90); INSERT INTO nilai_siswa VALUES (2, 'Alice', 'Science', 85); INSERT INTO nilai_siswa VALUES (3, 'Alice', 'English', 88); INSERT INTO nilai_siswa VALUES (4, 'Bob', 'Math', 75); INSERT INTO nilai_siswa VALUES (5, 'Bob', 'Science', 80); INSERT INTO nilai_siswa VALUES (6, 'Bob', 'English', 70);",
     "testCases": [
       {
         "input": "{\"tables\":{\"nilai_siswa\":[{\"id\":1,\"nama\":\"Alice\",\"mata_pelajaran\":\"Math\",\"nilai\":90},{\"id\":2,\"nama\":\"Alice\",\"mata_pelajaran\":\"Science\",\"nilai\":85},{\"id\":3,\"nama\":\"Alice\",\"mata_pelajaran\":\"English\",\"nilai\":88},{\"id\":4,\"nama\":\"Bob\",\"mata_pelajaran\":\"Math\",\"nilai\":75},{\"id\":5,\"nama\":\"Bob\",\"mata_pelajaran\":\"Science\",\"nilai\":80},{\"id\":6,\"nama\":\"Bob\",\"mata_pelajaran\":\"English\",\"nilai\":70}]}}",

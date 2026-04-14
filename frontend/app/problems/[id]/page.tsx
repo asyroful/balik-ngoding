@@ -29,13 +29,14 @@ export default function ProblemDetailPage() {
   const { code, setCode, reset, language, setLanguage, isLoading: isSubmitting, setLoading, setResult, setError: setSubmitError } = useSubmissionStore();
   const { markAccepted } = useProgress();
 
-  async function handleSubmit() {
-    if (!problem || isSubmitting || code.trim() === '') return;
+  async function handleSubmit(submittedCode?: string) {
+    const codeToSubmit = submittedCode ?? code;
+    if (!problem || isSubmitting || codeToSubmit.trim() === '') return;
     setLoading(true);
     setSubmitError(null);
     setResult(null);
     try {
-      const result = await submitSolution({ problemId: problem.id, code, language });
+      const result = await submitSolution({ problemId: problem.id, code: codeToSubmit, language });
       setResult(result);
       if (result.status === 'accepted') {
         markAccepted(problem.id);

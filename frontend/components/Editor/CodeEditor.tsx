@@ -64,18 +64,18 @@ interface CodeEditorProps {
   value: string;
   onChange: (value: string) => void;
   language?: string;
-  onSubmit?: () => void;
+  onSubmit?: (code: string) => void;
 }
 
 export default function CodeEditor({ value, onChange, language, onSubmit }: CodeEditorProps) {
   const [monacoFailed, setMonacoFailed] = useState(false);
-  const { isLoading, code } = useSubmissionStore();
+  const { isLoading } = useSubmissionStore();
 
   const isLoadingRef = useRef(isLoading);
-  const codeRef = useRef(code);
+  const valueRef = useRef(value);
 
   useEffect(() => { isLoadingRef.current = isLoading; }, [isLoading]);
-  useEffect(() => { codeRef.current = code; }, [code]);
+  useEffect(() => { valueRef.current = value; }, [value]);
 
   if (monacoFailed) {
     return <FallbackTextarea value={value} onChange={onChange} />;
@@ -98,8 +98,8 @@ export default function CodeEditor({ value, onChange, language, onSubmit }: Code
               label: 'Submit Solution',
               keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
               run: () => {
-                if (isLoadingRef.current || codeRef.current.trim() === '') return;
-                onSubmit?.();
+                if (isLoadingRef.current || valueRef.current.trim() === '') return;
+                onSubmit?.(valueRef.current);
               },
             });
           }}

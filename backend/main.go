@@ -9,6 +9,7 @@ import (
 	"balik-ngoding-backend/internal/analytics"
 	"balik-ngoding-backend/internal/database"
 	"balik-ngoding-backend/internal/problems"
+	"balik-ngoding-backend/internal/storage"
 	"balik-ngoding-backend/internal/submissions"
 
 	"github.com/gin-gonic/gin"
@@ -46,7 +47,7 @@ func corsMiddleware() gin.HandlerFunc {
 	}
 }
 
-func setupRouter() *gin.Engine {
+func setupRouter(fileStorage *storage.FileStorageService) *gin.Engine {
 	r := gin.Default()
 
 	r.Use(corsMiddleware())
@@ -62,7 +63,7 @@ func setupRouter() *gin.Engine {
 	r.GET("/problems/:id", problemsHandler.GetProblemByID)
 
 	// Submissions routes
-	submissionsHandler := submissions.NewHandler()
+	submissionsHandler := submissions.NewHandler(fileStorage)
 	r.POST("/submit", submissionsHandler.Submit)
 
 	// Analytics routes
@@ -78,7 +79,17 @@ func main() {
 		log.Fatalf("Failed to seed database: %v", err)
 	}
 
-	r := setupRouter()
+	// Initialize file storage for submissions
+	submissionsDir := os.Getenv("SUBMISSIONS_DIR")
+	if submissionsDir == "" {
+		submissionsDir = "./submissions"
+	}
+	fileStorage, err := storage.NewFileStorageService(submissionsDir)
+	if err != nil {
+		log.Fatalf("Failed to initialize file storage: %v", err)
+	}
+
+	r := setupRouter(fileStorage)
 
 	port := os.Getenv("PORT")
 	if port == "" {
