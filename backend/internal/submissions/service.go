@@ -136,7 +136,7 @@ func (s *SubmissionsService) Submit(req SubmitRequest) (*SubmissionResult, error
 	submission := models.Submission{
 		ProblemID:    req.ProblemID,
 		AnonymousID:  req.AnonymousID,
-		CodePath:     codePath,
+		CodePath:     &codePath,
 		Language:     req.Language,
 		Status:       status,
 		Score:        score,
