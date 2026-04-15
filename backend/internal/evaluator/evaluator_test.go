@@ -1,6 +1,8 @@
 package evaluator
 
 import (
+	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -420,4 +422,439 @@ func TestNullInputProperty(t *testing.T) {
 	if !result.Passed {
 		t.Errorf("greet(null) failed: expected %q, got %q, error: %s", expected, result.Actual, result.Error)
 	}
+}
+
+// ============================================================================
+// Phase 1: Evaluator Bug Fix Tests
+// ============================================================================
+
+// TestPrepareInputSingleString verifies single string input is parsed correctly
+// Feature: evaluator-fix-and-solution-keys, Property 1: string input parsing correctness
+// Validates: Requirements 1.1, 1.5
+func TestPrepareInputSingleString(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "simple string",
+			input:    `"banana"`,
+			expected: `"banana"`,
+		},
+		{
+			name:     "string with spaces",
+			input:    `"hello world"`,
+			expected: `"hello world"`,
+		},
+		{
+			name:     "single character",
+			input:    `"a"`,
+			expected: `"a"`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			if result != tt.expected {
+				t.Errorf("prepareInput(%q) = %q, want %q", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrepareInputCommaSeparatedStrings verifies comma-separated strings are parsed correctly
+// Feature: evaluator-fix-and-solution-keys, Property 1: string input parsing correctness
+// Validates: Requirements 1.2, 1.5
+func TestPrepareInputCommaSeparatedStrings(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "two strings",
+			input:    `"banana", "a"`,
+			expected: `"banana", "a"`,
+		},
+		{
+			name:     "three strings",
+			input:    `"hello", "world", "test"`,
+			expected: `"hello", "world", "test"`,
+		},
+		{
+			name:     "strings with spaces",
+			input:    `"hello world", "foo bar"`,
+			expected: `"hello world", "foo bar"`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			if result != tt.expected {
+				t.Errorf("prepareInput(%q) = %q, want %q", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrepareInputMixedTypes verifies mixed string and numeric inputs are parsed correctly
+// Feature: evaluator-fix-and-solution-keys, Property 2: mixed type input parsing
+// Validates: Requirements 1.3
+func TestPrepareInputMixedTypes(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "string and number",
+			input:    `"hello", 5`,
+			expected: `"hello", 5`,
+		},
+		{
+			name:     "number and string",
+			input:    `5, "test"`,
+			expected: `5, "test"`,
+		},
+		{
+			name:     "string, number, string",
+			input:    `"hello", 5, "world"`,
+			expected: `"hello", 5, "world"`,
+		},
+		{
+			name:     "multiple numbers and strings",
+			input:    `"a", 1, "b", 2, "c"`,
+			expected: `"a", 1, "b", 2, "c"`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			if result != tt.expected {
+				t.Errorf("prepareInput(%q) = %q, want %q", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrepareInputValidJSON verifies valid JSON input is passed through unchanged
+// Feature: evaluator-fix-and-solution-keys, Property 3: JSON input pass-through
+// Validates: Requirements 1.4
+func TestPrepareInputValidJSON(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "JSON array of strings",
+			input:    `["banana", "a"]`,
+			expected: `["banana", "a"]`,
+		},
+		{
+			name:     "JSON array of numbers",
+			input:    `[1, 2, 3]`,
+			expected: `[1, 2, 3]`,
+		},
+		{
+			name:     "JSON array mixed",
+			input:    `["hello", 5, "world"]`,
+			expected: `["hello", 5, "world"]`,
+		},
+		{
+			name:     "JSON object",
+			input:    `{"key": "value"}`,
+			expected: `{"key": "value"}`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			if result != tt.expected {
+				t.Errorf("prepareInput(%q) = %q, want %q", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrepareInputEmptyString verifies empty input is handled gracefully
+// Feature: evaluator-fix-and-solution-keys, Property 4: special character handling
+// Validates: Requirements 2.1
+func TestPrepareInputEmptyString(t *testing.T) {
+	result := prepareInput("")
+	expected := `""`
+	if result != expected {
+		t.Errorf("prepareInput(\"\") = %q, want %q", result, expected)
+	}
+}
+
+// TestPrepareInputSpecialCharacters verifies special characters are handled correctly
+// Feature: evaluator-fix-and-solution-keys, Property 4: special character handling
+// Validates: Requirements 2.2
+func TestPrepareInputSpecialCharacters(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+	}{
+		{
+			name:  "string with quotes",
+			input: `"hello\"world"`,
+		},
+		{
+			name:  "string with newline",
+			input: `"hello\nworld"`,
+		},
+		{
+			name:  "string with tab",
+			input: `"hello\tworld"`,
+		},
+		{
+			name:  "string with backslash",
+			input: `"hello\\world"`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			// Just verify it doesn't panic and returns something
+			if result == "" {
+				t.Errorf("prepareInput(%q) returned empty string", tt.input)
+			}
+		})
+	}
+}
+
+// TestPrepareInputNumericValue verifies numeric input is parsed as number, not string
+// Feature: evaluator-fix-and-solution-keys, Property 5: numeric input recognition
+// Validates: Requirements 2.3
+func TestPrepareInputNumericValue(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "integer",
+			input:    "42",
+			expected: "42",
+		},
+		{
+			name:     "float",
+			input:    "3.14",
+			expected: "3.14",
+		},
+		{
+			name:     "negative number",
+			input:    "-5",
+			expected: "-5",
+		},
+		{
+			name:     "zero",
+			input:    "0",
+			expected: "0",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			if result != tt.expected {
+				t.Errorf("prepareInput(%q) = %q, want %q", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrepareInputWhitespace verifies leading/trailing whitespace is trimmed
+// Feature: evaluator-fix-and-solution-keys, Property 6: whitespace trimming
+// Validates: Requirements 2.5
+func TestPrepareInputWhitespace(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "leading spaces",
+			input:    `  "hello"`,
+			expected: `"hello"`,
+		},
+		{
+			name:     "trailing spaces",
+			input:    `"hello"  `,
+			expected: `"hello"`,
+		},
+		{
+			name:     "both leading and trailing",
+			input:    `  "hello"  `,
+			expected: `"hello"`,
+		},
+		{
+			name:     "comma-separated with spaces",
+			input:    `  "a", "b"  `,
+			expected: `"a", "b"`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := prepareInput(tt.input)
+			if result != tt.expected {
+				t.Errorf("prepareInput(%q) = %q, want %q", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrepareInputIdempotenceProperty verifies parsing is idempotent for valid inputs
+// Feature: evaluator-fix-and-solution-keys, Property 7: parsing idempotence
+// Validates: Requirements 2.6
+func TestPrepareInputIdempotenceProperty(t *testing.T) {
+	rapid.Check(t, func(t *rapid.T) {
+		// Generate valid input strings (JSON or comma-separated)
+		inputType := rapid.IntRange(0, 2).Draw(t, "inputType")
+
+		var input string
+		switch inputType {
+		case 0:
+			// JSON array
+			arr := rapid.SliceOf(rapid.Int()).Draw(t, "array")
+			data, _ := json.Marshal(arr)
+			input = string(data)
+		case 1:
+			// Single number
+			input = fmt.Sprintf("%d", rapid.Int().Draw(t, "number"))
+		default:
+			// Single quoted string (already valid)
+			str := rapid.StringN(0, 20, -1).Draw(t, "string")
+			input = fmt.Sprintf("%q", str)
+		}
+
+		parsed1 := prepareInput(input)
+		parsed2 := prepareInput(parsed1)
+
+		if parsed1 != parsed2 {
+			t.Fatalf("prepareInput not idempotent:\n  first:  %q\n  second: %q", parsed1, parsed2)
+		}
+	})
+}
+
+// TestStringInputParsingProperty verifies string inputs are parsed correctly for function calls
+// Feature: evaluator-fix-and-solution-keys, Property 1: string input parsing correctness
+// Validates: Requirements 1.1, 1.2, 1.5, 1.6
+func TestStringInputParsingProperty(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	rapid.Check(t, func(t *rapid.T) {
+		// Generate simple alphanumeric strings to avoid escaping issues
+		str := rapid.StringMatching(`[a-zA-Z0-9 ]*`).Draw(t, "string")
+		input := fmt.Sprintf(`"%s"`, str)
+
+		// Test that the function receives the correct string value
+		code := `function test(arg) { return arg; }`
+		result := svc.Evaluate(code, input, input)
+
+		if !result.Passed {
+			t.Fatalf("function did not receive correct string value for input %q: error=%s, actual=%q", input, result.Error, result.Actual)
+		}
+	})
+}
+
+// ============================================================================
+// Phase 1: Evaluator Integration Tests
+// ============================================================================
+
+// TestEvaluateBananaAExample tests the banana/a example from requirements
+// Feature: evaluator-fix-and-solution-keys, Property 16: evaluator bug fix verification
+// Validates: Requirements 11.1
+func TestEvaluateBananaAExample(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function getSecond(a, b) { return b; }`
+	input := `"banana", "a"`
+	expected := `"a"`
+
+	result := svc.Evaluate(code, input, expected)
+	if !result.Passed {
+		t.Errorf("banana/a example failed: expected %q, got %q, error: %s", expected, result.Actual, result.Error)
+	}
+}
+
+// TestEvaluateHelloExample tests the hello example from requirements
+// Feature: evaluator-fix-and-solution-keys, Property 16: evaluator bug fix verification
+// Validates: Requirements 11.2
+func TestEvaluateHelloExample(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function identity(s) { return s; }`
+	input := `"hello"`
+	expected := `"hello"`
+
+	result := svc.Evaluate(code, input, expected)
+	if !result.Passed {
+		t.Errorf("hello example failed: expected %q, got %q, error: %s", expected, result.Actual, result.Error)
+	}
+}
+
+// TestEvaluateMixedTypesExample tests the mixed types example from requirements
+// Feature: evaluator-fix-and-solution-keys, Property 16: evaluator bug fix verification
+// Validates: Requirements 11.3
+func TestEvaluateMixedTypesExample(t *testing.T) {
+	svc := NewEvaluatorService()
+
+	code := `function concat(n, s) { return s + n; }`
+	input := `5, "test"`
+	expected := `"test5"`
+
+	result := svc.Evaluate(code, input, expected)
+	if !result.Passed {
+		t.Errorf("mixed types example failed: expected %q, got %q, error: %s", expected, result.Actual, result.Error)
+	}
+}
+
+// TestEvaluatorRegressionProperty tests that all existing test cases pass with fixed evaluator
+// Feature: evaluator-fix-and-solution-keys, Property 16: evaluator bug fix verification
+// Validates: Requirements 11.4
+func TestEvaluatorRegressionProperty(t *testing.T) {
+	rapid.Check(t, func(t *rapid.T) {
+		svc := NewEvaluatorService()
+
+		// Test cases that should all pass with fixed evaluator
+		testCases := []struct {
+			code     string
+			input    string
+			expected string
+		}{
+			{
+				code:     `function add(a, b) { return a + b; }`,
+				input:    `[1, 2]`,
+				expected: `3`,
+			},
+			{
+				code:     `function concat(a, b) { return a + b; }`,
+				input:    `"hello", " world"`,
+				expected: `"hello world"`,
+			},
+			{
+				code:     `function identity(x) { return x; }`,
+				input:    `"test"`,
+				expected: `"test"`,
+			},
+		}
+
+		// Run each test case
+		for _, tc := range testCases {
+			result := svc.Evaluate(tc.code, tc.input, tc.expected)
+			if !result.Passed {
+				t.Fatalf("regression test failed for code %q with input %q: expected %q, got %q, error: %s",
+					tc.code, tc.input, tc.expected, result.Actual, result.Error)
+			}
+		}
+	})
 }

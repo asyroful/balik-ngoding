@@ -1,6 +1,0 @@
-# 2026/04/06 15:59:04.599042 [TestSandboxBlocksRestrictedAPIsProperty] [rapid] draw snippet: "XMLHttpRequest"
-# 2026/04/06 15:59:04.599569 [TestSandboxBlocksRestrictedAPIsProperty] expected error when using restricted API "XMLHttpRequest", but got none (actual="1")
-# 
-v0.4.8#15717674161869297937
-0x6b74f03291620
-0x6

@@ -177,6 +177,10 @@ func extractFunctionName(code string) string {
 
 // prepareInput converts input string to JavaScript code that can be passed to a function.
 // If input is valid JSON, it's used as-is. Otherwise, it's treated as comma-separated arguments.
+// For each argument:
+// - If it's a valid JSON string (quoted), use as-is
+// - If it's a number, use as-is
+// - Otherwise, wrap as a string literal
 func prepareInput(input string) string {
 	trimmed := strings.TrimSpace(input)
 	if len(trimmed) == 0 {
@@ -191,16 +195,28 @@ func prepareInput(input string) string {
 	}
 
 	// Not valid JSON, treat as comma-separated arguments
-	// Split by comma and wrap each part
+	// Split by comma and process each part
 	parts := strings.Split(trimmed, ",")
 	var args []string
 	for _, part := range parts {
 		trimmedPart := strings.TrimSpace(part)
+
+		// Check if it's already a valid JSON string (starts and ends with quotes)
+		if len(trimmedPart) >= 2 && trimmedPart[0] == '"' && trimmedPart[len(trimmedPart)-1] == '"' {
+			// Try to parse as JSON string to validate it
+			var strValue string
+			if err := json.Unmarshal([]byte(trimmedPart), &strValue); err == nil {
+				// Valid JSON string, use as-is
+				args = append(args, trimmedPart)
+				continue
+			}
+		}
+
 		// Try to parse as number
 		if _, err := strconv.ParseFloat(trimmedPart, 64); err == nil {
 			args = append(args, trimmedPart)
 		} else {
-			// Wrap as string
+			// Not a number or JSON string, wrap as string literal
 			args = append(args, fmt.Sprintf("%q", trimmedPart))
 		}
 	}

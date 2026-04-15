@@ -62,3 +62,23 @@ export interface CategorySummary {
   category: 'loop' | 'string' | 'array' | 'sql';
   total: number;
 }
+
+export interface SolutionKey {
+  id: string;
+  problemId: string;
+  code: string;
+  language: 'javascript' | 'sql';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateSolutionKeyRequest {
+  problemId: string;
+  code: string;
+  language: 'javascript' | 'sql';
+}
+
+export interface UpdateSolutionKeyRequest {
+  code: string;
+  language?: 'javascript' | 'sql';
+}
