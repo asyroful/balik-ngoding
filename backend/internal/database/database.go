@@ -26,7 +26,7 @@ func Init() {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 
-	if err := DB.AutoMigrate(&models.Problem{}, &models.TestCase{}, &models.Submission{}); err != nil {
+	if err := DB.AutoMigrate(&models.Problem{}, &models.TestCase{}, &models.Submission{}, &models.SolutionKey{}); err != nil {
 		log.Fatalf("Failed to run migrations: %v", err)
 	}
 

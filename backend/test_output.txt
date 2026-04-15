@@ -1,0 +1,220 @@
+=== RUN   TestAllProblemTypesComprehensive
+=== RUN   TestAllProblemTypesComprehensive/jumlahSampaiN(5)
+=== RUN   TestAllProblemTypesComprehensive/jumlahSampaiN(0)
+=== RUN   TestAllProblemTypesComprehensive/hitungMundur(5)
+=== RUN   TestAllProblemTypesComprehensive/kaliTanpaBintang(3,_4)
+=== RUN   TestAllProblemTypesComprehensive/kaliTanpaBintang(5,_2)
+=== RUN   TestAllProblemTypesComprehensive/kaliTanpaBintang(0,_7)
+=== RUN   TestAllProblemTypesComprehensive/nilaiMaksimum([3,1,4,1,5,9,2])
+=== RUN   TestAllProblemTypesComprehensive/nilaiMaksimum([10,5,8])
+=== RUN   TestAllProblemTypesComprehensive/nilaiMaksimum([7])
+=== RUN   TestAllProblemTypesComprehensive/hitungGenap([1,2,3,4,5,6])
+=== RUN   TestAllProblemTypesComprehensive/hitungGenap([1,3,5])
+=== RUN   TestAllProblemTypesComprehensive/fizzBuzz(5)
+=== RUN   TestAllProblemTypesComprehensive/hitungBagi2(8)
+=== RUN   TestAllProblemTypesComprehensive/isPrima(7)
+=== RUN   TestAllProblemTypesComprehensive/isPrima(4)
+=== RUN   TestAllProblemTypesComprehensive/fibonacci(5)
+=== RUN   TestAllProblemTypesComprehensive/tabelPerkalian(2)
+=== RUN   TestAllProblemTypesComprehensive/pangkat(2,_10)
+=== RUN   TestAllProblemTypesComprehensive/cariFaktor(12)
+=== RUN   TestAllProblemTypesComprehensive/segitigaBintang(3)
+=== RUN   TestAllProblemTypesComprehensive/jumlahDiAtas([1,5,3,8,2,9],_4)
+    comprehensive_test.go:216: expected Passed=true, got false
+          actual="0"
+          error=""
+=== RUN   TestAllProblemTypesComprehensive/bubbleSort([5,1,4,2,8])
+=== RUN   TestAllProblemTypesComprehensive/sieveEratosthenes(10)
+=== RUN   TestAllProblemTypesComprehensive/konversiBasis(10,_2)
+=== RUN   TestAllProblemTypesComprehensive/jumlahDigitBerulang(9875)
+--- FAIL: TestAllProblemTypesComprehensive (0.01s)
+    --- PASS: TestAllProblemTypesComprehensive/jumlahSampaiN(5) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/jumlahSampaiN(0) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/hitungMundur(5) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/kaliTanpaBintang(3,_4) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/kaliTanpaBintang(5,_2) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/kaliTanpaBintang(0,_7) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/nilaiMaksimum([3,1,4,1,5,9,2]) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/nilaiMaksimum([10,5,8]) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/nilaiMaksimum([7]) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/hitungGenap([1,2,3,4,5,6]) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/hitungGenap([1,3,5]) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/fizzBuzz(5) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/hitungBagi2(8) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/isPrima(7) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/isPrima(4) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/fibonacci(5) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/tabelPerkalian(2) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/pangkat(2,_10) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/cariFaktor(12) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/segitigaBintang(3) (0.00s)
+    --- FAIL: TestAllProblemTypesComprehensive/jumlahDiAtas([1,5,3,8,2,9],_4) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/bubbleSort([5,1,4,2,8]) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/sieveEratosthenes(10) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/konversiBasis(10,_2) (0.00s)
+    --- PASS: TestAllProblemTypesComprehensive/jumlahDigitBerulang(9875) (0.00s)
+=== RUN   TestDetermineStatusProperty
+    evaluator_test.go:57: [rapid] OK, passed 100 tests (2.4135ms)
+--- PASS: TestDetermineStatusProperty (0.00s)
+=== RUN   TestOutputNormalizationProperty
+    evaluator_test.go:92: [rapid] OK, passed 100 tests (3.1323ms)
+--- PASS: TestOutputNormalizationProperty (0.00s)
+=== RUN   TestNormalizeOutputIdempotence
+=== RUN   TestNormalizeOutputIdempotence/leading_spaces
+=== RUN   TestNormalizeOutputIdempotence/trailing_spaces
+=== RUN   TestNormalizeOutputIdempotence/multiple_spaces
+=== RUN   TestNormalizeOutputIdempotence/newlines
+=== RUN   TestNormalizeOutputIdempotence/carriage_return_newlines
+=== RUN   TestNormalizeOutputIdempotence/mixed_whitespace
+=== RUN   TestNormalizeOutputIdempotence/tabs
+=== RUN   TestNormalizeOutputIdempotence/empty_string
+=== RUN   TestNormalizeOutputIdempotence/only_whitespace
+--- PASS: TestNormalizeOutputIdempotence (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/leading_spaces (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/trailing_spaces (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/multiple_spaces (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/newlines (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/carriage_return_newlines (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/mixed_whitespace (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/tabs (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/empty_string (0.00s)
+    --- PASS: TestNormalizeOutputIdempotence/only_whitespace (0.00s)
+=== RUN   TestNormalizeOutputIdempotenceProperty
+    evaluator_test.go:164: [rapid] OK, passed 100 tests (1.0494ms)
+--- PASS: TestNormalizeOutputIdempotenceProperty (0.00s)
+=== RUN   TestWhitespaceToleranceProperty
+    evaluator_test.go:178: [rapid] OK, passed 100 tests (865.2µs)
+--- PASS: TestWhitespaceToleranceProperty (0.00s)
+=== RUN   TestPreserveWrongAnswersProperty
+    evaluator_test.go:201: [rapid] OK, passed 100 tests (1.2034ms)
+--- PASS: TestPreserveWrongAnswersProperty (0.00s)
+=== RUN   TestWhitespaceToleranceIntegration
+=== RUN   TestWhitespaceToleranceIntegration/leading_spaces_in_expected
+=== RUN   TestWhitespaceToleranceIntegration/multiple_spaces_in_expected
+=== RUN   TestWhitespaceToleranceIntegration/newline_variations
+=== RUN   TestWhitespaceToleranceIntegration/wrong_answer_still_fails
+--- PASS: TestWhitespaceToleranceIntegration (0.00s)
+    --- PASS: TestWhitespaceToleranceIntegration/leading_spaces_in_expected (0.00s)
+    --- PASS: TestWhitespaceToleranceIntegration/multiple_spaces_in_expected (0.00s)
+    --- PASS: TestWhitespaceToleranceIntegration/newline_variations (0.00s)
+    --- PASS: TestWhitespaceToleranceIntegration/wrong_answer_still_fails (0.00s)
+=== RUN   TestSandboxBlocksRestrictedAPIsProperty
+    evaluator_test.go:287: [rapid] fail file "testdata\\rapid\\TestSandboxBlocksRestrictedAPIsProperty\\TestSandboxBlocksRestrictedAPIsProperty-20260406155904-22824.fail" is no longer valid
+    evaluator_test.go:287: [rapid] OK, passed 100 tests (12.7563ms)
+--- PASS: TestSandboxBlocksRestrictedAPIsProperty (0.01s)
+=== RUN   TestTimeoutEnforcementInfiniteLoop
+--- PASS: TestTimeoutEnforcementInfiniteLoop (5.00s)
+=== RUN   TestEvaluatorServiceRoutingProperty
+    evaluator_test.go:323: [rapid] OK, passed 100 tests (70.4644ms)
+--- PASS: TestEvaluatorServiceRoutingProperty (0.07s)
+=== RUN   TestEvaluatorServiceJSRoutingProperty
+    evaluator_test.go:342: [rapid] OK, passed 100 tests (16.5033ms)
+--- PASS: TestEvaluatorServiceJSRoutingProperty (0.02s)
+=== RUN   TestCommaSeparatedArgumentsProperty
+--- PASS: TestCommaSeparatedArgumentsProperty (0.00s)
+=== RUN   TestJSONArrayInputProperty
+--- PASS: TestJSONArrayInputProperty (0.00s)
+=== RUN   TestNullInputProperty
+--- PASS: TestNullInputProperty (0.00s)
+=== RUN   TestPrepareInputSingleString
+=== RUN   TestPrepareInputSingleString/simple_string
+=== RUN   TestPrepareInputSingleString/string_with_spaces
+=== RUN   TestPrepareInputSingleString/single_character
+--- PASS: TestPrepareInputSingleString (0.00s)
+    --- PASS: TestPrepareInputSingleString/simple_string (0.00s)
+    --- PASS: TestPrepareInputSingleString/string_with_spaces (0.00s)
+    --- PASS: TestPrepareInputSingleString/single_character (0.00s)
+=== RUN   TestPrepareInputCommaSeparatedStrings
+=== RUN   TestPrepareInputCommaSeparatedStrings/two_strings
+=== RUN   TestPrepareInputCommaSeparatedStrings/three_strings
+=== RUN   TestPrepareInputCommaSeparatedStrings/strings_with_spaces
+--- PASS: TestPrepareInputCommaSeparatedStrings (0.00s)
+    --- PASS: TestPrepareInputCommaSeparatedStrings/two_strings (0.00s)
+    --- PASS: TestPrepareInputCommaSeparatedStrings/three_strings (0.00s)
+    --- PASS: TestPrepareInputCommaSeparatedStrings/strings_with_spaces (0.00s)
+=== RUN   TestPrepareInputMixedTypes
+=== RUN   TestPrepareInputMixedTypes/string_and_number
+=== RUN   TestPrepareInputMixedTypes/number_and_string
+=== RUN   TestPrepareInputMixedTypes/string,_number,_string
+=== RUN   TestPrepareInputMixedTypes/multiple_numbers_and_strings
+--- PASS: TestPrepareInputMixedTypes (0.00s)
+    --- PASS: TestPrepareInputMixedTypes/string_and_number (0.00s)
+    --- PASS: TestPrepareInputMixedTypes/number_and_string (0.00s)
+    --- PASS: TestPrepareInputMixedTypes/string,_number,_string (0.00s)
+    --- PASS: TestPrepareInputMixedTypes/multiple_numbers_and_strings (0.00s)
+=== RUN   TestPrepareInputValidJSON
+=== RUN   TestPrepareInputValidJSON/JSON_array_of_strings
+=== RUN   TestPrepareInputValidJSON/JSON_array_of_numbers
+=== RUN   TestPrepareInputValidJSON/JSON_array_mixed
+=== RUN   TestPrepareInputValidJSON/JSON_object
+--- PASS: TestPrepareInputValidJSON (0.00s)
+    --- PASS: TestPrepareInputValidJSON/JSON_array_of_strings (0.00s)
+    --- PASS: TestPrepareInputValidJSON/JSON_array_of_numbers (0.00s)
+    --- PASS: TestPrepareInputValidJSON/JSON_array_mixed (0.00s)
+    --- PASS: TestPrepareInputValidJSON/JSON_object (0.00s)
+=== RUN   TestPrepareInputEmptyString
+--- PASS: TestPrepareInputEmptyString (0.00s)
+=== RUN   TestPrepareInputSpecialCharacters
+=== RUN   TestPrepareInputSpecialCharacters/string_with_quotes
+=== RUN   TestPrepareInputSpecialCharacters/string_with_newline
+=== RUN   TestPrepareInputSpecialCharacters/string_with_tab
+=== RUN   TestPrepareInputSpecialCharacters/string_with_backslash
+--- PASS: TestPrepareInputSpecialCharacters (0.00s)
+    --- PASS: TestPrepareInputSpecialCharacters/string_with_quotes (0.00s)
+    --- PASS: TestPrepareInputSpecialCharacters/string_with_newline (0.00s)
+    --- PASS: TestPrepareInputSpecialCharacters/string_with_tab (0.00s)
+    --- PASS: TestPrepareInputSpecialCharacters/string_with_backslash (0.00s)
+=== RUN   TestPrepareInputNumericValue
+=== RUN   TestPrepareInputNumericValue/integer
+=== RUN   TestPrepareInputNumericValue/float
+=== RUN   TestPrepareInputNumericValue/negative_number
+=== RUN   TestPrepareInputNumericValue/zero
+--- PASS: TestPrepareInputNumericValue (0.00s)
+    --- PASS: TestPrepareInputNumericValue/integer (0.00s)
+    --- PASS: TestPrepareInputNumericValue/float (0.00s)
+    --- PASS: TestPrepareInputNumericValue/negative_number (0.00s)
+    --- PASS: TestPrepareInputNumericValue/zero (0.00s)
+=== RUN   TestPrepareInputWhitespace
+=== RUN   TestPrepareInputWhitespace/leading_spaces
+=== RUN   TestPrepareInputWhitespace/trailing_spaces
+=== RUN   TestPrepareInputWhitespace/both_leading_and_trailing
+=== RUN   TestPrepareInputWhitespace/comma-separated_with_spaces
+--- PASS: TestPrepareInputWhitespace (0.00s)
+    --- PASS: TestPrepareInputWhitespace/leading_spaces (0.00s)
+    --- PASS: TestPrepareInputWhitespace/trailing_spaces (0.00s)
+    --- PASS: TestPrepareInputWhitespace/both_leading_and_trailing (0.00s)
+    --- PASS: TestPrepareInputWhitespace/comma-separated_with_spaces (0.00s)
+=== RUN   TestPrepareInputIdempotenceProperty
+    evaluator_test.go:719: [rapid] fail file "testdata\\rapid\\TestPrepareInputIdempotenceProperty\\TestPrepareInputIdempotenceProperty-20260415104800-24648.fail" is no longer valid
+    evaluator_test.go:719: [rapid] OK, passed 100 tests (1.1128ms)
+--- PASS: TestPrepareInputIdempotenceProperty (0.00s)
+=== RUN   TestStringInputParsingProperty
+    evaluator_test.go:754: [rapid] OK, passed 100 tests (8.2431ms)
+--- PASS: TestStringInputParsingProperty (0.01s)
+=== RUN   TestEvaluateBananaAExample
+--- PASS: TestEvaluateBananaAExample (0.00s)
+=== RUN   TestEvaluateHelloExample
+--- PASS: TestEvaluateHelloExample (0.00s)
+=== RUN   TestEvaluateMixedTypesExample
+--- PASS: TestEvaluateMixedTypesExample (0.00s)
+=== RUN   TestSQLEvaluatorBlocksDangerousOpsProperty
+    sql_evaluator_test.go:15: [rapid] OK, passed 100 tests (507.8µs)
+--- PASS: TestSQLEvaluatorBlocksDangerousOpsProperty (0.00s)
+=== RUN   TestSQLEvaluatorDeterministicProperty
+    sql_evaluator_test.go:34: [rapid] OK, passed 100 tests (85.0493ms)
+--- PASS: TestSQLEvaluatorDeterministicProperty (0.09s)
+=== RUN   TestSQLEvaluatorSelectAll
+--- PASS: TestSQLEvaluatorSelectAll (0.00s)
+=== RUN   TestSQLEvaluatorEmptyResultSet
+--- PASS: TestSQLEvaluatorEmptyResultSet (0.00s)
+=== RUN   TestSQLEvaluatorTimeout
+--- PASS: TestSQLEvaluatorTimeout (5.00s)
+=== RUN   TestSQLEvaluatorSchemaError
+--- PASS: TestSQLEvaluatorSchemaError (0.00s)
+=== RUN   TestSQLEvaluatorWrongAnswer
+--- PASS: TestSQLEvaluatorWrongAnswer (0.00s)
+=== RUN   TestSQLEvaluatorConcurrentAccess
+--- PASS: TestSQLEvaluatorConcurrentAccess (0.00s)
+FAIL
+FAIL	balik-ngoding-backend/internal/evaluator	10.810s
+FAIL

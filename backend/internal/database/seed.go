@@ -22,6 +22,12 @@ var seedFileNames = []string{
 	"seeds/sql.json",
 }
 
+type SeedSolutionKey struct {
+	ProblemID string `json:"problemId"`
+	Language  string `json:"language"`
+	Code      string `json:"code"`
+}
+
 // SeedProblem is the JSON representation of a problem in seed files.
 // Different from models.Problem because hints in JSON are plain []string.
 type SeedProblem struct {
@@ -124,6 +130,9 @@ func SeedFromJSON(db *gorm.DB) error {
 	if err := db.Exec("DELETE FROM problems").Error; err != nil {
 		return fmt.Errorf("failed to truncate problems: %w", err)
 	}
+	if err := db.Exec("DELETE FROM solution_keys").Error; err != nil {
+		return fmt.Errorf("failed to truncate solution_keys: %w", err)
+	}
 
 	for _, filename := range seedFileNames {
 		problems, err := loadProblemsFromFile(seedFiles, filename)
@@ -179,6 +188,50 @@ func SeedFromJSON(db *gorm.DB) error {
 					return fmt.Errorf("failed to insert test case for problem %q: %w", sp.ID, err)
 				}
 			}
+		}
+	}
+
+	// Seed solution keys
+	if err := seedSolutionKeys(db); err != nil {
+		return fmt.Errorf("failed to seed solution keys: %w", err)
+	}
+
+	return nil
+}
+
+// seedSolutionKeys loads solution keys from the embedded JSON file and upserts them into the database.
+func seedSolutionKeys(db *gorm.DB) error {
+	f, err := seedFiles.Open("seeds/solution_keys.json")
+	if err != nil {
+		return fmt.Errorf("failed to open solution_keys.json: %w", err)
+	}
+	defer f.Close()
+
+	data, err := io.ReadAll(f)
+	if err != nil {
+		return fmt.Errorf("failed to read solution_keys.json: %w", err)
+	}
+
+	var solutionKeys []SeedSolutionKey
+	if err := json.Unmarshal(data, &solutionKeys); err != nil {
+		return fmt.Errorf("failed to parse solution_keys.json: %w", err)
+	}
+
+	for _, ssk := range solutionKeys {
+		sk := models.SolutionKey{
+			ProblemID: ssk.ProblemID,
+			Code:      ssk.Code,
+			Language:  ssk.Language,
+		}
+
+		result := db.Clauses(clause.OnConflict{
+			Columns: []clause.Column{{Name: "problem_id"}, {Name: "language"}},
+			DoUpdates: clause.AssignmentColumns([]string{
+				"code",
+			}),
+		}).Create(&sk)
+		if result.Error != nil {
+			return fmt.Errorf("failed to upsert solution key for problem %q: %w", ssk.ProblemID, result.Error)
 		}
 	}
 

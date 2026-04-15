@@ -43,6 +43,18 @@ type Submission struct {
 	CreatedAt    time.Time       `json:"createdAt"`
 }
 
+type SolutionKey struct {
+	ID        string    `json:"id" gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
+	ProblemID string    `json:"problemId" gorm:"type:uuid;not null;index:idx_solution_keys_problem_id;uniqueIndex:idx_solution_keys_unique"`
+	Code      string    `json:"code" gorm:"type:text;not null"`
+	Language  string    `json:"language" gorm:"not null;uniqueIndex:idx_solution_keys_unique"` // 'javascript' | 'sql'
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+
+	// Foreign key relationship
+	Problem *Problem `json:"-" gorm:"foreignKey:ProblemID;constraint:OnDelete:CASCADE"`
+}
+
 // CategorySummary is the response struct for GET /problems/summary.
 // Not persisted to database — used only as a DTO.
 type CategorySummary struct {

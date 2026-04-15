@@ -7,8 +7,10 @@ import (
 	"strings"
 
 	"balik-ngoding-backend/internal/analytics"
+	"balik-ngoding-backend/internal/auth"
 	"balik-ngoding-backend/internal/database"
 	"balik-ngoding-backend/internal/problems"
+	"balik-ngoding-backend/internal/solutionkeys"
 	"balik-ngoding-backend/internal/storage"
 	"balik-ngoding-backend/internal/submissions"
 
@@ -69,6 +71,14 @@ func setupRouter(fileStorage *storage.FileStorageService) *gin.Engine {
 	// Analytics routes
 	analyticsHandler := analytics.NewHandler()
 	r.GET("/analytics/stats", analyticsHandler.GetStats)
+
+	// Solution Key routes (with admin authentication)
+	solutionKeysService := solutionkeys.NewSolutionKeyService(database.DB)
+	solutionKeysHandler := solutionkeys.NewHandler(solutionKeysService)
+	r.POST("/api/solution-keys", auth.AdminAuthMiddleware(), solutionKeysHandler.CreateSolutionKey)
+	r.PUT("/api/solution-keys/:id", auth.AdminAuthMiddleware(), solutionKeysHandler.UpdateSolutionKey)
+	r.GET("/api/solution-keys/:problemId", auth.AdminAuthMiddleware(), solutionKeysHandler.GetSolutionKey)
+	r.DELETE("/admin/solution-keys/:id", auth.AdminAuthMiddleware(), solutionKeysHandler.DeleteSolutionKey)
 
 	return r
 }

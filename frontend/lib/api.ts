@@ -1,4 +1,4 @@
-import { Problem, SubmissionResult, SubmitRequest, CategorySummary, AnalyticsStats } from './types';
+import { Problem, SubmissionResult, SubmitRequest, CategorySummary, AnalyticsStats, SolutionKey, CreateSolutionKeyRequest, UpdateSolutionKeyRequest } from './types';
 import { getOrCreateAnonymousId } from './anonymousId';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
@@ -43,4 +43,58 @@ export async function getProblemsSummary(): Promise<CategorySummary[]> {
 export async function getAnalyticsStats(): Promise<AnalyticsStats> {
   const res = await fetch(`${BASE_URL}/analytics/stats`, { cache: 'no-store' });
   return handleResponse<AnalyticsStats>(res);
+}
+
+export async function getSolutionKey(problemId: string, token: string): Promise<SolutionKey | null> {
+  const res = await fetch(`${BASE_URL}/api/solution-keys/${problemId}`, {
+    headers: {
+      'Authorization': token,
+    },
+  });
+  return handleResponse<SolutionKey | null>(res);
+}
+
+export async function createSolutionKey(req: CreateSolutionKeyRequest, token: string): Promise<SolutionKey> {
+  const res = await fetch(`${BASE_URL}/api/solution-keys`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    },
+    body: JSON.stringify(req),
+  });
+  return handleResponse<SolutionKey>(res);
+}
+
+export async function updateSolutionKey(id: string, req: UpdateSolutionKeyRequest, token: string): Promise<SolutionKey> {
+  const res = await fetch(`${BASE_URL}/api/solution-keys/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    },
+    body: JSON.stringify(req),
+  });
+  return handleResponse<SolutionKey>(res);
+}
+
+export async function deleteSolutionKey(id: string, token: string): Promise<void> {
+  const res = await fetch(`${BASE_URL}/admin/solution-keys/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': token,
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to delete solution key: ${res.status}`);
+  }
+}
+
+export function encodeAdminCredentials(username: string, password: string): string {
+  if (typeof window === 'undefined') {
+    // Server-side: use Node.js Buffer
+    return 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
+  }
+  // Client-side: use btoa
+  return 'Basic ' + btoa(`${username}:${password}`);
 }
